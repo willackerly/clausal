@@ -2,22 +2,22 @@
  "ok": true,
  "problems": [],
  "counts": {
-  "facts_declared": 26,
-  "facts_not_declared": 37,
+  "facts_declared": 28,
+  "facts_not_declared": 39,
   "refused_claims": 12,
-  "narrowed_not_refused": 21,
-  "narrowed_not_refused_fixture_rules": 13,
+  "narrowed_not_refused": 22,
+  "narrowed_not_refused_fixture_rules": 14,
   "controls_refused": 12,
   "controls_compiled": 8,
   "controls_narrowed_twice": 6,
-  "readings": 116,
-  "rule_readings": 78,
-  "fixture_rule_readings": 58,
+  "readings": 123,
+  "rule_readings": 85,
+  "fixture_rule_readings": 65,
   "fixture_scenario_readings": 38,
   "control_readings": 20,
-  "claims": 160,
-  "calls_reported": 160,
-  "sequence_claims": 12,
+  "claims": 167,
+  "calls_reported": 167,
+  "sequence_claims": 13,
   "bad_statements": [],
   "coverage_mismatches": 0
  },
@@ -233,6 +233,22 @@
    ]
   },
   "NarrowingRun.fact_62": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_64": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_66": {
    "state": "proved",
    "axioms": [
     "propext",
@@ -565,6 +581,24 @@
    ]
   },
   "NarrowingRun.fact_61": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_63": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_65": {
    "state": "notproved",
    "axioms": [
     "propext",
@@ -953,6 +987,15 @@
     "Classical.choice",
     "Quot.sound"
    ]
+  },
+  "NarrowingRun.open_33": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
   }
  },
  "calls": {
@@ -1053,6 +1096,13 @@
   "Rule.ledger.batch_then_total#0": "every",
   "Rule.counter_rules.rejected_bump_unchanged#0": "rejected",
   "Rule.counter_rules.bump_always_accepted#0": "every",
+  "Rule.intake.always_answers#0": "every",
+  "Rule.intake.accept_only_if_verified#0": "every",
+  "Rule.intake.unverified_rejected_unchanged#0": "every",
+  "Rule.intake.unsigned_part_ignored#0": "every",
+  "Rule.intake.accept_only_if_counter_above#0": "every",
+  "Rule.intake.counter_set#0": "accepted",
+  "Rule.intake.same_message_again_rejected#0": "every",
   "Rule.ledger_rules.readme_internal_transfers#0": "every",
   "Rule.ledger_rules.n1_internal_transfer#0": "every",
   "Rule.ledger_rules.n2_accepted_only_if_covered#0": "every",

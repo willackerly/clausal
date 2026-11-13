@@ -13,7 +13,8 @@ import datetime
 import json
 import re
 
-from .core import Problem, sha
+from . import attest, ledger
+from .core import FeatureError, Problem, sha
 from .pipeline import LEAN, OUT, ROOT, rule_proof_module, rule_proof_path
 from .rsearch import covers_no_call
 from .vocab import Reading, base_cat
@@ -101,13 +102,16 @@ def lthm(links, name) -> dict:
     return (links or {}).get("theorems", {}).get(name) or {}
 
 
-def lclean(links, name) -> bool:
+def lclean(links, name, allow=()) -> bool:
+    """Does the theorem count? It exists, is a theorem of exactly the expected type, uses no proof of either side of what it
+    compares, and its axioms are the standard three and nothing else, EXCEPT axioms on `allow`: the `lean_axioms` of the
+    assumption-ledger entries the sentence rests on (plan node W4, clausal/ledger.py). Any other axiom: it does not count."""
     t = lthm(links, name)
-    return bool(t and t["exists"] and t.get("is_theorem") and t.get("type_ok") and set(t["axioms"]) <= STD_AXIOMS
+    return bool(t and t["exists"] and t.get("is_theorem") and t.get("type_ok") and set(t["axioms"]) <= STD_AXIOMS | set(allow)
                 and not t.get("uses_proof"))
 
 
-def lwhy(links, name) -> str:
+def lwhy(links, name, allow=()) -> str:
     t = lthm(links, name)
     if not links:
         return "the link audit did not run"
@@ -119,7 +123,9 @@ def lwhy(links, name) -> str:
         return "the theorem does not have exactly the expected type"
     if t.get("uses_proof"):
         return "the proof of the equivalence uses a proof of one of its two sides, so it does not compare what they say"
-    return f"non-standard axioms {t['axioms']}"
+    extra = sorted(set(t["axioms"]) - STD_AXIOMS - set(allow))
+    return (f"non-standard axioms {extra}: beyond the standard three, a proof may use only the axioms an entry of the assumption ledger "
+            f"that the sentence rests on lists under `lean_axioms` ({', '.join(sorted(allow)) or 'none are listed'})")
 
 
 def lean_defs(voc) -> dict:
@@ -180,7 +186,13 @@ def def_names(voc, id_: str) -> list:
 
 
 def piece_digest(voc, defs: dict, id_: str) -> str:
-    """What a sign-off of a piece is a sign-off OF: its Clausebook entry and the text of every Lean definition it names."""
+    """What an attestation of a piece is an attestation OF: its Clausebook entry and the text of every Lean definition it names."""
+    return sha(piece_digest_text(voc, defs, id_))
+
+
+def piece_digest_text(voc, defs: dict, id_: str) -> str:
+    """The text `piece_digest` is the digest of. It is the interface text of the entry's node in the graph (`piece:<id>`), so
+    the node's identity IS the digest an attestation names."""
     parts = [entry_text(voc, id_)] + [defs.get(d, {}).get("text", f"MISSING {d}") for d in def_names(voc, id_)]
     # ... and the text of every default the entry names (`defaults:` / `removes:`): the reading rules printed with it.
     # (Plan node Q2: the coverage lines and the defaults they cite are signed with the `coverage:` entry that prints them.)
@@ -191,62 +203,91 @@ def piece_digest(voc, defs: dict, id_: str) -> str:
         # of its sentences compiles to today. Change a form of either piece, or a word that changes either reading, and it is void.
         from . import book
         parts += book.separation_parts(voc, e)
-    return sha("\n".join(parts))
+    return "\n".join(parts)
 
 
-def book_signoff(book) -> dict:
-    """The sign-offs stored beside one book (clausebook/<book>.signoff.json): only of entries that book defines."""
-    p = book.signoff_path
-    return json.loads(p.read_text()) if p.exists() else {}
+def book_name(book) -> str:
+    """A book as clausebook/project.yaml and projects.yaml write it: `core.yaml`, `local/wallet.yaml`."""
+    from .vocab import BOOK_DIR
+    return book.rel[len(BOOK_DIR) + 1:] if book.rel.startswith(BOOK_DIR + "/") else book.rel
 
 
-def load_piece_signoff(voc) -> dict:
-    """Entry id -> sign-off, read from the sign-off file of the book that DEFINES the entry. A record of an entry in
-    another book's file is not a sign-off of it (an entry moved between books has to be signed again where it now is)."""
-    out = {}
+def subject_kind(voc, id_: str) -> str:
+    return "separation" if id_ in voc.separations else "piece"
+
+
+def subject_digest(voc, defs: dict, id_: str) -> dict:
+    return {"alg": "sha256-text", "value": piece_digest(voc, defs, id_)}
+
+
+def load_attestations(voc, defs: dict) -> attest.Records:
+    """The attestation records stored beside the books (clausebook/<book>.attest.json), sorted into valid, void and refused.
+    A record is read from the store of the book that DEFINES the entry: a record of an entry in another book's store is
+    refused (an entry moved between books has to be attested again where it now is). A sign-off file of the old format
+    stops the caller."""
+    out = attest.Records()
     for b in voc.books:
-        out.update({i: r for i, r in book_signoff(b).items() if voc.home.get(i) is b})
+        attest.refuse_old_file(b.old_signoff_path)
+        name = book_name(b)
+
+        def current(r, b=b, name=name):
+            s = r["subject"]
+            if s["kind"] not in ("piece", "separation"):
+                return None, f"a record about a {s['kind']} does not belong in a book's store"
+            if voc.home.get(s["id"]) is not b:
+                return None, (f"`{s['id']}` is not an entry of {name}" + (f" (it is defined in {book_name(voc.home[s['id']])}: a record is "
+                              "read from the store of the book that defines the entry)" if s["id"] in voc.home else ""))
+            if s["book"] != name:
+                return None, f"the record says `{s['id']}` is an entry of {s['book']}, and it is in the store of {name}"
+            if s["kind"] != subject_kind(voc, s["id"]):
+                return None, f"`{s['id']}` is a {subject_kind(voc, s['id'])}, and the record says {s['kind']}"
+            return subject_digest(voc, defs, s["id"]), ""
+        out.extend(attest.sort_records(attest.read_store(b.attest_path), b.attest_path.name, current))
     return out
 
 
-def reviewed_pieces(voc, defs: dict) -> set:
-    so = load_piece_signoff(voc)
-    return {i for i in all_ids(voc) if so.get(i, {}).get("digest") == piece_digest(voc, defs, i)}
+def reviewed_pieces(voc, defs: dict, recs: attest.Records | None = None) -> set:
+    """The entries REVIEWED BY A PERSON: a valid record of act reviewed or approved whose signer is a person (attest.person_review;
+    fixed in code). A model's record of any act is recorded and shown, and leaves the entry unreviewed."""
+    recs = load_attestations(voc, defs) if recs is None else recs
+    return {i for i in all_ids(voc) if attest.person_review(recs.of(i))}
 
 
-def review(voc, which: str, reviewer: str, confirm=None) -> int:
-    """`confirm(voc, separation) -> {ok, why}` is what a separation is asked before it is signed: `book.rerun_separation` unless
-    given (the self-test gives one, so as not to run Lean and cargo)."""
+def attest_entries(voc, which: str, act: str, signer: str, scope: str, on_behalf_of: str | None = None, name: str | None = None,
+                   at: str | None = None, context: dict | None = None, confirm=None) -> int:
+    """`clausal attest <id|all>`: write one record per entry into the store beside the entry's book. Nothing is written if any
+    record would be refused (attest.make raises).
+    `confirm(voc, separation) -> {ok, why}` is what a separation is asked before a review or an approval of it is written:
+    `book.rerun_separation` unless given (the self-test gives one, so as not to run Lean and cargo)."""
     defs = lean_defs(voc)
-    # `all` signs every entry a reading can rest on. It does NOT sign a separation (plan node Q3b): a separation is an
-    # exemption from the lint, it is signed as separating, and signing it lifts a violation of `clausal book check`; that is
-    # done one entry at a time, by its id.
+    # `all` attests every entry a reading can rest on. It does NOT attest a separation (plan node Q3b): a separation is an
+    # exemption from the lint, it is approved as separating, and a person's approval of it lifts a violation of
+    # `clausal book check`; that is done one entry at a time, by its id.
     ids = [i for i in all_ids(voc) if i not in voc.separations] if which == "all" else [which]
     if which == "all" and voc.separations:
-        print(f"not signed by `all`: {len(voc.separations)} separations ({', '.join(voc.separations)}); a separation is signed by its own id")
-    # A separation is signed only if `clausal separate`, run NOW, confirms it: the verdict is SEPARATED, the recorded input
-    # (`witness:`) is one this run found, in the direction recorded, and the compiled Rust answers there as the Lean model does
-    # (fix round of Q3b: the plain `book check` compares term hashes only, so without this a sign-off could lift a violation
-    # on a recorded input at which both sentences hold). Nothing is written when it is not confirmed.
+        print(f"not attested by `all`: {len(voc.separations)} separations ({', '.join(voc.separations)}); a separation is attested by its own id")
+    made = [(voc.book_of(i), attest.make(subject_kind(voc, i), book_name(voc.book_of(i)), i, subject_digest(voc, defs, i), act, signer, scope,
+                                         on_behalf_of, name, at, context)) for i in ids]
+    # A review or an approval of a separation (what the old sign-off was: attest.REVIEW_ACTS) is written only if
+    # `clausal separate`, run NOW, confirms it: the verdict is SEPARATED, the recorded input (`witness:`) is one this run found,
+    # in the direction recorded, and the compiled Rust answers there as the Lean model does (fix round of Q3b: the plain
+    # `book check` compares term hashes only, so without this a record could lift a violation on a recorded input at which both
+    # sentences hold). Asked whatever the signer's kind; nothing is written when it is not confirmed.
     from . import book
     for i in ids:
-        if i in voc.separations:
+        if i in voc.separations and act in attest.REVIEW_ACTS:
             r = (confirm or book.rerun_separation)(voc, voc.separations[i])
             if not r["ok"]:
-                print(f"NOT signed: separation {i} is not confirmed by `clausal separate`: " + "; ".join(r["why"]))
+                print(f"NOT attested: separation {i} is not confirmed by `clausal separate`: " + "; ".join(r["why"]))
                 if r.get("found"):
                     print("this run would record:\n" + book.witness_yaml(r["found"]), end="")
                 return 1
             print(f"separation {i}: confirmed by `clausal separate` at the recorded input {(voc.separations[i].get('witness') or {}).get('input')}")
-    changed = {}
-    for i in ids:
-        b = voc.book_of(i)
-        so = changed.setdefault(b.rel, (b, book_signoff(b)))[1]
-        so[i] = {"reviewer": reviewer, "date": datetime.date.today().isoformat(), "digest": piece_digest(voc, defs, i)}
-        e = entry_of(voc, i)
-        print(f"signed off piece {i} ({e.get('kind', 'domain')}, {b.rel}): {e.get('form') or (e.get('when') or e.get('forms') or e.get('then_forms') or [''])[:1]}")
-    for b, so in changed.values():
-        b.signoff_path.write_text(json.dumps(so, indent=2) + "\n")
+    for b, rec in made:
+        attest.refuse_old_file(b.old_signoff_path)
+        attest.add(b.attest_path, rec)
+        e = entry_of(voc, rec["subject"]["id"])
+        print(f"attested {rec['subject']['kind']} {rec['subject']['id']} ({e.get('kind', 'domain')}, {b.rel}): {attest.said(rec)}")
     return 0
 
 
@@ -302,8 +343,37 @@ def reading_attrs(st, rd, ctx) -> dict:
         return {"compiled": False, "status": rd.status, "message": rd.message, "hint": rd.hint}
     return {"compiled": True, "name": rd.name, "lean": rd.lean_def(), "echo": [list(x) for x in rd.echo], "defaults": rd.defaults,
             "regular": rd.regular,
-            "pieces": [{"id": i, "kind": kind_of(voc, i), "signed": i in ctx["piece_reviewed"],
-                        "by": load_piece_signoff(voc).get(i, {}).get("reviewer") if i in ctx["piece_reviewed"] else None} for i in rd.used]}
+            # `signed`: reviewed or approved BY A PERSON (attest.person_review). `attested`: every other valid record, each under
+            # its signer's own kind; none of them makes the entry signed.
+            "pieces": [piece_attrs(voc, i, ctx) for i in rd.used]}
+
+
+def asserted_kinds(ctx, ids) -> list:
+    """The evidence kinds, other than a person's, under which something is on record about these entries (model-asserted,
+    organisation-asserted). Listed in `rests_on` beside the rest; they never stand in for human-asserted."""
+    kinds = {attest.EVIDENCE_KIND[r["signer"]["kind"]] for i in ids for r in ctx["attestations"].of(i) if r["signer"]["kind"] in ("model", "organisation")}
+    return sorted(kinds)
+
+
+def attested_note(ctx, ids) -> str:
+    """One line per non-person kind: how many of these entries carry a record of that kind. Never added to the person count."""
+    out = []
+    for kind in ("model", "organisation", "tool"):
+        n = sum(1 for i in ids if any(r["signer"]["kind"] == kind for r in ctx["attestations"].of(i)))
+        if n:
+            out.append(f"\n{attest.EVIDENCE_KIND[kind] + ' ':<17}{n} of {len(ids)} Clausebook pieces carry a record by a {kind} "
+                       "(recorded under its own kind; not a person's review)")
+    return "".join(out)
+
+
+def piece_attrs(voc, i: str, ctx) -> dict:
+    recs = ctx["attestations"].of(i)
+    p = attest.person_review(recs)
+    out = {"id": i, "kind": kind_of(voc, i), "signed": p is not None, "by": p["signer"]["id"] if p else None}
+    other = [{"kind": r["signer"]["kind"], "act": r["act"], "by": r["signer"]["id"]} for r in recs if r is not p]
+    if other:
+        out["attested"] = other
+    return out
 
 
 # --------------------------------------------------------------------------- Rule verdicts
@@ -330,17 +400,29 @@ class RuleVerdict:
         self.rust_grid, self.proof = {"ran": False}, None      # Lean vs compiled Rust on the grid; {kind, theorems, axioms} when proved or refuted
         self.pieces = [] if isinstance(rd, Problem) else rd.used
         self.unreviewed = [i for i in self.pieces if i not in ctx["piece_reviewed"]]
+        # plan node W4: the entries of the assumption ledger the words of this sentence rest on (`assumes:` in the book), and
+        # the Lean axioms those entries let a proof use. Every `lclean` below is asked with that allow-list and no other.
+        led = getattr(st, "ledger", None)
+        self.assumes = ledger.assumed_by(st.voc, self.pieces) if led is not None else []
+        self.allow = ledger.allowed_axioms(led, self.assumes) if led is not None else {}
+        self.axioms_assumed = []
         tags = rule.tags
         self.expected = ("REFUTED" if "@expect-refuted" in tags else "UNBOUND" if "@expect-unbound" in tags
                          else "TESTED-ONLY" if "@expect-unproved" in tags else "PROVED-FOR-ALL")
         self.status = self.compute(st, ctx, scen)
-        if ctx["strict"] and self.status.startswith("PROVED") and self.unreviewed:
-            self.fatal.append(f"--strict: the rule statement rests on {len(self.unreviewed)} Clausebook pieces with no valid sign-off")
+        # (strict mode is not computed here: it is a function of the finished graph and the project's trust policy, clausal/trust.py)
+        self.rests_on += [k for k in asserted_kinds(ctx, self.pieces) if self.rests_on and k not in self.rests_on]
+        if self.assumes and self.rests_on:
+            self.rests_on.append("assumed")
+        self.axioms_assumed = sorted(set((self.proof or {}).get("axioms", [])) & set(self.allow))
         self.as_expected = self.status == self.expected and not self.fatal
 
     def compute(self, st, ctx, scen) -> str:
         rd, L = self.rd, self.lines
         links, meta, rs_all = ctx["links"], ctx["links_meta"], ctx["rs"]
+        allow = self.allow
+        lclean_ = lambda l_, n_: lclean(l_, n_, allow)
+        lwhy_ = lambda l_, n_: lwhy(l_, n_, allow)
         if isinstance(rd, Problem):
             L.append(rd.message)
             L += ["  " + h for h in rd.hint.splitlines()]
@@ -385,13 +467,13 @@ class RuleVerdict:
         trust = (f"tool-trusted     rule line compiled by {st.tool['generator']} from {len(self.pieces)} Clausebook pieces; echoed above for comparison"
                  if hasattr(st, "tool") else "")
         signed = len(self.pieces) - len(self.unreviewed)
-        human = (f"human-asserted   {signed} of {len(self.pieces)} Clausebook pieces signed off" if signed else
-                 f"NOT ASSERTED     0 of {len(self.pieces)} Clausebook pieces signed off by anyone")
+        human = (f"human-asserted   {signed} of {len(self.pieces)} Clausebook pieces reviewed or approved by a person" if signed else
+                 f"NOT ASSERTED     0 of {len(self.pieces)} Clausebook pieces reviewed or approved by a person") + attested_note(ctx, self.pieces)
         if rs.get("bad"):
             bad = rs["bad"]
             # two generated scripts: the first for a claim about every call of one operation; the general one also for
             # claims about accepted or rejected calls, two calls compared, and sequences. Either one, kernel-checked, counts.
-            thm_ = next((n for n in (rd.id + ".refuted", rd.id + ".refuted2") if lclean(links, n)), None)
+            thm_ = next((n for n in (rd.id + ".refuted", rd.id + ".refuted2") if lclean_(links, n)), None)
             kernel = thm_ is not None
             j = bad["bits"].index("0")
             on_rust = ppath.rust_at(rd.id, rs, ctx.get("rust_bits"), bad["index"], j)
@@ -424,18 +506,18 @@ class RuleVerdict:
         by_name = {v.reading.name: v for v in scen.values() if isinstance(v.reading, Reading)}
         if imp:
             self.parts = [by_name[h].sc.id for h in imp[1] if h in by_name]
-        glue_ok = bool(imp) and lclean(links, imp[0])
+        glue_ok = bool(imp) and lclean_(links, imp[0])
         unproved = [h for h in (imp[1] if imp else []) if h not in by_name or by_name[h].status != "PROVED-FOR-ALL"]
         hand = next((x for x in meta["proofs"] if x[0] == self.rule.id), None)
-        hand_ok = bool(hand) and lclean(links, hand[0]) and lthm(links, hand[0]).get("module") == hand[2]
+        hand_ok = bool(hand) and lclean_(links, hand[0]) and lthm(links, hand[0]).get("module") == hand[2]
         # a supplied proof of the rule's FLAT OBLIGATION (generated from the pieces), carried through the equivalence
         ob = next((x for x in meta.get("oproofs", []) if x[0] == rd.id), None)
         iffo = rd.id + ".reading_iff_obligation"
-        ob_ok = bool(ob) and lclean(links, ob[0]) and lthm(links, ob[0]).get("module") == ob[2] and lclean(links, iffo) and lclean(links, ob[3])
+        ob_ok = bool(ob) and lclean_(links, ob[0]) and lthm(links, ob[0]).get("module") == ob[2] and lclean_(links, iffo) and lclean_(links, ob[3])
         whole = rd.id + ".holds"
-        if glue_ok and not unproved and not lclean(links, whole):
+        if glue_ok and not unproved and not lclean_(links, whole):
             L.append(f"not proved       the glue and every part are there, but the one theorem that puts them together ({whole} : {rd.name}) "
-                     f"is not ({lwhy(links, whole)})")
+                     f"is not ({lwhy_(links, whole)})")
             L += [y for x in (tested, trust, human) if x for y in x.split("\n")]
             self.rests_on = ["tested", "tool-trusted"] + (["human-asserted"] if signed else [])
             return "TESTED-ONLY"
@@ -467,7 +549,7 @@ class RuleVerdict:
             self.how = "by a hand-written proof"
             L.append(f"kernel-checked   theorem {hand[0]} : {rd.name}  (hand-written, {rule_proof_path(self.rule.id).relative_to(ROOT)}; "
                      f"type checked by the audit); axioms {', '.join(lthm(links, hand[0])['axioms'])}")
-            L.append("glue             " + (f"the generated glue from the scenarios did not go through ({lwhy(links, imp[0])})" if imp else
+            L.append("glue             " + (f"the generated glue from the scenarios did not go through ({lwhy_(links, imp[0])})" if imp else
                                            f"no glue from the scenarios was generated: {meta['noglue'].get(rd.id, 'not attempted')}"))
             L.append("scope            every state and every input the rule line names (see `applies to`)")
             L += [y for x in (tested, trust, human) if x for y in x.split("\n")]
@@ -478,7 +560,7 @@ class RuleVerdict:
             t = lthm(links, ob[0])
             L.append("not proved       " + (f"proof incomplete (sorry): {rule_proof_path(self.rule.id).relative_to(ROOT)} is still the generated stub, or part of it is"
                                            if "sorryAx" in t.get("axioms", []) else
-                                           f"the supplied proof of the obligation does not count: {lwhy(links, ob[0]) if not lclean(links, ob[0]) else lwhy(links, iffo) if not lclean(links, iffo) else lwhy(links, ob[3])}"))
+                                           f"the supplied proof of the obligation does not count: {lwhy_(links, ob[0]) if not lclean_(links, ob[0]) else lwhy_(links, iffo) if not lclean_(links, iffo) else lwhy_(links, ob[3])}"))
             L.append(f"obligation       {ob[1]} (lean/Wallet/Obligations.lean), generated from the pieces")
         elif not imp and rule_proof_path(self.rule.id).exists() and not hand:
             L.append(f"not proved       {rule_proof_path(self.rule.id).relative_to(ROOT)} does not compile, or holds no theorem named {self.rule.id} "
@@ -487,7 +569,7 @@ class RuleVerdict:
             L.append(f"not proved       the glue {imp[0]} is kernel-checked, but it rests on scenarios that are not proved: "
                      + ", ".join(h.rsplit('.', 2)[-2] for h in unproved))
         elif imp:
-            L.append(f"not proved       the generated glue from the scenarios did not go through ({lwhy(links, imp[0])}), and there is no hand-written proof "
+            L.append(f"not proved       the generated glue from the scenarios did not go through ({lwhy_(links, imp[0])}), and there is no hand-written proof "
                      f"({rule_proof_path(self.rule.id).relative_to(ROOT)})")
         else:
             L.append(f"not proved       no glue from the scenarios: {meta['noglue'].get(rd.id, 'not attempted')}; no hand-written proof "
@@ -501,7 +583,8 @@ class RuleVerdict:
         from .sizes import FLAG
         if self.status == "TESTED-ONLY" and FLAG in self.flags:
             return f"TESTED ONLY (compiled, evaluated on generated inputs, no counterexample; NOT PROVED; {FLAG}: see `sizes`)"
-        return {"PROVED-FOR-ALL": "PROVED FOR ALL INPUTS" + (f" ({self.how})" if self.how else ""),
+        given = (f", GIVEN {len(self.assumes)} ASSUMPTION{'S' if len(self.assumes) != 1 else ''}" if self.assumes else "")
+        return {"PROVED-FOR-ALL": "PROVED FOR ALL INPUTS" + given + (f" ({self.how})" if self.how else ""),
                 "REFUTED": "REFUTED (false at a concrete input, kernel-checked)",
                 "COUNTEREXAMPLE": "COUNTEREXAMPLE FOUND (not confirmed in the kernel)",
                 "TESTED-ONLY": "TESTED ONLY (compiled, evaluated on generated inputs, no counterexample; NOT PROVED)"}.get(self.status, self.status + " (no statement)")
@@ -644,7 +727,7 @@ def vocabulary_section(st, ctx, verdicts, rule_verdicts) -> list:
     for v in list(verdicts) + list(rule_verdicts):
         for i in (getattr(v, "pieces", None) or []):
             used[i] = used.get(i, 0) + 1
-    so = load_piece_signoff(voc)
+    recs = ctx["attestations"]
     kinds = voc.kinds()
     o = ["## Clausebook (the link from English to Lean)", "",
          f"`clausebook/` ({len(voc.books)} books, in the order loaded: " + ", ".join(f"`{b.rel}` ({sum(1 for h in voc.home.values() if h is b)} entries)" for b in voc.books)
@@ -652,7 +735,9 @@ def vocabulary_section(st, ctx, verdicts, rule_verdicts) -> list:
          f"collections and answer words), **{kinds['modifier']} modifiers**, **{kinds['frame']} frames**, and {len(voc.idioms)} idioms "
          "(a surface form that is not the regular form of one piece, with the composition it means; an idiom adds English, no Lean). "
          "A sentence is the composition of pieces its words spell out; this table and the Lean files it names are what a reviewer has to read "
-         "to trust the step from English to Lean. Sign-off is per piece and is void as soon as the piece's entry or a Lean definition it names changes.", "",
+         "to trust the step from English to Lean. An attestation is per piece and is void as soon as the piece's entry or a Lean definition it names changes. "
+         "The last column says who has said what about the piece: a person's review or approval, or UNREVIEWED; a model's, a tool's or an "
+         "organisation's record is printed under its own kind and never makes a piece reviewed.", "",
          "The column **Rust reading** says whether the piece's one Rust reading (`wallet-bdd/src/pieces.rs`) was set against the Lean "
          "definition in this run: every compiled reading that uses the piece is evaluated at every point of its grid of generated inputs on "
          "the Lean model (Lean pieces) and on the compiled Rust (Rust pieces), and the results are compared.", "",
@@ -669,9 +754,13 @@ def vocabulary_section(st, ctx, verdicts, rule_verdicts) -> list:
         return ("**DISAGREES** " if q["bad"] else "agrees ") + f"in {q['readings']} readings, {q['points']} generated inputs"
 
     def signoff(i):
-        if i in ctx["piece_reviewed"]:
-            return f"signed off by {so[i]['reviewer']} {so[i]['date']}"
-        return "UNREVIEWED (changed since sign-off)" if i in so else "UNREVIEWED"
+        # a person's review or approval first; every other valid record under its signer's own kind, never as a review
+        mine = recs.of(i)
+        p = attest.person_review(mine)
+        void = sum(1 for r, _ in recs.void if r["subject"]["id"] == i)
+        other = [r for r in mine if r is not p]
+        head = attest.said(p) if p else ("UNREVIEWED (changed since: " + str(void) + " void record" + ("s" if void != 1 else "") + ")" if void else "UNREVIEWED")
+        return md_escape(head + "".join(f"<br>[{attest.EVIDENCE_KIND[r['signer']['kind']]}; not a person's review] {attest.said(r)}" for r in other))
 
     def dtext(names):
         return "<br>".join("`" + md_escape(defs[d]["text"]) + "`" for d in names if d in defs) or "-"
@@ -716,8 +805,9 @@ def vocabulary_section(st, ctx, verdicts, rule_verdicts) -> list:
     total = len(all_ids(voc))
     npieces = len(voc.ops) + len(voc.pieces)
     ncmp = sum(1 for i in list(voc.ops) + list(voc.pieces) if i in pc)
-    o += ["", f"{n_un} of {total} entries are unreviewed. Record a review with `python3 -m clausal review <id|all> --reviewer <name>` "
-              "(piece ids and the ids of the old glossary are both accepted).", "",
+    o += ["", f"{n_un} of {total} entries are unreviewed. (Unreviewed: no valid record of act reviewed or approved by a person.) Record one with "
+              "`python3 -m clausal attest <id|all> --act <act> --as <human:…|model:…|tool:…|org:…> --scope \"<what was looked at>\"` "
+              "(piece ids, and `glossary:<id>` for the old glossary; `python3 -m clausal attest check` lists every record and what it counts for).", "",
           f"**What a person has to sign:** {total} entries ({npieces} pieces: {len(voc.ops)} operations, {kinds['domain'] - len(voc.ops)} other domain "
           f"words, {kinds['modifier']} modifiers, {kinds['frame']} frames; {len(voc.idioms)} idioms; {len(voc.coverage)} coverage entries, "
           f"the lines printed about which calls a claim covers; {len(voc.grammar)} grammar entries, the words that put a Rule line together; "

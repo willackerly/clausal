@@ -2349,3 +2349,53 @@ Design, limits and tests are in `DISPLAY.md` and `display_tests/README.md`. In s
 - **On every run.** `lean/Run/Display.lean` beside the reading search, then `python3 -m clausal display`, which stops
   the run if a table differs from the compiler's executable reading at a grid pair, if the definition and the
   executable reading differ on a substituted outcome, or if a covers line is not the claim's Calls value.
+
+## 24. Who is trusted for what: attestation records, schema 2.1, trust policies (plan nodes W0 to W3, added 2026-11-12)
+
+The design note, the freeze and the results are in `trust/` (`README.md`, `FREEZE.md`) and `schema/SCHEMA-2.1.md`. In short:
+
+- **Attestation records replace both sign-off files.** `clausebook/<book>.attest.json` and `glossary.attest.json` hold records
+  {subject with its digest, act, signer with a kind, on-behalf-of, time, scope}, written by `clausal attest`. Where sections 4,
+  14, 18 and 22 say "sign-off", "signed", `clausal review` or `.signoff.json`, read "a person's attestation of act reviewed or approved",
+  `clausal attest` and `.attest.json`. The digest a record names is the one a sign-off covered.
+- **What section 22 fixed about separations holds of records** (merge of Q3b and W1). `clausal attest all` attests every
+  entry but the separations; a review or an approval of a separation is written only if `clausal separate`, run then,
+  confirms it; a separation is in force only on a person's review or approval; with none, separating and with a recorded
+  input for today's two terms, it is a proposal.
+- **A signer's kind is its own.** person, model, tool, organisation, read from the id's prefix. A model's record is
+  `model-asserted` evidence; it never makes an entry reviewed and never meets a requirement for a person.
+- **Schema 2.1.** Every Clausebook entry is a node `piece:<id>` whose identity is the digest an attestation names; rule
+  verdicts list the entries no person has reviewed and are `review`, not `pass`, when proved on such entries. No verdict code
+  changed.
+- **Strict mode is computed from a per-project trust policy** (`projects.yaml` `trust:`, `clausal/trust.py`) over the finished
+  graph. The graph does not depend on the policy.
+
+## 25. The assumption ledger, and a fourth project that rests on one (plan nodes W4, W6, added 2026-11-12)
+
+The design note, the freeze and the results are in `trust/` (`README-w46.md`, `FREEZE-w46.md`). In short:
+
+- **A word may rest on an assumption.** A Clausebook entry says `assumes: [<id>]`; the id is an entry of
+  `trust/assumptions.yaml` (`clausal/ledger.py`): the assumed fact, whether what the word is bound to is a stand-in, the Lean
+  axioms a proof may use because of it, its usage conditions, an optional external-proof link with a hash. `clausal gen`,
+  `clausal book check` and `clausal report` stop if the word names an entry the ledger does not hold.
+- **A usage condition is an ordinary Rule.** Its verdict is read from the run; nothing is stored. A condition that has no
+  sentence is written `unstated:` and printed CANNOT BE STATED.
+- **Section 15's "standard axioms only" has one exception.** A theorem may also use an axiom that a ledger entry the
+  sentence's words name lists under `lean_axioms` (`vreport.lclean(…, allow)`); the verdict is then flagged. Any other
+  axiom rejects the proof, as before.
+- **A Rule verdict that rests on an assumption** is flagged (`ASSUMES:<id>` and, as the case may be,
+  `ASSUMPTION-CONDITION-NOT-MET`, `-UNSTATED`, `ASSUMPTION-NOT-VOUCHED`, `ASSUMPTION-AXIOM-USED`), reads "PROVED FOR ALL
+  INPUTS, GIVEN 1 ASSUMPTION", lists `assumed` among what it rests on, and its block prints `Rests on` heaviest first, the
+  assumption with each condition's verdict at the top. No verdict code changes. (Fix round: the block also prints the
+  outcome, `REVIEW, NOT PASS`, with why; the proof rung and `STRONGEST HELD` say the proof does not cover the assumption;
+  the `assuming` slot says it is about inputs only; a usage condition that is the rule itself is marked; the project
+  table says how many of the proved rules are proved given an assumption.)
+- **No rule has yet been proved through a listed axiom.** Control T1.7 (an opaque verifier) did not pass: the generated
+  obligation says every call answers, which cannot be proved of a function the model knows only as an axiom
+  (`trust/README-w46.md`).
+- **The fourth project, `sigintake`** (a signed-message intake on a toy verifier, 45 lines of Rust) is declared in
+  `projects.yaml` like the third. Edits outside its own files are the ones section 21.6 lists for the counter, plus a
+  generator for its literal type `message` in `evidence/src/main.rs`. Its state has two parts with two-word role names
+  ("the expected key", "the last counter"); a When form cannot name such a role (a hole is one word), so the operation can be
+  the subject of a Rule line and not a scenario step. Recorded by the book check.
+

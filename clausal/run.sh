@@ -58,7 +58,10 @@
 # (PROVED-* by default; @expect-refuted / @expect-unbound / @expect-vacuous otherwise).
 #
 #   ./run.sh              everything
-#   ./run.sh --strict     also fail if a proved scenario rests on a glossary entry nobody has signed off
+#   ./run.sh --strict     also fail if a proved scenario or Rule rests on an entry for which a requirement the project's trust
+#                         policy demands is unmet (projects.yaml `trust:`, clausal/trust.py; the verdicts and out/graph.json are
+#                         the same with and without it, and under every policy)
+#   ./run.sh --trust-policy=FILE   evaluate strict mode under FILE for every project (the tests of trust/tests/)
 #   ./run.sh --quick      skip the bounded checks (Kani): the generated property tests still run; for fast iteration
 #   ./run.sh --kani-timeout=60 --kani-jobs=6   seconds allowed per Kani harness (default 30) and harnesses run at a time (default 6)
 #   ./run.sh --no-rust    skip the cucumber-rs runs (no "tested on Rust" evidence, readings not compared)
@@ -86,7 +89,8 @@ for arg in "$@"; do
     --kani-timeout=*) EV_ARGS+=(--kani-timeout "${arg#*=}") ;;
     --kani-jobs=*) EV_ARGS+=(--jobs "${arg#*=}") ;;
     --strict)  REPORT_ARGS+=(--strict) ;;
-    *) echo "usage: $0 [--strict] [--quick] [--kani-timeout=N] [--kani-jobs=N] [--no-rust] [--no-unit] [--no-adequacy] [--no-heldout]" >&2; exit 2 ;;
+    --trust-policy=*) REPORT_ARGS+=(--trust-policy "${arg#*=}") ;;
+    *) echo "usage: $0 [--strict] [--trust-policy=FILE] [--quick] [--kani-timeout=N] [--kani-jobs=N] [--no-rust] [--no-unit] [--no-adequacy] [--no-heldout]" >&2; exit 2 ;;
   esac
 done
 

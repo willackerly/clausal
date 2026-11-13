@@ -7,3 +7,4 @@ books:
   - local/ledger.yaml
   - local/wallet.yaml
   - local/counter.yaml
+  - local/intake.yaml

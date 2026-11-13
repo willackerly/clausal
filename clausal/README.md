@@ -24,7 +24,10 @@ design in `DESIGN.md` section 14.
                              # the held-out sentences moved into features/ledger_rules.feature)
     python3 -m clausal compile <file.feature>  # compile sentences that are not in features/ from the Clausebook alone
     python3 -m clausal steps                  # the step forms the ONE generic cucumber step is registered for (build/trees.json)
-    python3 -m clausal review <piece-id|all> --reviewer NAME   # sign off a Clausebook piece (void when its entry or Lean text changes)
+    python3 -m clausal attest <id|all> --act <act> --as <human:|model:|tool:|org:>ID --scope "…"   # an attestation record of a Clausebook
+                                              # entry: who did what to it as it is now (void when its entry or Lean text changes;
+                                              # a model's record never counts as a person's). trust/README.md; `attest check`
+    python3 -m clausal trust [--strict]       # strict mode from the stored graph and each project's trust policy (trust/<project>.yaml)
     python3 -m clausal rules [graph.json]     # the per-Rule blocks again, from a stored graph and nothing else
     python3 -m clausal evidence [--quick] [--only id,id]   # the generated property tests and Kani harnesses alone -> out/evidence.json
     python3 mutation/run_mutants.py --jobs 8   # mutation test of the scenarios + negative controls (45 Rust mutants, 38 controls;
@@ -303,7 +306,8 @@ What is different from the wallet, in one place each:
   DESIGN.md 12.8.
 
 Other commands: `python3 -m clausal steps` (the step forms the generic cucumber step is registered for),
-`python3 -m clausal review <id|all> --reviewer NAME`
-(record a glossary sign-off in `glossary.signoff.json`),
+`python3 -m clausal attest glossary:<id> --act <act> --as <kind-prefixed id> --scope "…"`
+(record an attestation of an old glossary entry in `glossary.attest.json`; `trust/README.md`),
 `python3 -m clausal.graphlint out/graph.json [--what-if <node-id>]` (validate the graph; show what would go stale),
-`python3 schema/selftest.py` (the schema and lint must reject ten deliberately invalid graphs).
+`python3 schema/selftest.py` (the schema and lint must reject twenty-seven deliberately invalid graphs, ten of version 2 and seventeen of
+version 2.1, and accept four valid 2.1 shapes).

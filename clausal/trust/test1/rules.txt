@@ -1,0 +1,20 @@
+# Test 1 (W6), frozen by W0. NOT a feature file of any project: read by nothing, compiled by nothing.
+# SM-1, 2, 3, 5, 8, 9: verbatim from docs/studies/2026-11-12/packs.md section 2b. That study marks 1, 2, 3, 5, 9 "yes" and
+# 8 "likely" without having compiled any of them. Expected verdict of each, if it compiles on the fixture: PROVED-FOR-ALL.
+# A sentence that does not compile with the book's live forms is reported as not stated; it is not reworded to fit.
+
+SM-1   Rule: An intake always answers
+SM-2   Rule: An intake is accepted only if the signature of the message verifies under the expected key
+SM-3   Rule: An intake for which the signature of the message does not verify under the expected key is rejected and changes nothing
+SM-5   Rule: An intake gives the same answer when only the unsigned part of the message differs
+SM-8   Rule: An intake is accepted only if the counter of the message is more than the last counter
+SM-9   Rule: For a successful intake, the last counter is now the counter of the message
+
+# SM-10. packs.md: "An accepted intake followed by the same message again is rejected", marked "No" there because "the same
+# input again" was a missing piece. The trust study asks for it "written with `tied` / `the same input`" (core.yaml, L2).
+# Wording below is W0's, composed from the live forms of `tied` and `same_input` without compiling; a narrowed tie
+# ("an accepted intake followed by ...") is refused by the book (NARROWED-TIE), so the narrowing is not written.
+# If the sequence frame does not read this as "the second call is rejected", SM-10 is reported as not stateable today.
+SM-10  Rule: An intake followed by an intake with the same input is always rejected
+
+# Usage conditions of A.sig.unforgeable (assumptions.yaml): U1 = SM-2, U2 = SM-3, U3 = SM-5, U4 = unstated.

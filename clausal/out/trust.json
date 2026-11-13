@@ -1,0 +1,3716 @@
+{
+ "graph_sha256": "7e842b513948aac5ff7219dfb273b23e0ee48799593f9c07a82800f276181869",
+ "projects": {
+  "wallet": {
+   "policy": "trust/wallet.yaml",
+   "policy_sha256": "9de4dd6b4c0f89039c8022eaccaf3dc43e59d604e364f224a358d7480ccc2a46",
+   "demands": [
+    "meaning.core",
+    "meaning.pack",
+    "meaning.domain",
+    "meaning.glossary",
+    "nothing-stale"
+   ],
+   "awaited_roots": [
+    "owner"
+   ],
+   "roots": [
+    {
+     "id": "owner",
+     "signer": null,
+     "kind": null
+    }
+   ],
+   "requirements": {
+    "meaning.core": {
+     "subjects": 32,
+     "met": 0,
+     "unmet": 32,
+     "met_by_kind": {},
+     "demanded": true,
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    "meaning.pack": {
+     "subjects": 1,
+     "met": 0,
+     "unmet": 1,
+     "met_by_kind": {},
+     "demanded": true,
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    "meaning.domain": {
+     "subjects": 7,
+     "met": 0,
+     "unmet": 7,
+     "met_by_kind": {},
+     "demanded": true,
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    "meaning.glossary": {
+     "subjects": 14,
+     "met": 0,
+     "unmet": 14,
+     "met_by_kind": {},
+     "demanded": true,
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    "separation": {
+     "subjects": 0,
+     "met": 0,
+     "unmet": 0,
+     "met_by_kind": {},
+     "demanded": false,
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   },
+   "recorded_not_counted": {},
+   "proved": 13,
+   "strict_pass": 0,
+   "strict_fail": 13,
+   "model_only": 0
+  },
+  "ledger": {
+   "policy": "trust/ledger.yaml",
+   "policy_sha256": "b8283f40d9639cdf06a68396bc38fb69a63185a58e1de426f813183be96c0368",
+   "demands": [
+    "meaning.core",
+    "meaning.pack",
+    "meaning.domain",
+    "meaning.glossary",
+    "nothing-stale"
+   ],
+   "awaited_roots": [
+    "owner"
+   ],
+   "roots": [
+    {
+     "id": "owner",
+     "signer": null,
+     "kind": null
+    }
+   ],
+   "requirements": {
+    "meaning.core": {
+     "subjects": 61,
+     "met": 0,
+     "unmet": 61,
+     "met_by_kind": {},
+     "demanded": true,
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    "meaning.pack": {
+     "subjects": 16,
+     "met": 0,
+     "unmet": 16,
+     "met_by_kind": {},
+     "demanded": true,
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    "meaning.domain": {
+     "subjects": 21,
+     "met": 0,
+     "unmet": 21,
+     "met_by_kind": {},
+     "demanded": true,
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    "meaning.glossary": {
+     "subjects": 27,
+     "met": 0,
+     "unmet": 27,
+     "met_by_kind": {},
+     "demanded": true,
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    "separation": {
+     "subjects": 0,
+     "met": 0,
+     "unmet": 0,
+     "met_by_kind": {},
+     "demanded": false,
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   },
+   "recorded_not_counted": {},
+   "proved": 53,
+   "strict_pass": 0,
+   "strict_fail": 53,
+   "model_only": 0
+  },
+  "counter": {
+   "policy": "trust/counter.yaml",
+   "policy_sha256": "3c751cef19de89506d793ceca322540e3e1f281d1259f744dc145d3b961cd43c",
+   "demands": [
+    "meaning.core",
+    "meaning.domain",
+    "meaning.glossary",
+    "nothing-stale"
+   ],
+   "awaited_roots": [
+    "owner"
+   ],
+   "roots": [
+    {
+     "id": "owner",
+     "signer": null,
+     "kind": null
+    }
+   ],
+   "requirements": {
+    "meaning.core": {
+     "subjects": 9,
+     "met": 0,
+     "unmet": 9,
+     "met_by_kind": {},
+     "demanded": true,
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    "meaning.domain": {
+     "subjects": 2,
+     "met": 0,
+     "unmet": 2,
+     "met_by_kind": {},
+     "demanded": true,
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    "meaning.glossary": {
+     "subjects": 0,
+     "met": 0,
+     "unmet": 0,
+     "met_by_kind": {},
+     "demanded": true,
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    "separation": {
+     "subjects": 0,
+     "met": 0,
+     "unmet": 0,
+     "met_by_kind": {},
+     "demanded": false,
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   },
+   "recorded_not_counted": {},
+   "proved": 1,
+   "strict_pass": 0,
+   "strict_fail": 1,
+   "model_only": 0
+  },
+  "sigintake": {
+   "policy": "trust/sigintake.yaml",
+   "policy_sha256": "3c8532b7443790700ce2c42ec6842027b3056971f3729a022794289dc1b0a8b9",
+   "demands": [
+    "meaning.core",
+    "meaning.domain",
+    "assumption.vouch",
+    "assumption.usage",
+    "nothing-stale"
+   ],
+   "awaited_roots": [
+    "crypto"
+   ],
+   "roots": [
+    {
+     "id": "owner",
+     "signer": "human:will-ackerly",
+     "kind": "person"
+    },
+    {
+     "id": "fable",
+     "signer": "model:claude-fable-5-2",
+     "kind": "model"
+    },
+    {
+     "id": "crypto",
+     "signer": null,
+     "kind": null
+    }
+   ],
+   "requirements": {
+    "meaning.core": {
+     "subjects": 27,
+     "met": 0,
+     "unmet": 27,
+     "met_by_kind": {},
+     "demanded": true,
+     "awaited": "approved by root `owner` (human:will-ackerly, a person)"
+    },
+    "meaning.domain": {
+     "subjects": 5,
+     "met": 0,
+     "unmet": 5,
+     "met_by_kind": {},
+     "demanded": true,
+     "awaited": "approved by root `owner` (human:will-ackerly, a person)"
+    },
+    "separation": {
+     "subjects": 0,
+     "met": 0,
+     "unmet": 0,
+     "met_by_kind": {},
+     "demanded": false,
+     "awaited": "approved by root `owner` (human:will-ackerly, a person)"
+    },
+    "assumption.vouch": {
+     "subjects": 1,
+     "met": 0,
+     "unmet": 1,
+     "met_by_kind": {},
+     "demanded": true,
+     "awaited": "vouched by root `crypto` (nobody named; role specialist:cryptography)"
+    },
+    "assumption.usage": {
+     "subjects": 1,
+     "met": 0,
+     "unmet": 1,
+     "met_by_kind": {},
+     "demanded": true,
+     "awaited": null
+    },
+    "specialist.term": {
+     "subjects": 0,
+     "met": 0,
+     "unmet": 0,
+     "met_by_kind": {},
+     "demanded": false,
+     "awaited": null
+    }
+   },
+   "recorded_not_counted": {
+    "model reviewed": 1
+   },
+   "proved": 7,
+   "strict_pass": 0,
+   "strict_fail": 7,
+   "model_only": 0
+  }
+ },
+ "verdicts": [
+  {
+   "node": "scenario:Spec.wallet.transfer_conserves",
+   "project": "wallet",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:given",
+      "piece:is",
+      "piece:not_more_than",
+      "piece:sum_within",
+      "piece:always",
+      "piece:decreases_by",
+      "piece:increases_by",
+      "piece:never_changes",
+      "piece:aggregate",
+      "piece:all_of",
+      "piece:calls.every",
+      "piece:D1",
+      "piece:D2",
+      "piece:D3",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:amount_value"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:w.transfer",
+      "piece:w.balance",
+      "piece:w.maximum",
+      "piece:w.succeeds"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.glossary",
+     "subjects": [
+      "phrase:G-balance",
+      "phrase:G-covers",
+      "phrase:G-room",
+      "phrase:W-transfer",
+      "phrase:T-ok",
+      "phrase:T-dec",
+      "phrase:T-inc",
+      "phrase:T-total"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "scenario:Spec.wallet.transfer_short",
+   "project": "wallet",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:given",
+      "piece:is",
+      "piece:more_than",
+      "piece:always",
+      "piece:never_changes",
+      "piece:calls.every",
+      "piece:D1",
+      "piece:D2",
+      "piece:D3",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:amount_value"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:w.transfer",
+      "piece:w.balance",
+      "piece:w.rejected_with"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.glossary",
+     "subjects": [
+      "phrase:G-balance",
+      "phrase:G-exceeds",
+      "phrase:W-transfer",
+      "phrase:T-err",
+      "phrase:T-same"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "scenario:Spec.wallet.transfer_no_room",
+   "project": "wallet",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:given",
+      "piece:is",
+      "piece:not_more_than",
+      "piece:sum_exceeds",
+      "piece:always",
+      "piece:never_changes",
+      "piece:calls.every",
+      "piece:D1",
+      "piece:D2",
+      "piece:D3",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:amount_value"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:w.transfer",
+      "piece:w.balance",
+      "piece:w.maximum",
+      "piece:w.rejected_with"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.glossary",
+     "subjects": [
+      "phrase:G-balance",
+      "phrase:G-covers",
+      "phrase:G-noroom",
+      "phrase:W-transfer",
+      "phrase:T-err",
+      "phrase:T-same"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "scenario:Spec.wallet.transfer_short_example",
+   "project": "wallet",
+   "code": "PROVED-INSTANCE",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:given",
+      "piece:is",
+      "piece:always",
+      "piece:never_changes",
+      "piece:calls.every",
+      "piece:D1",
+      "piece:D2",
+      "piece:D3",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:amount_value"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:w.transfer",
+      "piece:w.balance",
+      "piece:w.rejected_with"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.glossary",
+     "subjects": [
+      "phrase:G-balance",
+      "phrase:W-transfer",
+      "phrase:T-err",
+      "phrase:T-same"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "scenario:Spec.wallet.withdraw_covered",
+   "project": "wallet",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:given",
+      "piece:is",
+      "piece:not_more_than",
+      "piece:always",
+      "piece:decreases_by",
+      "piece:calls.every",
+      "piece:D1",
+      "piece:D2",
+      "piece:D3",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:amount_value"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:w.withdraw",
+      "piece:w.balance",
+      "piece:w.succeeds"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.glossary",
+     "subjects": [
+      "phrase:G-balance",
+      "phrase:G-covers",
+      "phrase:W-withdraw",
+      "phrase:T-ok",
+      "phrase:T-dec"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "scenario:Spec.wallet.withdraw_too_much",
+   "project": "wallet",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:given",
+      "piece:is",
+      "piece:more_than",
+      "piece:always",
+      "piece:never_changes",
+      "piece:calls.every",
+      "piece:D1",
+      "piece:D2",
+      "piece:D3",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:amount_value"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:w.withdraw",
+      "piece:w.balance",
+      "piece:w.rejected_with"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.glossary",
+     "subjects": [
+      "phrase:G-balance",
+      "phrase:G-exceeds",
+      "phrase:W-withdraw",
+      "phrase:T-err",
+      "phrase:T-same"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "scenario:Spec.wallet.deposit_with_room",
+   "project": "wallet",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:given",
+      "piece:is",
+      "piece:sum_within",
+      "piece:always",
+      "piece:increases_by",
+      "piece:calls.every",
+      "piece:D1",
+      "piece:D2",
+      "piece:D3",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:amount_value"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:w.deposit",
+      "piece:w.balance",
+      "piece:w.maximum",
+      "piece:w.succeeds"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.glossary",
+     "subjects": [
+      "phrase:G-balance",
+      "phrase:G-room",
+      "phrase:W-deposit",
+      "phrase:T-ok",
+      "phrase:T-inc"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "scenario:Spec.wallet.deposit_overflow",
+   "project": "wallet",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:given",
+      "piece:is",
+      "piece:sum_exceeds",
+      "piece:always",
+      "piece:never_changes",
+      "piece:calls.every",
+      "piece:D1",
+      "piece:D2",
+      "piece:D3",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:amount_value"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:w.deposit",
+      "piece:w.balance",
+      "piece:w.maximum",
+      "piece:w.rejected_with"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.glossary",
+     "subjects": [
+      "phrase:G-balance",
+      "phrase:G-noroom",
+      "phrase:W-deposit",
+      "phrase:T-err",
+      "phrase:T-same"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "scenario:Spec.ledger.batch_conserves",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:given",
+      "piece:is",
+      "piece:never_changes",
+      "piece:aggregate",
+      "piece:calls.every",
+      "piece:D1",
+      "piece:D2",
+      "piece:D3",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:i.holds",
+      "piece:l.ledger",
+      "piece:balances_value",
+      "piece:l.balances_of"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply_batch"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.glossary",
+     "subjects": [
+      "phrase:LG-holds",
+      "phrase:LW-batch",
+      "phrase:LT-total-same"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "scenario:Spec.ledger.batch_stops_at_invalid",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:given",
+      "piece:is",
+      "piece:none_of",
+      "piece:calls.every",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4",
+      "piece:D5",
+      "piece:D7",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:i.holds",
+      "piece:l.ledger",
+      "piece:balances_value"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply_batch",
+      "piece:l.stopped_at",
+      "piece:l.valid"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.glossary",
+     "subjects": [
+      "phrase:LG-holds",
+      "phrase:LW-batch",
+      "phrase:LT-stops-at-invalid"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "scenario:Spec.ledger.two_batches_conserve",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:and_then",
+      "piece:given",
+      "piece:is",
+      "piece:never_changes",
+      "piece:result_at_most",
+      "piece:aggregate",
+      "piece:calls.every",
+      "piece:D1",
+      "piece:D2",
+      "piece:D3",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:i.holds",
+      "piece:l.ledger",
+      "piece:balances_value",
+      "piece:l.balances_of"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply_batch",
+      "piece:l.applied",
+      "piece:l.length"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.glossary",
+     "subjects": [
+      "phrase:LG-holds",
+      "phrase:LW-batch",
+      "phrase:LT-total-same",
+      "phrase:LT-at-most"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "scenario:Spec.ledger.batch_first_invalid",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:given",
+      "piece:is",
+      "piece:the_first",
+      "piece:not",
+      "piece:result_is",
+      "piece:never_changes",
+      "piece:zero",
+      "piece:calls.every",
+      "piece:D1",
+      "piece:D2",
+      "piece:D3",
+      "piece:D4",
+      "piece:D5",
+      "piece:D6",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:i.holds",
+      "piece:l.ledger",
+      "piece:balances_value"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply_batch",
+      "piece:l.transfers",
+      "piece:l.valid",
+      "piece:l.applied"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.glossary",
+     "subjects": [
+      "phrase:LG-holds",
+      "phrase:LG-first-invalid",
+      "phrase:LW-batch",
+      "phrase:LT-none-applied",
+      "phrase:LT-same"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "scenario:Spec.ledger.batch_count_bounded",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:given",
+      "piece:is",
+      "piece:result_at_most",
+      "piece:calls.every",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:i.holds",
+      "piece:l.ledger",
+      "piece:balances_value"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply_batch",
+      "piece:l.applied",
+      "piece:l.length"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.glossary",
+     "subjects": [
+      "phrase:LG-holds",
+      "phrase:LW-batch",
+      "phrase:LT-at-most"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "scenario:Spec.ledger.batch_example_all",
+   "project": "ledger",
+   "code": "PROVED-INSTANCE",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:given",
+      "piece:is",
+      "piece:result_is",
+      "piece:becomes",
+      "piece:calls.every",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:i.holds",
+      "piece:l.ledger",
+      "piece:balances_value"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply_batch",
+      "piece:i.exactly_applied",
+      "piece:l.applied",
+      "piece:index_count"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.glossary",
+     "subjects": [
+      "phrase:LG-holds",
+      "phrase:LW-batch",
+      "phrase:LT-exactly",
+      "phrase:LT-now-holds"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "scenario:Spec.ledger.batch_example_stop",
+   "project": "ledger",
+   "code": "PROVED-INSTANCE",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:given",
+      "piece:is",
+      "piece:result_is",
+      "piece:becomes",
+      "piece:calls.every",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:i.holds",
+      "piece:l.ledger",
+      "piece:balances_value"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply_batch",
+      "piece:i.exactly_applied",
+      "piece:l.applied",
+      "piece:index_count"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.glossary",
+     "subjects": [
+      "phrase:LG-holds",
+      "phrase:LW-batch",
+      "phrase:LT-exactly",
+      "phrase:LT-now-holds"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "scenario:Spec.ledger.transfer_valid_moves",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:given",
+      "piece:is",
+      "piece:holds_of",
+      "piece:always",
+      "piece:decreases_by",
+      "piece:increases_by",
+      "piece:changes_only",
+      "piece:never_changes",
+      "piece:aggregate",
+      "piece:calls.every",
+      "piece:D1",
+      "piece:D2",
+      "piece:D3",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:i.holds",
+      "piece:l.ledger",
+      "piece:balances_value",
+      "piece:l.the_transfer",
+      "piece:i.moved",
+      "piece:l.bal_of",
+      "piece:l.sender",
+      "piece:l.amount_of",
+      "piece:l.receiver",
+      "piece:l.accounts",
+      "piece:l.balances_of"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply",
+      "piece:l.valid",
+      "piece:l.accepted"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.glossary",
+     "subjects": [
+      "phrase:LG-holds",
+      "phrase:LG-valid",
+      "phrase:LW-transfer",
+      "phrase:LT-accepted",
+      "phrase:LT-moved",
+      "phrase:LT-total-same"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "scenario:Spec.ledger.transfer_invalid_rejected",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:given",
+      "piece:is",
+      "piece:holds_of",
+      "piece:not",
+      "piece:never",
+      "piece:never_changes",
+      "piece:always",
+      "piece:calls.every",
+      "piece:D1",
+      "piece:D2",
+      "piece:D3",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:i.holds",
+      "piece:l.ledger",
+      "piece:balances_value",
+      "piece:l.the_transfer"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply",
+      "piece:l.valid",
+      "piece:l.accepted"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.glossary",
+     "subjects": [
+      "phrase:LG-holds",
+      "phrase:LG-invalid",
+      "phrase:LW-transfer",
+      "phrase:LT-rejected",
+      "phrase:LT-same"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "scenario:Spec.ledger.total_is_sum",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:given",
+      "piece:is",
+      "piece:aggregate",
+      "piece:result_is",
+      "piece:calls.every",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:i.holds",
+      "piece:l.ledger",
+      "piece:balances_value",
+      "piece:l.balances_of",
+      "piece:amount_value",
+      "piece:amount_result"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.total",
+      "piece:l.result"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.glossary",
+     "subjects": [
+      "phrase:LG-holds",
+      "phrase:LG-sums-to",
+      "phrase:LW-total",
+      "phrase:LT-result"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "scenario:Spec.ledger.total_overflow",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:given",
+      "piece:is",
+      "piece:exceeds",
+      "piece:aggregate",
+      "piece:never",
+      "piece:always",
+      "piece:not",
+      "piece:calls.every",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:i.holds",
+      "piece:l.ledger",
+      "piece:balances_value",
+      "piece:l.balances_of"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.total",
+      "piece:l.maximum",
+      "piece:l.found"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.glossary",
+     "subjects": [
+      "phrase:LG-holds",
+      "phrase:LG-sum-too-big",
+      "phrase:LW-total",
+      "phrase:LT-no-result"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "scenario:Spec.ledger.balance_of_account",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:given",
+      "piece:is",
+      "piece:result_is",
+      "piece:calls.every",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:i.holds",
+      "piece:l.ledger",
+      "piece:balances_value",
+      "piece:l.is_account",
+      "piece:l.balance_at"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.lookup",
+      "piece:l.result"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.glossary",
+     "subjects": [
+      "phrase:LG-holds",
+      "phrase:LG-account",
+      "phrase:LW-balance",
+      "phrase:LT-balance"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "scenario:Spec.ledger.balance_no_account",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:given",
+      "piece:is",
+      "piece:not",
+      "piece:never",
+      "piece:always",
+      "piece:calls.every",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:i.holds",
+      "piece:l.ledger",
+      "piece:balances_value",
+      "piece:l.is_account"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.lookup",
+      "piece:l.found"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.glossary",
+     "subjects": [
+      "phrase:LG-holds",
+      "phrase:LG-no-account",
+      "phrase:LW-balance",
+      "phrase:LT-no-result"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "scenario:Spec.ledger.whole_rejected_unchanged",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:given",
+      "piece:is",
+      "piece:rejected",
+      "piece:always_answers",
+      "piece:never_changes",
+      "piece:calls.every",
+      "piece:calls.rejected",
+      "piece:D1",
+      "piece:D2",
+      "piece:D3",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:i.holds",
+      "piece:l.ledger",
+      "piece:balances_value"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply_all"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.glossary",
+     "subjects": [
+      "phrase:LG-holds",
+      "phrase:LW-whole",
+      "phrase:LT-same-if-rejected"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "scenario:Spec.ledger.whole_first_invalid",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:given",
+      "piece:is",
+      "piece:the_first",
+      "piece:not",
+      "piece:never",
+      "piece:never_changes",
+      "piece:always",
+      "piece:calls.every",
+      "piece:D1",
+      "piece:D2",
+      "piece:D3",
+      "piece:D4",
+      "piece:D5",
+      "piece:D6",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:i.holds",
+      "piece:l.ledger",
+      "piece:balances_value"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply_all",
+      "piece:l.transfers",
+      "piece:l.valid",
+      "piece:l.accepted"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.glossary",
+     "subjects": [
+      "phrase:LG-holds",
+      "phrase:LG-first-invalid",
+      "phrase:LW-whole",
+      "phrase:LT-rejected",
+      "phrase:LT-same"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "scenario:Spec.ledger.whole_conserves",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:given",
+      "piece:is",
+      "piece:never_changes",
+      "piece:aggregate",
+      "piece:calls.every",
+      "piece:D1",
+      "piece:D2",
+      "piece:D3",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:i.holds",
+      "piece:l.ledger",
+      "piece:balances_value",
+      "piece:l.balances_of"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply_all"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.glossary",
+     "subjects": [
+      "phrase:LG-holds",
+      "phrase:LW-whole",
+      "phrase:LT-total-same"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "scenario:Spec.ledger.whole_example_accept",
+   "project": "ledger",
+   "code": "PROVED-INSTANCE",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:given",
+      "piece:is",
+      "piece:always",
+      "piece:becomes",
+      "piece:calls.every",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:i.holds",
+      "piece:l.ledger",
+      "piece:balances_value"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply_all",
+      "piece:l.accepted"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.glossary",
+     "subjects": [
+      "phrase:LG-holds",
+      "phrase:LW-whole",
+      "phrase:LT-accepted",
+      "phrase:LT-now-holds"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "scenario:Spec.ledger.whole_example_rollback_late",
+   "project": "ledger",
+   "code": "PROVED-INSTANCE",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:given",
+      "piece:is",
+      "piece:never",
+      "piece:becomes",
+      "piece:always",
+      "piece:not",
+      "piece:calls.every",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:i.holds",
+      "piece:l.ledger",
+      "piece:balances_value"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply_all",
+      "piece:l.accepted"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.glossary",
+     "subjects": [
+      "phrase:LG-holds",
+      "phrase:LW-whole",
+      "phrase:LT-rejected",
+      "phrase:LT-now-holds"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "scenario:Spec.ledger.whole_example_rollback",
+   "project": "ledger",
+   "code": "PROVED-INSTANCE",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:given",
+      "piece:is",
+      "piece:never",
+      "piece:becomes",
+      "piece:always",
+      "piece:not",
+      "piece:calls.every",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:i.holds",
+      "piece:l.ledger",
+      "piece:balances_value"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply_all",
+      "piece:l.accepted"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.glossary",
+     "subjects": [
+      "phrase:LG-holds",
+      "phrase:LW-whole",
+      "phrase:LT-rejected",
+      "phrase:LT-now-holds"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "scenario:Spec.ledger.batch_then_total",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:and_then",
+      "piece:given",
+      "piece:is",
+      "piece:aggregate",
+      "piece:result_is",
+      "piece:calls.every",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:i.holds",
+      "piece:l.ledger",
+      "piece:balances_value",
+      "piece:l.balances_of",
+      "piece:amount_value",
+      "piece:amount_result"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply_batch",
+      "piece:l.total",
+      "piece:l.result"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.glossary",
+     "subjects": [
+      "phrase:LG-holds",
+      "phrase:LG-sums-to",
+      "phrase:LW-batch",
+      "phrase:LW-total",
+      "phrase:LT-result"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "scenario:Spec.ledger.batch_then_total_overflow",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:and_then",
+      "piece:given",
+      "piece:is",
+      "piece:exceeds",
+      "piece:aggregate",
+      "piece:never",
+      "piece:always",
+      "piece:not",
+      "piece:calls.every",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:i.holds",
+      "piece:l.ledger",
+      "piece:balances_value",
+      "piece:l.balances_of"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply_batch",
+      "piece:l.total",
+      "piece:l.maximum",
+      "piece:l.found"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.glossary",
+     "subjects": [
+      "phrase:LG-holds",
+      "phrase:LG-sum-too-big",
+      "phrase:LW-batch",
+      "phrase:LW-total",
+      "phrase:LT-no-result"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "scenario:Spec.ledger_rules.readme_transfer_keeps_aggregate",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:given",
+      "piece:is",
+      "piece:never_changes",
+      "piece:aggregate",
+      "piece:calls.every",
+      "piece:D1",
+      "piece:D2",
+      "piece:D3",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:i.holds",
+      "piece:l.ledger",
+      "piece:balances_value",
+      "piece:l.balances_of"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.glossary",
+     "subjects": [
+      "phrase:LG-holds",
+      "phrase:LW-transfer",
+      "phrase:LT-total-same"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "scenario:Spec.ledger_rules.n2_short_sender_rejected",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:given",
+      "piece:is",
+      "piece:more_than",
+      "piece:never",
+      "piece:never_changes",
+      "piece:always",
+      "piece:not",
+      "piece:calls.every",
+      "piece:D1",
+      "piece:D2",
+      "piece:D3",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:i.holds",
+      "piece:l.ledger",
+      "piece:balances_value",
+      "piece:l.amount_of",
+      "piece:l.bal_of",
+      "piece:l.sender"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply",
+      "piece:l.accepted"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "scenario:Spec.ledger_rules.f_other_account_untouched",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:given",
+      "piece:is",
+      "piece:rejected",
+      "piece:successful",
+      "piece:always_answers",
+      "piece:never_changes",
+      "piece:aggregate",
+      "piece:calls.every",
+      "piece:calls.rejected",
+      "piece:calls.accepted",
+      "piece:D1",
+      "piece:D2",
+      "piece:D3",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:i.holds",
+      "piece:l.ledger",
+      "piece:balances_value",
+      "piece:l.bal_of",
+      "piece:index_number",
+      "piece:l.balances_of"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "scenario:Spec.negative_controls.bystander_unchanged",
+   "project": "wallet",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:beside",
+      "piece:given",
+      "piece:is",
+      "piece:sum_within",
+      "piece:always",
+      "piece:never_changes",
+      "piece:calls.every",
+      "piece:D1",
+      "piece:D2",
+      "piece:D3",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:amount_value"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:w.deposit",
+      "piece:w.balance",
+      "piece:w.maximum",
+      "piece:w.succeeds"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.glossary",
+     "subjects": [
+      "phrase:G-balance",
+      "phrase:G-room",
+      "phrase:W-deposit",
+      "phrase:T-ok",
+      "phrase:T-same"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.wallet.transfer_total",
+   "project": "wallet",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:never_changes",
+      "piece:aggregate",
+      "piece:all_of",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D3",
+      "piece:D4"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:w.transfer",
+      "piece:w.balance"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.wallet.withdrawal",
+   "project": "wallet",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:always_answers",
+      "piece:successful",
+      "piece:decreases_by",
+      "piece:rejected",
+      "piece:never_changes",
+      "piece:calls.every",
+      "piece:calls.accepted",
+      "piece:calls.rejected",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.role",
+      "piece:g.clauses",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D3",
+      "piece:D4"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:amount_value"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:w.withdraw",
+      "piece:w.balance"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.wallet.deposit",
+   "project": "wallet",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:always_answers",
+      "piece:successful",
+      "piece:increases_by",
+      "piece:rejected",
+      "piece:never_changes",
+      "piece:calls.every",
+      "piece:calls.accepted",
+      "piece:calls.rejected",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.role",
+      "piece:g.clauses",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D3",
+      "piece:D4"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:amount_value"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:w.deposit",
+      "piece:w.balance"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.ledger.batch_total",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:never_changes",
+      "piece:aggregate",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.role",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D3",
+      "piece:D4"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:l.balances_of"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply_batch"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.ledger.batch_count",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:result_at_most",
+      "piece:given",
+      "piece:result_is",
+      "piece:the_first",
+      "piece:not",
+      "piece:zero",
+      "piece:never_changes",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_for",
+      "piece:g.role",
+      "piece:g.rule_vp",
+      "piece:g.clauses",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D3",
+      "piece:D4",
+      "piece:D5",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:l.ledger"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply_batch",
+      "piece:l.applied",
+      "piece:l.length",
+      "piece:l.transfers",
+      "piece:l.valid"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.ledger.single_transfer",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:exactly_when",
+      "piece:holds_of",
+      "piece:accepted",
+      "piece:rejected",
+      "piece:never_changes",
+      "piece:successful",
+      "piece:decreases_by",
+      "piece:increases_by",
+      "piece:changes_only",
+      "piece:calls.every",
+      "piece:calls.rejected",
+      "piece:calls.accepted",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.role",
+      "piece:g.rule_for",
+      "piece:g.clauses",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D3",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:l.the_transfer",
+      "piece:l.ledger",
+      "piece:i.moved",
+      "piece:l.bal_of",
+      "piece:l.sender",
+      "piece:l.amount_of",
+      "piece:l.receiver",
+      "piece:l.accounts"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply",
+      "piece:l.valid"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.ledger.total_fits",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:exactly_when",
+      "piece:at_most_value",
+      "piece:aggregate",
+      "piece:accepted",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.role",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:l.balances_of"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.total",
+      "piece:l.maximum"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.ledger.lookup",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:result_is",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_for",
+      "piece:g.role",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:l.balance_at"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.lookup",
+      "piece:l.result"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.ledger.whole_batch",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:rejected",
+      "piece:never_changes",
+      "piece:aggregate",
+      "piece:calls.rejected",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.role",
+      "piece:g.clauses",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D3",
+      "piece:D4"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:l.ledger",
+      "piece:l.balances_of"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply_all"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.ledger.batch_then_total",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:and_then",
+      "piece:exactly_when",
+      "piece:at_most_value",
+      "piece:aggregate",
+      "piece:accepted",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.role",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:l.balances_of"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply_batch",
+      "piece:l.total",
+      "piece:l.maximum"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.counter_rules.rejected_bump_unchanged",
+   "project": "counter",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:rejected",
+      "piece:never_changes",
+      "piece:calls.rejected",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.role",
+      "piece:g.line",
+      "piece:D3",
+      "piece:D4"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:ctr.bump",
+      "piece:ctr.count"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.intake.always_answers",
+   "project": "sigintake",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:always_answers",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4"
+     ],
+     "awaited": "approved by root `owner` (human:will-ackerly, a person)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:in.intake"
+     ],
+     "awaited": "approved by root `owner` (human:will-ackerly, a person)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.intake.accept_only_if_verified",
+   "project": "sigintake",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:only_if",
+      "piece:accepted",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.role",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (human:will-ackerly, a person)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:in.intake",
+      "piece:in.verifies"
+     ],
+     "awaited": "approved by root `owner` (human:will-ackerly, a person)"
+    },
+    {
+     "requirement": "assumption.vouch",
+     "subjects": [
+      "assumption:A.sig.unforgeable"
+     ],
+     "awaited": "vouched by root `crypto` (nobody named; role specialist:cryptography)"
+    },
+    {
+     "requirement": "assumption.usage",
+     "conditions": [
+      "A.sig.unforgeable/U4 (cannot be stated)"
+     ],
+     "why": "1 usage condition is not PROVED-FOR-ALL: A.sig.unforgeable/U4 (cannot be stated)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.intake.unverified_rejected_unchanged",
+   "project": "sigintake",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:given",
+      "piece:rejected_unchanged",
+      "piece:not",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.role",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D3",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (human:will-ackerly, a person)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:in.intake",
+      "piece:in.verifies"
+     ],
+     "awaited": "approved by root `owner` (human:will-ackerly, a person)"
+    },
+    {
+     "requirement": "assumption.vouch",
+     "subjects": [
+      "assumption:A.sig.unforgeable"
+     ],
+     "awaited": "vouched by root `crypto` (nobody named; role specialist:cryptography)"
+    },
+    {
+     "requirement": "assumption.usage",
+     "conditions": [
+      "A.sig.unforgeable/U4 (cannot be stated)"
+     ],
+     "why": "1 usage condition is not PROVED-FOR-ALL: A.sig.unforgeable/U4 (cannot be stated)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.intake.unsigned_part_ignored",
+   "project": "sigintake",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:same_answer",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4",
+      "piece:D10"
+     ],
+     "awaited": "approved by root `owner` (human:will-ackerly, a person)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:in.intake",
+      "piece:in.unsigned_differs"
+     ],
+     "awaited": "approved by root `owner` (human:will-ackerly, a person)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.intake.accept_only_if_counter_above",
+   "project": "sigintake",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:only_if",
+      "piece:more_than",
+      "piece:accepted",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.role",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (human:will-ackerly, a person)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:in.intake",
+      "piece:in.counter_of",
+      "piece:in.last"
+     ],
+     "awaited": "approved by root `owner` (human:will-ackerly, a person)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.intake.counter_set",
+   "project": "sigintake",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:successful",
+      "piece:becomes",
+      "piece:calls.accepted",
+      "piece:g.subject",
+      "piece:g.rule_for",
+      "piece:g.role",
+      "piece:g.line",
+      "piece:D4"
+     ],
+     "awaited": "approved by root `owner` (human:will-ackerly, a person)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:in.intake",
+      "piece:in.last",
+      "piece:in.counter_of"
+     ],
+     "awaited": "approved by root `owner` (human:will-ackerly, a person)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.intake.same_message_again_rejected",
+   "project": "sigintake",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:and_then",
+      "piece:tied",
+      "piece:same_input",
+      "piece:never",
+      "piece:accepted",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4"
+     ],
+     "awaited": "approved by root `owner` (human:will-ackerly, a person)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:in.intake"
+     ],
+     "awaited": "approved by root `owner` (human:will-ackerly, a person)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.ledger_rules.readme_internal_transfers",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:internal",
+      "piece:never_changes",
+      "piece:aggregate",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.role",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D3",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:l.balances_of"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.ledger_rules.n1_internal_transfer",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:internal",
+      "piece:never_changes",
+      "piece:aggregate",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.role",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D3",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:l.balances_of"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.ledger_rules.n2_accepted_only_if_covered",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:only_if",
+      "piece:not_more_than",
+      "piece:accepted",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.role",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:l.amount_of",
+      "piece:l.bal_of",
+      "piece:l.sender"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.ledger_rules.n3_lookup_missing_account",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:given",
+      "piece:never",
+      "piece:not",
+      "piece:always",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_for",
+      "piece:g.role",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:l.is_account"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.lookup",
+      "piece:l.found"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.ledger_rules.n5_stopped_at_invalid",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:none_of",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_for",
+      "piece:g.role",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4",
+      "piece:D5",
+      "piece:D7"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply_batch",
+      "piece:l.stopped_at",
+      "piece:l.valid"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.ledger_rules.mono_smaller_amount",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:monotone",
+      "piece:accepted",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4",
+      "piece:D10"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply",
+      "piece:l.smaller_amount"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.ledger_rules.agrees_reference_lookup",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:agrees_with",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.lookup",
+      "piece:l.ref_lookup"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.ledger_rules.same_answer_at_account",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:same_answer",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4",
+      "piece:D10"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.lookup",
+      "piece:l.agrees_at_account"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.ledger_rules.rejected_stays_rejected",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:same_answer_if",
+      "piece:not",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4",
+      "piece:D10"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply",
+      "piece:l.larger_amount",
+      "piece:l.accepted"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.ledger_rules.stopped_is_of_batch",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:within",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_for",
+      "piece:g.role",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4",
+      "piece:D5"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply_batch",
+      "piece:l.stopped_at",
+      "piece:l.transfers"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.ledger_rules.some_valid_conserves",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:given",
+      "piece:never_changes",
+      "piece:some_of",
+      "piece:aggregate",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.role",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D3",
+      "piece:D4",
+      "piece:D5",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:l.balances_of"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply_batch",
+      "piece:l.transfers",
+      "piece:l.valid"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.ledger_rules.k2_whole_agrees_with_batch",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:agrees_with",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply_all",
+      "piece:l.ref_whole_by_batch"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.ledger_rules.f_if_then",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:if_then",
+      "piece:holds_of",
+      "piece:accepted",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.role",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:l.the_transfer"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply",
+      "piece:l.valid"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.ledger_rules.f_rejected_unchanged",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:given",
+      "piece:rejected_unchanged",
+      "piece:holds_of",
+      "piece:not",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.role",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D3",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:l.the_transfer"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply",
+      "piece:l.valid"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.ledger_rules.f_at_least",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:at_least",
+      "piece:aggregate",
+      "piece:zero",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.role",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:l.balances_of"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply_batch"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.ledger_rules.f_none_of",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:none_of",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_for",
+      "piece:g.role",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4",
+      "piece:D5",
+      "piece:D7"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply_batch",
+      "piece:l.stopped_at",
+      "piece:l.valid"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.ledger_rules.f_no_valid_none_applied",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:given",
+      "piece:result_is",
+      "piece:no_such",
+      "piece:zero",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_for",
+      "piece:g.role",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4",
+      "piece:D5",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply_batch",
+      "piece:l.transfers",
+      "piece:l.valid",
+      "piece:l.applied"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.ledger_rules.f_scenario_level",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:successful",
+      "piece:never_changes",
+      "piece:aggregate",
+      "piece:calls.accepted",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.role",
+      "piece:g.line",
+      "piece:D3",
+      "piece:D4"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:l.balances_of"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.ledger_rules.l2_same_account_rejected",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:given",
+      "piece:rejected_unchanged",
+      "piece:equals",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.role",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D3",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:l.sender",
+      "piece:l.receiver"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.ledger_rules.l2_each_within_maximum",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:each_at_most",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_for",
+      "piece:g.role",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:l.balances_of"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply",
+      "piece:l.maximum"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.ledger_rules.l2_each_within_total_bound",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:given",
+      "piece:each_at_most",
+      "piece:at_most_value",
+      "piece:aggregate",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_for",
+      "piece:g.role",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:l.balances_of",
+      "piece:l.amount_of"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.ledger_rules.l2_twice_conserves",
+   "project": "ledger",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:and_then",
+      "piece:tied",
+      "piece:same_input",
+      "piece:never_changes",
+      "piece:aggregate",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.role",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D3",
+      "piece:D4"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.pack",
+     "subjects": [
+      "piece:l.balances_of"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:l.apply"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.wallet_rules.l2_deposit_then_withdraw_answers",
+   "project": "wallet",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:and_then",
+      "piece:tied",
+      "piece:same_input",
+      "piece:always_answers",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:w.deposit",
+      "piece:w.withdraw"
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  }
+ ],
+ "strict_fail": 74,
+ "strict": false
+}

@@ -40,7 +40,10 @@
     "REFUTED": 2,
     "UNBOUND": 1
    },
-   "not_as_expected": []
+   "not_as_expected": [],
+   "proved_given_assumption": [],
+   "assumptions": [],
+   "assumptions_open": []
   },
   "function_verdicts": {
    "INPUTS-COVERED": 3,
@@ -103,7 +106,10 @@
     "REFUTED": 18,
     "TESTED-ONLY": 3
    },
-   "not_as_expected": []
+   "not_as_expected": [],
+   "proved_given_assumption": [],
+   "assumptions": [],
+   "assumptions_open": []
   },
   "function_verdicts": {
    "INPUTS-COVERED": 4,
@@ -153,7 +159,10 @@
     "REFUTED": 1,
     "UNBOUND": 1
    },
-   "not_as_expected": []
+   "not_as_expected": [],
+   "proved_given_assumption": [],
+   "assumptions": [],
+   "assumptions_open": []
   },
   "function_verdicts": {
    "INPUTS-NOT-COVERED": 1
@@ -167,6 +176,60 @@
    "bounded_rungs": {
     "verified": 1,
     "failed": 1
+   }
+  }
+ },
+ {
+  "name": "sigintake",
+  "crate": "sigintake",
+  "books": [
+   "core.yaml",
+   "local/intake.yaml"
+  ],
+  "features": [
+   "features/intake.feature"
+  ],
+  "model": "Generated.Sigintake",
+  "lean_modules": [
+   "Intake.Pieces"
+  ],
+  "functions": [
+   "sigintake.verify",
+   "sigintake.intake"
+  ],
+  "scenarios": {
+   "n": 0,
+   "codes": {},
+   "not_as_expected": []
+  },
+  "rules": {
+   "n": 8,
+   "codes": {
+    "PROVED-FOR-ALL": 7,
+    "UNBOUND": 1
+   },
+   "not_as_expected": [],
+   "proved_given_assumption": [
+    "Rule.intake.accept_only_if_verified",
+    "Rule.intake.unverified_rejected_unchanged"
+   ],
+   "assumptions": [
+    "A.sig.unforgeable"
+   ],
+   "assumptions_open": [
+    "A.sig.unforgeable"
+   ]
+  },
+  "function_verdicts": {
+   "INPUTS-NOT-COVERED": 2
+  },
+  "evidence": {
+   "readings": 7,
+   "property": {
+    "pass": 7
+   },
+   "bounded_rungs": {
+    "verified": 7
    }
   }
  }

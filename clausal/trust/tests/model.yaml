@@ -1,0 +1,16 @@
+# TEST POLICY (trust/FREEZE.md section 5, second pair), given to every project with `--trust-policy`. Not a project's policy.
+# The meaning requirements admit a person OR a model, and the fixture model is a root. Used in a scratch copy of the tree in
+# which `model:selftest-fixture` has attested every entry: strict then passes with MEANING-MODEL-ONLY on every proved verdict,
+# while the graph still lists every entry as unreviewed (no person has reviewed anything).
+version: 1
+project: any
+roots:
+  - id: reviewer
+    signer: human:selftest-fixture
+  - id: fixture-model
+    signer: model:selftest-fixture
+requirements:
+  meaning.pieces:   {subject: piece,          act: [reviewed, approved], kinds: [person, model], roots: [reviewer, fixture-model]}
+  meaning.glossary: {subject: glossary-entry, act: [reviewed, approved], kinds: [person, model], roots: [reviewer, fixture-model]}
+strict:
+  demands: [meaning.pieces, meaning.glossary, nothing-stale]

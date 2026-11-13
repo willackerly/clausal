@@ -21,7 +21,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent.parent))
-from clausal import book, vocab, vreport            # noqa: E402
+from clausal import attest, book, vocab, vreport            # noqa: E402
 from clausal.core import load_glossary              # noqa: E402
 from clausal.pipeline import ROOT                   # noqa: E402
 
@@ -42,7 +42,7 @@ def main() -> int:
         f.write_text(text)
         v = vocab.Vocabulary([(Path(d) / rel, rel) for _, rel in vocab.project_books(ROOT)], gl)
         s = v.separations[SEP]
-        V, notes = book.lint(v, {})
+        V, notes = book.lint(v, attest.Records())
         mine = [x["what"] for x in V if SEP in (x.get("proposed") or [])]
         nif = [x["key"] for x in V if x["check"] == "4 separation not in force"]
         one = len(mine) == 1 and not nif and "NOT run by this check" in mine[0] and "machine-checked" not in mine[0]
@@ -50,15 +50,15 @@ def main() -> int:
         print(f"1 plain lint: {len(V)} violations, {len(nif)} 'separation not in force'; the pair's violation says: ...{mine[0][mine[0].index('no separating pair'):mine[0].index(': `sep')] if mine else '(none)'}")
         r = book.rerun_separation(v, s)
         print(f"2 rerun (book check --separate): {'CONFIRMED' if r['ok'] else 'NOT CONFIRMED: ' + '; '.join(r['why'])}")
-        sf = v.book_of(SEP).signoff_path
+        sf = v.book_of(SEP).attest_path
         before = sf.read_text() if sf.exists() else None
         with contextlib.redirect_stdout(io.StringIO()) as o:
-            rc = vreport.review(v, SEP, "control")
+            rc = vreport.attest_entries(v, SEP, "approved", "human:control-of-q3b-bogus", "control of clausebook/q3b/bogus.py in a temporary copy; no person signed anything")
         same = (sf.read_text() if sf.exists() else None) == before
         V2, _ = book.lint(v)
-        print(f"3 clausal review {SEP}: exit {rc}; sign-off file {'unchanged' if same else 'CHANGED'}; violations after: {len(V2)}; it printed: {o.getvalue().splitlines()[0]}")
+        print(f"3 clausal attest {SEP} --act approved: exit {rc}; attestation store {'unchanged' if same else 'CHANGED'}; violations after: {len(V2)}; it printed: {o.getvalue().splitlines()[0]}")
         ok = one and not r["ok"] and rc == 1 and same and len(V2) == len(V)
-    V0, _ = book.lint(real, {})
+    V0, _ = book.lint(real, attest.Records())
     r0 = book.rerun_separation(real, real.separations[SEP])
     print(f"4 the book as it stands: {len(V0)} violations; rerun of {SEP}: {'CONFIRMED at ' + str(real.separations[SEP]['witness']['input']) if r0['ok'] else 'NOT CONFIRMED'}")
     ok = ok and r0["ok"]

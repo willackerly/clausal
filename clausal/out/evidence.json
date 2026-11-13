@@ -33,7 +33,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 644,
+    "elapsed_ms": 326,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -58,7 +58,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.4855078,
+      "secs": 0.33412963,
       "failed_checks": []
      }
     ]
@@ -72,7 +72,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 327,
+    "elapsed_ms": 147,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -97,7 +97,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.10217513,
+      "secs": 0.07571204,
       "failed_checks": []
      }
     ]
@@ -111,7 +111,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 2055,
+    "elapsed_ms": 848,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -136,7 +136,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.12855108,
+      "secs": 0.09410596,
       "failed_checks": []
      }
     ]
@@ -150,7 +150,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 49,
+    "elapsed_ms": 40,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -175,7 +175,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.05554829,
+      "secs": 0.046315875,
       "failed_checks": []
      }
     ]
@@ -189,7 +189,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 260,
+    "elapsed_ms": 151,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -214,7 +214,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.12294054,
+      "secs": 0.095254876,
       "failed_checks": []
      }
     ]
@@ -228,7 +228,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 190,
+    "elapsed_ms": 107,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -253,7 +253,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.07256504,
+      "secs": 0.05513796,
       "failed_checks": []
      }
     ]
@@ -267,7 +267,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 129,
+    "elapsed_ms": 88,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -292,7 +292,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.09746408,
+      "secs": 0.08044566,
       "failed_checks": []
      }
     ]
@@ -306,7 +306,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 389,
+    "elapsed_ms": 222,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -331,7 +331,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.07280629,
+      "secs": 0.057038832,
       "failed_checks": []
      }
     ]
@@ -376,7 +376,7 @@
       "accounts": null,
       "transfers": null,
       "status": "failed",
-      "secs": 0.24475509,
+      "secs": 0.17746533,
       "failed_checks": [
        "RULE"
       ]
@@ -471,7 +471,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 359,
+    "elapsed_ms": 210,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -496,7 +496,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 7.2909365,
+      "secs": 2.873498,
       "failed_checks": []
      },
      {
@@ -505,7 +505,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 12.40596,
+      "secs": 6.837155,
       "failed_checks": []
      },
      {
@@ -546,7 +546,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 363,
+    "elapsed_ms": 210,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -571,7 +571,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 7.2645288,
+      "secs": 2.7479503,
       "failed_checks": []
      },
      {
@@ -580,7 +580,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 7.4416776,
+      "secs": 3.7930148,
       "failed_checks": []
      },
      {
@@ -589,7 +589,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 9.3732815,
+      "secs": 4.518564,
       "failed_checks": []
      },
      {
@@ -598,7 +598,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 9.23212,
+      "secs": 4.458063,
       "failed_checks": []
      },
      {
@@ -607,7 +607,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "verified",
-      "secs": 23.302252,
+      "secs": 9.078547,
       "failed_checks": []
      }
     ]
@@ -621,7 +621,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 950,
+    "elapsed_ms": 331,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -645,8 +645,8 @@
       "label": "up to 2 accounts and up to 1 transfer",
       "accounts": 2,
       "transfers": 1,
-      "status": "timeout",
-      "secs": null,
+      "status": "verified",
+      "secs": 14.474267,
       "failed_checks": []
      },
      {
@@ -696,7 +696,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 674,
+    "elapsed_ms": 273,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -721,7 +721,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 8.037195,
+      "secs": 2.5957372,
       "failed_checks": []
      },
      {
@@ -730,7 +730,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 7.0163674,
+      "secs": 2.8017879,
       "failed_checks": []
      },
      {
@@ -739,7 +739,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 8.431259,
+      "secs": 3.7945795,
       "failed_checks": []
      },
      {
@@ -748,7 +748,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 5.7378993,
+      "secs": 3.183711,
       "failed_checks": []
      },
      {
@@ -757,7 +757,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "verified",
-      "secs": 10.51599,
+      "secs": 6.291299,
       "failed_checks": []
      }
     ]
@@ -771,7 +771,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 686,
+    "elapsed_ms": 209,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -796,7 +796,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 3.5966153,
+      "secs": 1.6846862,
       "failed_checks": []
      },
      {
@@ -805,7 +805,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 4.953838,
+      "secs": 2.054118,
       "failed_checks": []
      },
      {
@@ -814,7 +814,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 7.1015787,
+      "secs": 2.079911,
       "failed_checks": []
      },
      {
@@ -823,7 +823,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 6.9884605,
+      "secs": 2.8987021,
       "failed_checks": []
      },
      {
@@ -832,7 +832,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "verified",
-      "secs": 14.786925,
+      "secs": 5.627649,
       "failed_checks": []
      }
     ]
@@ -846,7 +846,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 81,
+    "elapsed_ms": 46,
     "limit": {
      "accounts": 3,
      "transfers": null
@@ -871,7 +871,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 2.3613455,
+      "secs": 1.0474883,
       "failed_checks": []
      }
     ]
@@ -885,7 +885,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 69,
+    "elapsed_ms": 45,
     "limit": {
      "accounts": 3,
      "transfers": null
@@ -910,7 +910,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 2.718576,
+      "secs": 1.1402653,
       "failed_checks": []
      }
     ]
@@ -924,7 +924,7 @@
     "calls_to_first_failure": 1841,
     "cases": 300,
     "compared_with_tree": true,
-    "elapsed_ms": 194,
+    "elapsed_ms": 44,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -953,7 +953,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 6.9405384,
+      "secs": 2.9545789,
       "failed_checks": []
      },
      {
@@ -962,7 +962,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "failed",
-      "secs": 13.572496,
+      "secs": 3.7322295,
       "failed_checks": [
        "RULE"
       ]
@@ -973,7 +973,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 14.660884,
+      "secs": 4.107103,
       "failed_checks": []
      },
      {
@@ -982,7 +982,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "failed",
-      "secs": 13.697134,
+      "secs": 4.514504,
       "failed_checks": [
        "RULE"
       ]
@@ -993,7 +993,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "failed",
-      "secs": 18.834047,
+      "secs": 6.866143,
       "failed_checks": [
        "RULE"
       ]
@@ -1002,9 +1002,9 @@
     "witness_harness": "k16_r1",
     "witness_rung": "up to 2 accounts and up to 2 transfers",
     "witness": {
-     "balances": "[15564440312192491530, 10394307939971104763]",
-     "batch": "[0->1:5656521132229255174, 0->1:4854880398053613567]",
-     "main_state": "[15564440312192491530, 10394307939971104763]"
+     "balances": "[9241386435364257793, 3476778912330022913]",
+     "batch": "[0->1:8052436133738446847, 0->1:6917529027641081852]",
+     "main_state": "[9241386435364257793, 3476778912330022913]"
     },
     "replay": "fails"
    },
@@ -1042,21 +1042,21 @@
     {
      "source": "bounded check",
      "values": {
-      "balances": "[15564440312192491530, 10394307939971104763]",
-      "batch": "[0->1:5656521132229255174, 0->1:4854880398053613567]",
-      "main_state": "[15564440312192491530, 10394307939971104763]"
+      "balances": "[9241386435364257793, 3476778912330022913]",
+      "batch": "[0->1:8052436133738446847, 0->1:6917529027641081852]",
+      "main_state": "[9241386435364257793, 3476778912330022913]"
      },
      "rust": "fails",
      "note": "Kani at up to 2 accounts and up to 2 transfers; replayed on the compiled Rust through the generated predicate",
      "terms": {
-      "st": "(LVocab.mkLedger ([15564440312192491530#u64, 10394307939971104763#u64]))",
-      "inp": "(L.mkBatch [ledger.Transfer.mk 0#usize 1#usize 5656521132229255174#u64, ledger.Transfer.mk 0#usize 1#usize 4854880398053613567#u64])",
+      "st": "(LVocab.mkLedger ([9241386435364257793#u64, 3476778912330022913#u64]))",
+      "inp": "(L.mkBatch [ledger.Transfer.mk 0#usize 1#usize 8052436133738446847#u64, ledger.Transfer.mk 0#usize 1#usize 6917529027641081852#u64])",
       "st2": null,
       "inp2": null,
       "outer": {
-       "balances": "([15564440312192491530#u64, 10394307939971104763#u64])",
-       "main_state": "([15564440312192491530#u64, 10394307939971104763#u64])",
-       "batch": "(L.mkBatch [ledger.Transfer.mk 0#usize 1#usize 5656521132229255174#u64, ledger.Transfer.mk 0#usize 1#usize 4854880398053613567#u64])"
+       "balances": "([9241386435364257793#u64, 3476778912330022913#u64])",
+       "main_state": "([9241386435364257793#u64, 3476778912330022913#u64])",
+       "batch": "(L.mkBatch [ledger.Transfer.mk 0#usize 1#usize 8052436133738446847#u64, ledger.Transfer.mk 0#usize 1#usize 6917529027641081852#u64])"
       }
      },
      "model_bits": "0",
@@ -1065,7 +1065,7 @@
       "check": "thenFalse",
       "givens": "11",
       "thens": "0",
-      "returned": "1 applied; Main: balances [9907919179963236356, 16050829072200359937]"
+      "returned": "1 applied; Main: balances [1188950301625810946, 11529215046068469760]"
      },
      "mismatch": false
     }
@@ -1078,7 +1078,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 4739,
+    "elapsed_ms": 1589,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -1103,7 +1103,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 7.807551,
+      "secs": 2.5457692,
       "failed_checks": []
      },
      {
@@ -1135,7 +1135,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 214,
+    "elapsed_ms": 152,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -1160,7 +1160,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 2.9535007,
+      "secs": 0.8259105,
       "failed_checks": []
      },
      {
@@ -1169,7 +1169,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 4.9473143,
+      "secs": 1.5650957,
       "failed_checks": []
      },
      {
@@ -1178,7 +1178,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 5.0944896,
+      "secs": 1.8561544,
       "failed_checks": []
      }
     ]
@@ -1192,7 +1192,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 3206,
+    "elapsed_ms": 1313,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -1217,7 +1217,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 1.8682091,
+      "secs": 0.70469093,
       "failed_checks": []
      },
      {
@@ -1226,7 +1226,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 3.7979474,
+      "secs": 1.0597274,
       "failed_checks": []
      },
      {
@@ -1235,7 +1235,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 3.4350553,
+      "secs": 1.4794701,
       "failed_checks": []
      }
     ]
@@ -1249,7 +1249,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 1426,
+    "elapsed_ms": 263,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -1274,7 +1274,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 1.0698876,
+      "secs": 0.79871595,
       "failed_checks": []
      },
      {
@@ -1283,7 +1283,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 1.4903091,
+      "secs": 0.8824286,
       "failed_checks": []
      },
      {
@@ -1292,7 +1292,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 1.9674368,
+      "secs": 1.2480669,
       "failed_checks": []
      }
     ]
@@ -1334,7 +1334,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "failed",
-      "secs": 1.0067023,
+      "secs": 0.7209889,
       "failed_checks": [
        "RULE"
       ]
@@ -1345,7 +1345,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "failed",
-      "secs": 1.298425,
+      "secs": 0.72157925,
       "failed_checks": [
        "RULE"
       ]
@@ -1356,7 +1356,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "failed",
-      "secs": 2.014727,
+      "secs": 0.8096189,
       "failed_checks": [
        "RULE"
       ]
@@ -1436,7 +1436,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 643,
+    "elapsed_ms": 184,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -1461,7 +1461,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.9798404,
+      "secs": 0.6145245,
       "failed_checks": []
      },
      {
@@ -1470,7 +1470,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 1.0632224,
+      "secs": 0.6990149,
       "failed_checks": []
      },
      {
@@ -1479,7 +1479,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 1.3117722,
+      "secs": 0.81718254,
       "failed_checks": []
      }
     ]
@@ -1493,7 +1493,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 833,
+    "elapsed_ms": 254,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -1518,7 +1518,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.8917847,
+      "secs": 0.47063363,
       "failed_checks": []
      },
      {
@@ -1527,7 +1527,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 2.550384,
+      "secs": 0.5237526,
       "failed_checks": []
      },
      {
@@ -1536,7 +1536,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 2.135505,
+      "secs": 0.56283253,
       "failed_checks": []
      }
     ]
@@ -1550,7 +1550,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 310,
+    "elapsed_ms": 211,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -1575,7 +1575,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 10.895068,
+      "secs": 2.5917397,
       "failed_checks": []
      },
      {
@@ -1584,7 +1584,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 13.268694,
+      "secs": 2.9627395,
       "failed_checks": []
      },
      {
@@ -1593,7 +1593,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 10.116382,
+      "secs": 3.5090191,
       "failed_checks": []
      },
      {
@@ -1602,7 +1602,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 8.854685,
+      "secs": 4.728939,
       "failed_checks": []
      },
      {
@@ -1611,7 +1611,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "verified",
-      "secs": 19.537437,
+      "secs": 7.0147114,
       "failed_checks": []
      }
     ]
@@ -1625,7 +1625,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 807,
+    "elapsed_ms": 274,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -1650,7 +1650,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 7.8875637,
+      "secs": 2.9874,
       "failed_checks": []
      },
      {
@@ -1659,7 +1659,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 9.368124,
+      "secs": 3.3179662,
       "failed_checks": []
      },
      {
@@ -1668,7 +1668,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 13.614032,
+      "secs": 4.3561625,
       "failed_checks": []
      },
      {
@@ -1677,7 +1677,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 16.733038,
+      "secs": 4.080778,
       "failed_checks": []
      },
      {
@@ -1686,7 +1686,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "verified",
-      "secs": 25.6671,
+      "secs": 7.5867214,
       "failed_checks": []
      }
     ]
@@ -1700,7 +1700,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 692,
+    "elapsed_ms": 211,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -1725,7 +1725,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 10.371517,
+      "secs": 3.8087697,
       "failed_checks": []
      },
      {
@@ -1734,7 +1734,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 20.943129,
+      "secs": 7.7572803,
       "failed_checks": []
      },
      {
@@ -1751,8 +1751,8 @@
       "label": "up to 2 accounts and up to 3 transfers",
       "accounts": 2,
       "transfers": 3,
-      "status": "timeout",
-      "secs": null,
+      "status": "verified",
+      "secs": 21.195509,
       "failed_checks": []
      },
      {
@@ -1775,7 +1775,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 78,
+    "elapsed_ms": 44,
     "limit": {
      "accounts": 3,
      "transfers": null
@@ -1800,7 +1800,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 3.2208395,
+      "secs": 1.1124557,
       "failed_checks": []
      }
     ]
@@ -1814,7 +1814,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 79,
+    "elapsed_ms": 46,
     "limit": {
      "accounts": 3,
      "transfers": null
@@ -1839,7 +1839,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 2.87487,
+      "secs": 1.4862251,
       "failed_checks": []
      }
     ]
@@ -1853,7 +1853,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 67,
+    "elapsed_ms": 45,
     "limit": {
      "accounts": 3,
      "transfers": null
@@ -1878,7 +1878,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 2.4304085,
+      "secs": 1.0408095,
       "failed_checks": []
      }
     ]
@@ -1892,7 +1892,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 8060,
+    "elapsed_ms": 2632,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -1917,7 +1917,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 6.4684653,
+      "secs": 3.111051,
       "failed_checks": []
      },
      {
@@ -1926,7 +1926,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 23.340033,
+      "secs": 7.3179445,
       "failed_checks": []
      },
      {
@@ -1967,7 +1967,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 858,
+    "elapsed_ms": 576,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -1992,7 +1992,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 6.113194,
+      "secs": 2.9428415,
       "failed_checks": []
      },
      {
@@ -2001,7 +2001,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 11.011682,
+      "secs": 5.3852186,
       "failed_checks": []
      },
      {
@@ -2018,8 +2018,8 @@
       "label": "up to 2 accounts and up to 3 transfers",
       "accounts": 2,
       "transfers": 3,
-      "status": "timeout",
-      "secs": null,
+      "status": "verified",
+      "secs": 22.671804,
       "failed_checks": []
      },
      {
@@ -2042,7 +2042,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 227,
+    "elapsed_ms": 135,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -2067,7 +2067,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 3.0127208,
+      "secs": 1.2691326,
       "failed_checks": []
      },
      {
@@ -2099,7 +2099,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 311,
+    "elapsed_ms": 196,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -2124,7 +2124,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 1.3217117,
+      "secs": 1.03012,
       "failed_checks": []
      },
      {
@@ -2133,7 +2133,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 1.4632615,
+      "secs": 1.1070012,
       "failed_checks": []
      },
      {
@@ -2142,7 +2142,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 2.4430315,
+      "secs": 1.3271785,
       "failed_checks": []
      }
     ]
@@ -2185,7 +2185,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "failed",
-      "secs": 3.2741845,
+      "secs": 2.3514042,
       "failed_checks": [
        "RULE"
       ]
@@ -2196,7 +2196,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "failed",
-      "secs": 4.53574,
+      "secs": 3.0430307,
       "failed_checks": [
        "RULE"
       ]
@@ -2207,7 +2207,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "failed",
-      "secs": 6.092308,
+      "secs": 3.072037,
       "failed_checks": [
        "RULE"
       ]
@@ -2218,7 +2218,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "failed",
-      "secs": 8.405945,
+      "secs": 3.611148,
       "failed_checks": [
        "RULE"
       ]
@@ -2229,7 +2229,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "failed",
-      "secs": 15.908822,
+      "secs": 6.0368934,
       "failed_checks": [
        "RULE"
       ]
@@ -2302,7 +2302,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 239,
+    "elapsed_ms": 155,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -2327,7 +2327,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 3.8873997,
+      "secs": 1.4082998,
       "failed_checks": []
      },
      {
@@ -2359,7 +2359,7 @@
     "calls_to_first_failure": 0,
     "cases": 0,
     "compared_with_tree": true,
-    "elapsed_ms": 8634,
+    "elapsed_ms": 5813,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -2384,7 +2384,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.0823705,
+      "secs": 0.037659336,
       "failed_checks": []
      }
     ]
@@ -2398,7 +2398,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 175,
+    "elapsed_ms": 122,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -2423,7 +2423,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.091917,
+      "secs": 0.08781333,
       "failed_checks": []
      }
     ]
@@ -2437,7 +2437,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 109,
+    "elapsed_ms": 75,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -2462,7 +2462,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.2690044,
+      "secs": 0.27328566,
       "failed_checks": []
      }
     ]
@@ -2476,7 +2476,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 103,
+    "elapsed_ms": 70,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -2501,7 +2501,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.25601166,
+      "secs": 0.22782862,
       "failed_checks": []
      }
     ]
@@ -2515,7 +2515,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 108,
+    "elapsed_ms": 70,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -2540,7 +2540,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.2172542,
+      "secs": 0.19060141,
       "failed_checks": []
      }
     ]
@@ -2583,7 +2583,7 @@
       "accounts": null,
       "transfers": null,
       "status": "failed",
-      "secs": 0.09666254,
+      "secs": 0.082148835,
       "failed_checks": [
        "RULE"
       ]
@@ -2656,7 +2656,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 343,
+    "elapsed_ms": 198,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -2681,7 +2681,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 7.566735,
+      "secs": 2.8063667,
       "failed_checks": []
      },
      {
@@ -2690,7 +2690,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 20.249409,
+      "secs": 7.786623,
       "failed_checks": []
      },
      {
@@ -2731,7 +2731,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 336,
+    "elapsed_ms": 224,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -2756,7 +2756,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 13.8674965,
+      "secs": 5.2228384,
       "failed_checks": []
      },
      {
@@ -2765,7 +2765,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 14.362844,
+      "secs": 6.2900133,
       "failed_checks": []
      },
      {
@@ -2774,7 +2774,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 26.738697,
+      "secs": 8.611288,
       "failed_checks": []
      },
      {
@@ -2783,7 +2783,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 21.254934,
+      "secs": 7.3822923,
       "failed_checks": []
      },
      {
@@ -2792,7 +2792,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "verified",
-      "secs": 24.912567,
+      "secs": 14.2157755,
       "failed_checks": []
      }
     ]
@@ -2806,7 +2806,7 @@
     "calls_to_first_failure": 2085,
     "cases": 322,
     "compared_with_tree": true,
-    "elapsed_ms": 74,
+    "elapsed_ms": 45,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -2834,7 +2834,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 5.0444317,
+      "secs": 2.4175115,
       "failed_checks": []
      },
      {
@@ -2843,7 +2843,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "failed",
-      "secs": 6.2287865,
+      "secs": 2.9166942,
       "failed_checks": [
        "RULE"
       ]
@@ -2854,7 +2854,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 10.989346,
+      "secs": 3.7084925,
       "failed_checks": []
      },
      {
@@ -2863,7 +2863,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "failed",
-      "secs": 11.396483,
+      "secs": 4.2935534,
       "failed_checks": [
        "RULE"
       ]
@@ -2874,7 +2874,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "failed",
-      "secs": 11.767322,
+      "secs": 7.237703,
       "failed_checks": [
        "RULE"
       ]
@@ -2942,7 +2942,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 269,
+    "elapsed_ms": 145,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -2967,7 +2967,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 6.5915256,
+      "secs": 3.418541,
       "failed_checks": []
      },
      {
@@ -2976,7 +2976,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 14.202238,
+      "secs": 5.635716,
       "failed_checks": []
      },
      {
@@ -2985,7 +2985,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 8.418181,
+      "secs": 6.543251,
       "failed_checks": []
      }
     ]
@@ -2999,7 +2999,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 122,
+    "elapsed_ms": 86,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -3024,7 +3024,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.88004214,
+      "secs": 0.69398063,
       "failed_checks": []
      },
      {
@@ -3033,7 +3033,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 1.2897048,
+      "secs": 0.9136366,
       "failed_checks": []
      },
      {
@@ -3042,7 +3042,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 1.3715392,
+      "secs": 1.0192051,
       "failed_checks": []
      }
     ]
@@ -3056,7 +3056,7 @@
     "calls_to_first_failure": 2,
     "cases": 99,
     "compared_with_tree": true,
-    "elapsed_ms": 1,
+    "elapsed_ms": 0,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -3083,7 +3083,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "failed",
-      "secs": 0.8325445,
+      "secs": 0.6501169,
       "failed_checks": [
        "RULE"
       ]
@@ -3094,7 +3094,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "failed",
-      "secs": 0.88138384,
+      "secs": 0.65373766,
       "failed_checks": [
        "RULE"
       ]
@@ -3105,7 +3105,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "failed",
-      "secs": 0.8889039,
+      "secs": 0.74173856,
       "failed_checks": [
        "RULE"
       ]
@@ -3168,7 +3168,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 144,
+    "elapsed_ms": 95,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -3193,7 +3193,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.7239505,
+      "secs": 0.615354,
       "failed_checks": []
      },
      {
@@ -3202,7 +3202,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 1.2322129,
+      "secs": 0.744031,
       "failed_checks": []
      },
      {
@@ -3211,7 +3211,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 1.4580165,
+      "secs": 0.66574484,
       "failed_checks": []
      }
     ]
@@ -3225,7 +3225,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 308,
+    "elapsed_ms": 212,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -3250,7 +3250,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 11.73974,
+      "secs": 6.9065576,
       "failed_checks": []
      },
      {
@@ -3259,7 +3259,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 18.393696,
+      "secs": 10.558806,
       "failed_checks": []
      },
      {
@@ -3276,8 +3276,8 @@
       "label": "up to 2 accounts and up to 3 transfers",
       "accounts": 2,
       "transfers": 3,
-      "status": "timeout",
-      "secs": null,
+      "status": "verified",
+      "secs": 27.044718,
       "failed_checks": []
      },
      {
@@ -3300,7 +3300,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 304,
+    "elapsed_ms": 204,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -3325,7 +3325,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 5.352171,
+      "secs": 2.727214,
       "failed_checks": []
      },
      {
@@ -3334,7 +3334,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 12.2351885,
+      "secs": 6.7417173,
       "failed_checks": []
      },
      {
@@ -3375,7 +3375,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 88,
+    "elapsed_ms": 55,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -3400,7 +3400,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.057459377,
+      "secs": 0.066841,
       "failed_checks": []
      }
     ]
@@ -3442,7 +3442,7 @@
       "accounts": null,
       "transfers": null,
       "status": "failed",
-      "secs": 0.054060414,
+      "secs": 0.048399206,
       "failed_checks": [
        "RULE"
       ]
@@ -3503,6 +3503,279 @@
     }
    ]
   },
+  "Rule.intake.always_answers": {
+   "property": {
+    "bits": null,
+    "calls": 10000,
+    "calls_to_first_failure": 0,
+    "cases": 10000,
+    "compared_with_tree": true,
+    "elapsed_ms": 120,
+    "limit": {
+     "accounts": null,
+     "transfers": null
+    },
+    "longest": {
+     "accounts": null,
+     "transfers": null
+    },
+    "message": "",
+    "rejected": 0,
+    "rule": "Rule.intake.always_answers",
+    "seed": 20261111,
+    "status": "pass",
+    "witness": null
+   },
+   "bounded": {
+    "ran": true,
+    "rungs": [
+     {
+      "harness": "k53_r0",
+      "label": "no size bound",
+      "accounts": null,
+      "transfers": null,
+      "status": "verified",
+      "secs": 0.08629671,
+      "failed_checks": []
+     }
+    ]
+   },
+   "witnesses": []
+  },
+  "Rule.intake.accept_only_if_verified": {
+   "property": {
+    "bits": null,
+    "calls": 10000,
+    "calls_to_first_failure": 0,
+    "cases": 10000,
+    "compared_with_tree": true,
+    "elapsed_ms": 122,
+    "limit": {
+     "accounts": null,
+     "transfers": null
+    },
+    "longest": {
+     "accounts": null,
+     "transfers": null
+    },
+    "message": "",
+    "rejected": 0,
+    "rule": "Rule.intake.accept_only_if_verified",
+    "seed": 20261111,
+    "status": "pass",
+    "witness": null
+   },
+   "bounded": {
+    "ran": true,
+    "rungs": [
+     {
+      "harness": "k54_r0",
+      "label": "no size bound",
+      "accounts": null,
+      "transfers": null,
+      "status": "verified",
+      "secs": 0.14982112,
+      "failed_checks": []
+     }
+    ]
+   },
+   "witnesses": []
+  },
+  "Rule.intake.unverified_rejected_unchanged": {
+   "property": {
+    "bits": null,
+    "calls": 14242,
+    "calls_to_first_failure": 0,
+    "cases": 10000,
+    "compared_with_tree": true,
+    "elapsed_ms": 175,
+    "limit": {
+     "accounts": null,
+     "transfers": null
+    },
+    "longest": {
+     "accounts": null,
+     "transfers": null
+    },
+    "message": "",
+    "rejected": 4242,
+    "rule": "Rule.intake.unverified_rejected_unchanged",
+    "seed": 20261111,
+    "status": "pass",
+    "witness": null
+   },
+   "bounded": {
+    "ran": true,
+    "rungs": [
+     {
+      "harness": "k55_r0",
+      "label": "no size bound",
+      "accounts": null,
+      "transfers": null,
+      "status": "verified",
+      "secs": 0.1505585,
+      "failed_checks": []
+     }
+    ]
+   },
+   "witnesses": []
+  },
+  "Rule.intake.unsigned_part_ignored": {
+   "property": {
+    "bits": null,
+    "calls": 75549,
+    "calls_to_first_failure": 0,
+    "cases": 10000,
+    "compared_with_tree": true,
+    "elapsed_ms": 1626,
+    "limit": {
+     "accounts": null,
+     "transfers": null
+    },
+    "longest": {
+     "accounts": null,
+     "transfers": null
+    },
+    "message": "",
+    "rejected": 65549,
+    "rule": "Rule.intake.unsigned_part_ignored",
+    "seed": 20261111,
+    "status": "pass",
+    "witness": null
+   },
+   "bounded": {
+    "ran": true,
+    "rungs": [
+     {
+      "harness": "k56_r0",
+      "label": "no size bound",
+      "accounts": null,
+      "transfers": null,
+      "status": "verified",
+      "secs": 0.18136284,
+      "failed_checks": []
+     }
+    ]
+   },
+   "witnesses": []
+  },
+  "Rule.intake.accept_only_if_counter_above": {
+   "property": {
+    "bits": null,
+    "calls": 10000,
+    "calls_to_first_failure": 0,
+    "cases": 10000,
+    "compared_with_tree": true,
+    "elapsed_ms": 121,
+    "limit": {
+     "accounts": null,
+     "transfers": null
+    },
+    "longest": {
+     "accounts": null,
+     "transfers": null
+    },
+    "message": "",
+    "rejected": 0,
+    "rule": "Rule.intake.accept_only_if_counter_above",
+    "seed": 20261111,
+    "status": "pass",
+    "witness": null
+   },
+   "bounded": {
+    "ran": true,
+    "rungs": [
+     {
+      "harness": "k57_r0",
+      "label": "no size bound",
+      "accounts": null,
+      "transfers": null,
+      "status": "verified",
+      "secs": 0.08762708,
+      "failed_checks": []
+     }
+    ]
+   },
+   "witnesses": []
+  },
+  "Rule.intake.counter_set": {
+   "property": {
+    "bits": null,
+    "calls": 10000,
+    "calls_to_first_failure": 0,
+    "cases": 10000,
+    "compared_with_tree": true,
+    "elapsed_ms": 119,
+    "limit": {
+     "accounts": null,
+     "transfers": null
+    },
+    "longest": {
+     "accounts": null,
+     "transfers": null
+    },
+    "message": "",
+    "rejected": 0,
+    "rule": "Rule.intake.counter_set",
+    "seed": 20261111,
+    "status": "pass",
+    "witness": null
+   },
+   "bounded": {
+    "ran": true,
+    "rungs": [
+     {
+      "harness": "k58_r0",
+      "label": "no size bound",
+      "accounts": null,
+      "transfers": null,
+      "status": "verified",
+      "secs": 0.08477983,
+      "failed_checks": []
+     }
+    ]
+   },
+   "witnesses": []
+  },
+  "Rule.intake.same_message_again_rejected": {
+   "property": {
+    "bits": null,
+    "calls": 10000,
+    "calls_to_first_failure": 0,
+    "cases": 10000,
+    "compared_with_tree": true,
+    "elapsed_ms": 122,
+    "limit": {
+     "accounts": null,
+     "transfers": null
+    },
+    "longest": {
+     "accounts": null,
+     "transfers": null
+    },
+    "message": "",
+    "rejected": 0,
+    "rule": "Rule.intake.same_message_again_rejected",
+    "seed": 20261111,
+    "status": "pass",
+    "witness": null
+   },
+   "bounded": {
+    "ran": true,
+    "rungs": [
+     {
+      "harness": "k59_r0",
+      "label": "no size bound",
+      "accounts": null,
+      "transfers": null,
+      "status": "verified",
+      "secs": 0.11348417,
+      "failed_checks": []
+     }
+    ]
+   },
+   "witnesses": []
+  },
   "Rule.ledger_rules.readme_internal_transfers": {
    "property": {
     "bits": null,
@@ -3510,7 +3783,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 426,
+    "elapsed_ms": 278,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -3530,16 +3803,16 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k53_r0",
+      "harness": "k60_r0",
       "label": "up to 2 accounts",
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 1.7025008,
+      "secs": 1.3321778,
       "failed_checks": []
      },
      {
-      "harness": "k53_r1",
+      "harness": "k60_r1",
       "label": "up to 4 accounts",
       "accounts": 4,
       "transfers": null,
@@ -3548,7 +3821,7 @@
       "failed_checks": []
      },
      {
-      "harness": "k53_r2",
+      "harness": "k60_r2",
       "label": "up to 6 accounts",
       "accounts": 6,
       "transfers": null,
@@ -3567,7 +3840,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 399,
+    "elapsed_ms": 284,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -3587,25 +3860,25 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k54_r0",
+      "harness": "k61_r0",
       "label": "up to 2 accounts",
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 1.8119555,
+      "secs": 1.2981334,
       "failed_checks": []
      },
      {
-      "harness": "k54_r1",
+      "harness": "k61_r1",
       "label": "up to 4 accounts",
       "accounts": 4,
       "transfers": null,
-      "status": "timeout",
-      "secs": null,
+      "status": "verified",
+      "secs": 28.70118,
       "failed_checks": []
      },
      {
-      "harness": "k54_r2",
+      "harness": "k61_r2",
       "label": "up to 6 accounts",
       "accounts": 6,
       "transfers": null,
@@ -3624,7 +3897,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 189,
+    "elapsed_ms": 118,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -3644,30 +3917,30 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k55_r0",
+      "harness": "k62_r0",
       "label": "up to 2 accounts",
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.8384444,
+      "secs": 0.7718393,
       "failed_checks": []
      },
      {
-      "harness": "k55_r1",
+      "harness": "k62_r1",
       "label": "up to 4 accounts",
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 0.7899467,
+      "secs": 0.7085988,
       "failed_checks": []
      },
      {
-      "harness": "k55_r2",
+      "harness": "k62_r2",
       "label": "up to 6 accounts",
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 0.9924777,
+      "secs": 0.8389154,
       "failed_checks": []
      }
     ]
@@ -3681,7 +3954,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 326,
+    "elapsed_ms": 218,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -3701,30 +3974,30 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k56_r0",
+      "harness": "k63_r0",
       "label": "up to 2 accounts",
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.50329405,
+      "secs": 0.5455782,
       "failed_checks": []
      },
      {
-      "harness": "k56_r1",
+      "harness": "k63_r1",
       "label": "up to 4 accounts",
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 0.4881197,
+      "secs": 0.48974356,
       "failed_checks": []
      },
      {
-      "harness": "k56_r2",
+      "harness": "k63_r2",
       "label": "up to 6 accounts",
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 0.5398256,
+      "secs": 0.5042161,
       "failed_checks": []
      }
     ]
@@ -3761,62 +4034,62 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k57_r0",
+      "harness": "k64_r0",
       "label": "up to 2 accounts and up to 1 transfer",
       "accounts": 2,
       "transfers": 1,
       "status": "failed",
-      "secs": 2.494008,
+      "secs": 2.097695,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k57_r1",
+      "harness": "k64_r1",
       "label": "up to 2 accounts and up to 2 transfers",
       "accounts": 2,
       "transfers": 2,
       "status": "failed",
-      "secs": 2.9343987,
+      "secs": 2.5666564,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k57_r2",
+      "harness": "k64_r2",
       "label": "up to 4 accounts and up to 1 transfer",
       "accounts": 4,
       "transfers": 1,
       "status": "failed",
-      "secs": 3.0068543,
+      "secs": 2.5279584,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k57_r3",
+      "harness": "k64_r3",
       "label": "up to 2 accounts and up to 3 transfers",
       "accounts": 2,
       "transfers": 3,
       "status": "failed",
-      "secs": 4.0395617,
+      "secs": 3.5860868,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k57_r4",
+      "harness": "k64_r4",
       "label": "up to 6 accounts and up to 4 transfers",
       "accounts": 6,
       "transfers": 4,
       "status": "failed",
-      "secs": 6.9487467,
+      "secs": 4.757805,
       "failed_checks": [
        "RULE"
       ]
      }
     ],
-    "witness_harness": "k57_r0",
+    "witness_harness": "k64_r0",
     "witness_rung": "up to 2 accounts and up to 1 transfer",
     "witness": {
      "the_batch": "[1->0:4611686018427387909]",
@@ -3878,7 +4151,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 311,
+    "elapsed_ms": 196,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -3898,48 +4171,48 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k58_r0",
+      "harness": "k65_r0",
       "label": "up to 2 accounts and up to 1 transfer",
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 4.547971,
+      "secs": 3.001866,
       "failed_checks": []
      },
      {
-      "harness": "k58_r1",
+      "harness": "k65_r1",
       "label": "up to 2 accounts and up to 2 transfers",
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 7.489156,
+      "secs": 3.5539315,
       "failed_checks": []
      },
      {
-      "harness": "k58_r2",
+      "harness": "k65_r2",
       "label": "up to 4 accounts and up to 1 transfer",
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 10.044617,
+      "secs": 4.000555,
       "failed_checks": []
      },
      {
-      "harness": "k58_r3",
+      "harness": "k65_r3",
       "label": "up to 2 accounts and up to 3 transfers",
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 9.162231,
+      "secs": 4.3765564,
       "failed_checks": []
      },
      {
-      "harness": "k58_r4",
+      "harness": "k65_r4",
       "label": "up to 6 accounts and up to 4 transfers",
       "accounts": 6,
       "transfers": 4,
       "status": "verified",
-      "secs": 9.569294,
+      "secs": 8.282147,
       "failed_checks": []
      }
     ]
@@ -3953,7 +4226,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 1374,
+    "elapsed_ms": 811,
     "limit": {
      "accounts": 8,
      "transfers": null
@@ -3973,30 +4246,30 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k59_r0",
+      "harness": "k66_r0",
       "label": "up to 2 accounts",
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 2.061551,
+      "secs": 1.4706415,
       "failed_checks": []
      },
      {
-      "harness": "k59_r1",
+      "harness": "k66_r1",
       "label": "up to 4 accounts",
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 1.911356,
+      "secs": 1.740027,
       "failed_checks": []
      },
      {
-      "harness": "k59_r2",
+      "harness": "k66_r2",
       "label": "up to 6 accounts",
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 2.2730386,
+      "secs": 2.336083,
       "failed_checks": []
      }
     ]
@@ -4010,7 +4283,7 @@
     "calls_to_first_failure": 8,
     "cases": 14,
     "compared_with_tree": true,
-    "elapsed_ms": 5,
+    "elapsed_ms": 4,
     "limit": {
      "accounts": 8,
      "transfers": null
@@ -4035,40 +4308,40 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k60_r0",
+      "harness": "k67_r0",
       "label": "up to 2 accounts",
       "accounts": 2,
       "transfers": null,
       "status": "failed",
-      "secs": 1.5702544,
+      "secs": 1.5054206,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k60_r1",
+      "harness": "k67_r1",
       "label": "up to 4 accounts",
       "accounts": 4,
       "transfers": null,
       "status": "failed",
-      "secs": 1.6869847,
+      "secs": 1.554906,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k60_r2",
+      "harness": "k67_r2",
       "label": "up to 6 accounts",
       "accounts": 6,
       "transfers": null,
       "status": "failed",
-      "secs": 1.9216137,
+      "secs": 1.7329352,
       "failed_checks": [
        "RULE"
       ]
      }
     ],
-    "witness_harness": "k60_r0",
+    "witness_harness": "k67_r0",
     "witness_rung": "up to 2 accounts",
     "witness": {
      "the_ledger": "[9223372036854775808, 9223372036854775808]",
@@ -4140,7 +4413,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 792,
+    "elapsed_ms": 538,
     "limit": {
      "accounts": 8,
      "transfers": null
@@ -4160,30 +4433,30 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k61_r0",
+      "harness": "k68_r0",
       "label": "up to 2 accounts",
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 1.2972898,
+      "secs": 1.0524001,
       "failed_checks": []
      },
      {
-      "harness": "k61_r1",
+      "harness": "k68_r1",
       "label": "up to 4 accounts",
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 1.365094,
+      "secs": 1.077024,
       "failed_checks": []
      },
      {
-      "harness": "k61_r2",
+      "harness": "k68_r2",
       "label": "up to 6 accounts",
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 1.4038587,
+      "secs": 1.075116,
       "failed_checks": []
      }
     ]
@@ -4197,7 +4470,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 135,
+    "elapsed_ms": 95,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -4217,30 +4490,30 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k62_r0",
+      "harness": "k69_r0",
       "label": "up to 2 accounts",
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 2.123483,
+      "secs": 0.9862526,
       "failed_checks": []
      },
      {
-      "harness": "k62_r1",
+      "harness": "k69_r1",
       "label": "up to 4 accounts",
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 3.0845106,
+      "secs": 1.1109076,
       "failed_checks": []
      },
      {
-      "harness": "k62_r2",
+      "harness": "k69_r2",
       "label": "up to 6 accounts",
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 3.9908333,
+      "secs": 1.1350539,
       "failed_checks": []
      }
     ]
@@ -4277,40 +4550,40 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k63_r0",
+      "harness": "k70_r0",
       "label": "up to 2 accounts",
       "accounts": 2,
       "transfers": null,
       "status": "failed",
-      "secs": 5.1075134,
+      "secs": 1.0697576,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k63_r1",
+      "harness": "k70_r1",
       "label": "up to 4 accounts",
       "accounts": 4,
       "transfers": null,
       "status": "failed",
-      "secs": 2.7757144,
+      "secs": 1.528889,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k63_r2",
+      "harness": "k70_r2",
       "label": "up to 6 accounts",
       "accounts": 6,
       "transfers": null,
       "status": "failed",
-      "secs": 3.9600544,
+      "secs": 1.2506089,
       "failed_checks": [
        "RULE"
       ]
      }
     ],
-    "witness_harness": "k63_r0",
+    "witness_harness": "k70_r0",
     "witness_rung": "up to 2 accounts",
     "witness": {
      "the_account": "9223372036854775808",
@@ -4362,7 +4635,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 622,
+    "elapsed_ms": 455,
     "limit": {
      "accounts": 8,
      "transfers": null
@@ -4382,30 +4655,30 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k64_r0",
+      "harness": "k71_r0",
       "label": "up to 2 accounts",
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 2.3796363,
+      "secs": 0.98876613,
       "failed_checks": []
      },
      {
-      "harness": "k64_r1",
+      "harness": "k71_r1",
       "label": "up to 4 accounts",
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 3.0135143,
+      "secs": 1.2343792,
       "failed_checks": []
      },
      {
-      "harness": "k64_r2",
+      "harness": "k71_r2",
       "label": "up to 6 accounts",
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 2.1859796,
+      "secs": 1.7161217,
       "failed_checks": []
      }
     ]
@@ -4419,7 +4692,7 @@
     "calls_to_first_failure": 29,
     "cases": 89,
     "compared_with_tree": true,
-    "elapsed_ms": 8,
+    "elapsed_ms": 6,
     "limit": {
      "accounts": 8,
      "transfers": null
@@ -4444,46 +4717,46 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k65_r0",
+      "harness": "k72_r0",
       "label": "up to 2 accounts",
       "accounts": 2,
       "transfers": null,
       "status": "failed",
-      "secs": 1.8253701,
+      "secs": 1.4028682,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k65_r1",
+      "harness": "k72_r1",
       "label": "up to 4 accounts",
       "accounts": 4,
       "transfers": null,
       "status": "failed",
-      "secs": 2.7310662,
+      "secs": 1.60115,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k65_r2",
+      "harness": "k72_r2",
       "label": "up to 6 accounts",
       "accounts": 6,
       "transfers": null,
       "status": "failed",
-      "secs": 3.083674,
+      "secs": 1.6190455,
       "failed_checks": [
        "RULE"
       ]
      }
     ],
-    "witness_harness": "k65_r0",
+    "witness_harness": "k72_r0",
     "witness_rung": "up to 2 accounts",
     "witness": {
-     "the_ledger": "[18446744073709551615, 1]",
-     "the_ledger_2": "[18446744073709551615, 1]",
-     "the_transfer": "0->1:18446744073709551615",
-     "the_transfer_2": "0->1:18446744073709551614"
+     "the_ledger": "[9223372036854775808, 18446744073709551615]",
+     "the_ledger_2": "[9223372036854775808, 18446744073709551615]",
+     "the_transfer": "0->1:1",
+     "the_transfer_2": "0->1:0"
     },
     "replay": "fails"
    },
@@ -4517,23 +4790,23 @@
     {
      "source": "bounded check",
      "values": {
-      "the_ledger": "[18446744073709551615, 1]",
-      "the_ledger_2": "[18446744073709551615, 1]",
-      "the_transfer": "0->1:18446744073709551615",
-      "the_transfer_2": "0->1:18446744073709551614"
+      "the_ledger": "[9223372036854775808, 18446744073709551615]",
+      "the_ledger_2": "[9223372036854775808, 18446744073709551615]",
+      "the_transfer": "0->1:1",
+      "the_transfer_2": "0->1:0"
      },
      "rust": "fails",
      "note": "Kani at up to 2 accounts; replayed on the compiled Rust through the generated predicate",
      "terms": {
-      "st": "(LVocab.mkLedger ([18446744073709551615#u64, 1#u64]))",
-      "inp": "(ledger.Transfer.mk 0#usize 1#usize 18446744073709551615#u64)",
-      "st2": "(LVocab.mkLedger ([18446744073709551615#u64, 1#u64]))",
-      "inp2": "(ledger.Transfer.mk 0#usize 1#usize 18446744073709551614#u64)",
+      "st": "(LVocab.mkLedger ([9223372036854775808#u64, 18446744073709551615#u64]))",
+      "inp": "(ledger.Transfer.mk 0#usize 1#usize 1#u64)",
+      "st2": "(LVocab.mkLedger ([9223372036854775808#u64, 18446744073709551615#u64]))",
+      "inp2": "(ledger.Transfer.mk 0#usize 1#usize 0#u64)",
       "outer": {
-       "the_ledger": "([18446744073709551615#u64, 1#u64])",
-       "the_transfer": "(ledger.Transfer.mk 0#usize 1#usize 18446744073709551615#u64)",
-       "the_ledger_2": "([18446744073709551615#u64, 1#u64])",
-       "the_transfer_2": "(ledger.Transfer.mk 0#usize 1#usize 18446744073709551614#u64)"
+       "the_ledger": "([9223372036854775808#u64, 18446744073709551615#u64])",
+       "the_transfer": "(ledger.Transfer.mk 0#usize 1#usize 1#u64)",
+       "the_ledger_2": "([9223372036854775808#u64, 18446744073709551615#u64])",
+       "the_transfer_2": "(ledger.Transfer.mk 0#usize 1#usize 0#u64)"
       }
      },
      "model_bits": "0",
@@ -4549,7 +4822,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 1024,
+    "elapsed_ms": 787,
     "limit": {
      "accounts": 8,
      "transfers": null
@@ -4569,30 +4842,30 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k66_r0",
+      "harness": "k73_r0",
       "label": "up to 2 accounts",
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 2.477291,
+      "secs": 1.4524246,
       "failed_checks": []
      },
      {
-      "harness": "k66_r1",
+      "harness": "k73_r1",
       "label": "up to 4 accounts",
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 4.3915744,
+      "secs": 1.9188583,
       "failed_checks": []
      },
      {
-      "harness": "k66_r2",
+      "harness": "k73_r2",
       "label": "up to 6 accounts",
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 6.425324,
+      "secs": 2.2365248,
       "failed_checks": []
      }
     ]
@@ -4606,7 +4879,7 @@
     "calls_to_first_failure": 397,
     "cases": 250,
     "compared_with_tree": true,
-    "elapsed_ms": 18,
+    "elapsed_ms": 13,
     "limit": {
      "accounts": 8,
      "transfers": null
@@ -4631,40 +4904,40 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k67_r0",
+      "harness": "k74_r0",
       "label": "up to 2 accounts",
       "accounts": 2,
       "transfers": null,
       "status": "failed",
-      "secs": 2.0161257,
+      "secs": 1.5086,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k67_r1",
+      "harness": "k74_r1",
       "label": "up to 4 accounts",
       "accounts": 4,
       "transfers": null,
       "status": "failed",
-      "secs": 1.8580251,
+      "secs": 1.5248013,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k67_r2",
+      "harness": "k74_r2",
       "label": "up to 6 accounts",
       "accounts": 6,
       "transfers": null,
       "status": "failed",
-      "secs": 2.2091486,
+      "secs": 1.6314675,
       "failed_checks": [
        "RULE"
       ]
      }
     ],
-    "witness_harness": "k67_r0",
+    "witness_harness": "k74_r0",
     "witness_rung": "up to 2 accounts",
     "witness": {
      "the_ledger": "[9223372036854775808, 9223372036854775808]",
@@ -4736,7 +5009,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 265,
+    "elapsed_ms": 198,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -4756,48 +5029,48 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k68_r0",
+      "harness": "k75_r0",
       "label": "up to 2 accounts and up to 1 transfer",
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 2.89017,
+      "secs": 2.2950344,
       "failed_checks": []
      },
      {
-      "harness": "k68_r1",
+      "harness": "k75_r1",
       "label": "up to 2 accounts and up to 2 transfers",
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 3.9942088,
+      "secs": 2.8881667,
       "failed_checks": []
      },
      {
-      "harness": "k68_r2",
+      "harness": "k75_r2",
       "label": "up to 4 accounts and up to 1 transfer",
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 4.460116,
+      "secs": 2.7490628,
       "failed_checks": []
      },
      {
-      "harness": "k68_r3",
+      "harness": "k75_r3",
       "label": "up to 2 accounts and up to 3 transfers",
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 6.79274,
+      "secs": 3.9027722,
       "failed_checks": []
      },
      {
-      "harness": "k68_r4",
+      "harness": "k75_r4",
       "label": "up to 6 accounts and up to 4 transfers",
       "accounts": 6,
       "transfers": 4,
       "status": "verified",
-      "secs": 19.552073,
+      "secs": 7.4405794,
       "failed_checks": []
      }
     ]
@@ -4811,7 +5084,7 @@
     "calls_to_first_failure": 1,
     "cases": 3,
     "compared_with_tree": true,
-    "elapsed_ms": 2,
+    "elapsed_ms": 1,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -4834,62 +5107,62 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k69_r0",
+      "harness": "k76_r0",
       "label": "up to 2 accounts and up to 1 transfer",
       "accounts": 2,
       "transfers": 1,
       "status": "failed",
-      "secs": 4.5295486,
+      "secs": 2.2624676,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k69_r1",
+      "harness": "k76_r1",
       "label": "up to 2 accounts and up to 2 transfers",
       "accounts": 2,
       "transfers": 2,
       "status": "failed",
-      "secs": 4.8533735,
+      "secs": 3.0894651,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k69_r2",
+      "harness": "k76_r2",
       "label": "up to 4 accounts and up to 1 transfer",
       "accounts": 4,
       "transfers": 1,
       "status": "failed",
-      "secs": 3.582361,
+      "secs": 3.1110077,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k69_r3",
+      "harness": "k76_r3",
       "label": "up to 2 accounts and up to 3 transfers",
       "accounts": 2,
       "transfers": 3,
       "status": "failed",
-      "secs": 4.116581,
+      "secs": 3.6795797,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k69_r4",
+      "harness": "k76_r4",
       "label": "up to 6 accounts and up to 4 transfers",
       "accounts": 6,
       "transfers": 4,
       "status": "failed",
-      "secs": 5.828562,
+      "secs": 5.688353,
       "failed_checks": [
        "RULE"
       ]
      }
     ],
-    "witness_harness": "k69_r0",
+    "witness_harness": "k76_r0",
     "witness_rung": "up to 2 accounts and up to 1 transfer",
     "witness": {
      "the_batch": "[0->1:9223372036854775807]",
@@ -4951,7 +5224,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 1337,
+    "elapsed_ms": 981,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -4971,25 +5244,25 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k70_r0",
+      "harness": "k77_r0",
       "label": "up to 2 accounts and up to 1 transfer",
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 3.9423509,
+      "secs": 3.6894112,
       "failed_checks": []
      },
      {
-      "harness": "k70_r1",
+      "harness": "k77_r1",
       "label": "up to 2 accounts and up to 2 transfers",
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 11.29689,
+      "secs": 10.538175,
       "failed_checks": []
      },
      {
-      "harness": "k70_r2",
+      "harness": "k77_r2",
       "label": "up to 4 accounts and up to 1 transfer",
       "accounts": 4,
       "transfers": 1,
@@ -4998,7 +5271,7 @@
       "failed_checks": []
      },
      {
-      "harness": "k70_r3",
+      "harness": "k77_r3",
       "label": "up to 2 accounts and up to 3 transfers",
       "accounts": 2,
       "transfers": 3,
@@ -5007,7 +5280,7 @@
       "failed_checks": []
      },
      {
-      "harness": "k70_r4",
+      "harness": "k77_r4",
       "label": "up to 6 accounts and up to 4 transfers",
       "accounts": 6,
       "transfers": 4,
@@ -5026,7 +5299,7 @@
     "calls_to_first_failure": 1857,
     "cases": 1619,
     "compared_with_tree": true,
-    "elapsed_ms": 56,
+    "elapsed_ms": 39,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -5049,58 +5322,58 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k71_r0",
+      "harness": "k78_r0",
       "label": "up to 2 accounts and up to 1 transfer",
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 4.782199,
+      "secs": 2.6871324,
       "failed_checks": []
      },
      {
-      "harness": "k71_r1",
+      "harness": "k78_r1",
       "label": "up to 2 accounts and up to 2 transfers",
       "accounts": 2,
       "transfers": 2,
       "status": "failed",
-      "secs": 10.995636,
+      "secs": 4.015771,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k71_r2",
+      "harness": "k78_r2",
       "label": "up to 4 accounts and up to 1 transfer",
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 7.3685417,
+      "secs": 3.7601047,
       "failed_checks": []
      },
      {
-      "harness": "k71_r3",
+      "harness": "k78_r3",
       "label": "up to 2 accounts and up to 3 transfers",
       "accounts": 2,
       "transfers": 3,
       "status": "failed",
-      "secs": 7.8796754,
+      "secs": 4.513774,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k71_r4",
+      "harness": "k78_r4",
       "label": "up to 6 accounts and up to 4 transfers",
       "accounts": 6,
       "transfers": 4,
       "status": "failed",
-      "secs": 16.0744,
+      "secs": 7.648207,
       "failed_checks": [
        "RULE"
       ]
      }
     ],
-    "witness_harness": "k71_r1",
+    "witness_harness": "k78_r1",
     "witness_rung": "up to 2 accounts and up to 2 transfers",
     "witness": {
      "the_batch": "[0->1:24206847997116417, 1->0:6485746413366935563]",
@@ -5162,7 +5435,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 277,
+    "elapsed_ms": 197,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -5182,43 +5455,43 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k72_r0",
+      "harness": "k79_r0",
       "label": "up to 2 accounts and up to 1 transfer",
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 7.875926,
+      "secs": 4.4016447,
       "failed_checks": []
      },
      {
-      "harness": "k72_r1",
+      "harness": "k79_r1",
       "label": "up to 2 accounts and up to 2 transfers",
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 9.266934,
+      "secs": 7.7788534,
       "failed_checks": []
      },
      {
-      "harness": "k72_r2",
+      "harness": "k79_r2",
       "label": "up to 4 accounts and up to 1 transfer",
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 15.019355,
+      "secs": 9.865347,
       "failed_checks": []
      },
      {
-      "harness": "k72_r3",
+      "harness": "k79_r3",
       "label": "up to 2 accounts and up to 3 transfers",
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 20.374762,
+      "secs": 10.3856,
       "failed_checks": []
      },
      {
-      "harness": "k72_r4",
+      "harness": "k79_r4",
       "label": "up to 6 accounts and up to 4 transfers",
       "accounts": 6,
       "transfers": 4,
@@ -5237,7 +5510,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 274,
+    "elapsed_ms": 208,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -5257,43 +5530,43 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k73_r0",
+      "harness": "k80_r0",
       "label": "up to 2 accounts and up to 1 transfer",
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 4.844961,
+      "secs": 4.1092024,
       "failed_checks": []
      },
      {
-      "harness": "k73_r1",
+      "harness": "k80_r1",
       "label": "up to 2 accounts and up to 2 transfers",
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 7.2809057,
+      "secs": 5.9621634,
       "failed_checks": []
      },
      {
-      "harness": "k73_r2",
+      "harness": "k80_r2",
       "label": "up to 4 accounts and up to 1 transfer",
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 9.468392,
+      "secs": 6.8246703,
       "failed_checks": []
      },
      {
-      "harness": "k73_r3",
+      "harness": "k80_r3",
       "label": "up to 2 accounts and up to 3 transfers",
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 13.552339,
+      "secs": 8.390956,
       "failed_checks": []
      },
      {
-      "harness": "k73_r4",
+      "harness": "k80_r4",
       "label": "up to 6 accounts and up to 4 transfers",
       "accounts": 6,
       "transfers": 4,
@@ -5312,7 +5585,7 @@
     "calls_to_first_failure": 1,
     "cases": 7,
     "compared_with_tree": true,
-    "elapsed_ms": 3,
+    "elapsed_ms": 2,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -5335,36 +5608,36 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k74_r0",
+      "harness": "k81_r0",
       "label": "up to 2 accounts",
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.6280341,
+      "secs": 0.5378711,
       "failed_checks": []
      },
      {
-      "harness": "k74_r1",
+      "harness": "k81_r1",
       "label": "up to 4 accounts",
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 1.0225091,
+      "secs": 0.6700049,
       "failed_checks": []
      },
      {
-      "harness": "k74_r2",
+      "harness": "k81_r2",
       "label": "up to 6 accounts",
       "accounts": 6,
       "transfers": null,
       "status": "failed",
-      "secs": 0.95574194,
+      "secs": 0.7381373,
       "failed_checks": [
        "RULE"
       ]
      }
     ],
-    "witness_harness": "k74_r2",
+    "witness_harness": "k81_r2",
     "witness_rung": "up to 6 accounts",
     "witness": {
      "the_ledger": "[18446744073709551615, 18446744073709551615, 18446744073709551615, 18446744073709551615, 4, 18446744073709551615]",
@@ -5426,7 +5699,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 269,
+    "elapsed_ms": 196,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -5446,48 +5719,48 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k75_r0",
+      "harness": "k82_r0",
       "label": "up to 2 accounts and up to 1 transfer",
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 1.8187125,
+      "secs": 1.6236174,
       "failed_checks": []
      },
      {
-      "harness": "k75_r1",
+      "harness": "k82_r1",
       "label": "up to 2 accounts and up to 2 transfers",
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 2.5831976,
+      "secs": 1.9075866,
       "failed_checks": []
      },
      {
-      "harness": "k75_r2",
+      "harness": "k82_r2",
       "label": "up to 4 accounts and up to 1 transfer",
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 1.9608252,
+      "secs": 2.1505725,
       "failed_checks": []
      },
      {
-      "harness": "k75_r3",
+      "harness": "k82_r3",
       "label": "up to 2 accounts and up to 3 transfers",
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 2.8922668,
+      "secs": 2.4104111,
       "failed_checks": []
      },
      {
-      "harness": "k75_r4",
+      "harness": "k82_r4",
       "label": "up to 6 accounts and up to 4 transfers",
       "accounts": 6,
       "transfers": 4,
       "status": "verified",
-      "secs": 3.8723323,
+      "secs": 3.4485605,
       "failed_checks": []
      }
     ]
@@ -5501,7 +5774,7 @@
     "calls_to_first_failure": 17,
     "cases": 28,
     "compared_with_tree": true,
-    "elapsed_ms": 4,
+    "elapsed_ms": 2,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -5524,40 +5797,40 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k76_r0",
+      "harness": "k83_r0",
       "label": "up to 2 accounts",
       "accounts": 2,
       "transfers": null,
       "status": "failed",
-      "secs": 1.0772653,
+      "secs": 0.9680943,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k76_r1",
+      "harness": "k83_r1",
       "label": "up to 4 accounts",
       "accounts": 4,
       "transfers": null,
       "status": "failed",
-      "secs": 1.2572478,
+      "secs": 1.0988489,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k76_r2",
+      "harness": "k83_r2",
       "label": "up to 6 accounts",
       "accounts": 6,
       "transfers": null,
       "status": "failed",
-      "secs": 1.406267,
+      "secs": 1.1464442,
       "failed_checks": [
        "RULE"
       ]
      }
     ],
-    "witness_harness": "k76_r0",
+    "witness_harness": "k83_r0",
     "witness_rung": "up to 2 accounts",
     "witness": {
      "the_ledger": "[18446744073709551615, 18446744073709551614]",
@@ -5619,7 +5892,7 @@
     "calls_to_first_failure": 1,
     "cases": 3,
     "compared_with_tree": true,
-    "elapsed_ms": 2,
+    "elapsed_ms": 1,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -5642,40 +5915,40 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k77_r0",
+      "harness": "k84_r0",
       "label": "up to 2 accounts",
       "accounts": 2,
       "transfers": null,
       "status": "failed",
-      "secs": 1.0589279,
+      "secs": 0.8791496,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k77_r1",
+      "harness": "k84_r1",
       "label": "up to 4 accounts",
       "accounts": 4,
       "transfers": null,
       "status": "failed",
-      "secs": 1.5693202,
+      "secs": 0.88252205,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k77_r2",
+      "harness": "k84_r2",
       "label": "up to 6 accounts",
       "accounts": 6,
       "transfers": null,
       "status": "failed",
-      "secs": 2.0546856,
+      "secs": 1.0474602,
       "failed_checks": [
        "RULE"
       ]
      }
     ],
-    "witness_harness": "k77_r0",
+    "witness_harness": "k84_r0",
     "witness_rung": "up to 2 accounts",
     "witness": {
      "the_ledger": "[4, 0]",
@@ -5737,7 +6010,7 @@
     "calls_to_first_failure": 1,
     "cases": 94,
     "compared_with_tree": true,
-    "elapsed_ms": 2,
+    "elapsed_ms": 1,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -5760,62 +6033,62 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k78_r0",
+      "harness": "k85_r0",
       "label": "up to 2 accounts and up to 1 transfer",
       "accounts": 2,
       "transfers": 1,
       "status": "failed",
-      "secs": 5.1979403,
+      "secs": 2.0741875,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k78_r1",
+      "harness": "k85_r1",
       "label": "up to 2 accounts and up to 2 transfers",
       "accounts": 2,
       "transfers": 2,
       "status": "failed",
-      "secs": 3.52877,
+      "secs": 2.549455,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k78_r2",
+      "harness": "k85_r2",
       "label": "up to 4 accounts and up to 1 transfer",
       "accounts": 4,
       "transfers": 1,
       "status": "failed",
-      "secs": 3.7223725,
+      "secs": 2.5289946,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k78_r3",
+      "harness": "k85_r3",
       "label": "up to 2 accounts and up to 3 transfers",
       "accounts": 2,
       "transfers": 3,
       "status": "failed",
-      "secs": 4.3725185,
+      "secs": 3.0743227,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k78_r4",
+      "harness": "k85_r4",
       "label": "up to 6 accounts and up to 4 transfers",
       "accounts": 6,
       "transfers": 4,
       "status": "failed",
-      "secs": 7.3485045,
+      "secs": 5.3354588,
       "failed_checks": [
        "RULE"
       ]
      }
     ],
-    "witness_harness": "k78_r0",
+    "witness_harness": "k85_r0",
     "witness_rung": "up to 2 accounts and up to 1 transfer",
     "witness": {
      "the_batch": "[0->1:33]",
@@ -5877,7 +6150,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 164,
+    "elapsed_ms": 120,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -5897,30 +6170,30 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k79_r0",
+      "harness": "k86_r0",
       "label": "up to 2 accounts",
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 1.524015,
+      "secs": 0.94634926,
       "failed_checks": []
      },
      {
-      "harness": "k79_r1",
+      "harness": "k86_r1",
       "label": "up to 4 accounts",
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 2.3433769,
+      "secs": 1.067378,
       "failed_checks": []
      },
      {
-      "harness": "k79_r2",
+      "harness": "k86_r2",
       "label": "up to 6 accounts",
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 1.374759,
+      "secs": 1.2817978,
       "failed_checks": []
      }
     ]
@@ -5934,7 +6207,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 187,
+    "elapsed_ms": 132,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -5954,30 +6227,30 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k80_r0",
+      "harness": "k87_r0",
       "label": "up to 2 accounts",
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 1.4791192,
+      "secs": 0.974246,
       "failed_checks": []
      },
      {
-      "harness": "k80_r1",
+      "harness": "k87_r1",
       "label": "up to 4 accounts",
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 2.1639326,
+      "secs": 1.1282082,
       "failed_checks": []
      },
      {
-      "harness": "k80_r2",
+      "harness": "k87_r2",
       "label": "up to 6 accounts",
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 3.2608252,
+      "secs": 1.5569196,
       "failed_checks": []
      }
     ]
@@ -5991,7 +6264,7 @@
     "calls_to_first_failure": 1,
     "cases": 1,
     "compared_with_tree": true,
-    "elapsed_ms": 1,
+    "elapsed_ms": 0,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -6014,62 +6287,62 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k81_r0",
+      "harness": "k88_r0",
       "label": "up to 2 accounts and up to 1 transfer",
       "accounts": 2,
       "transfers": 1,
       "status": "failed",
-      "secs": 2.9086,
+      "secs": 1.9071383,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k81_r1",
+      "harness": "k88_r1",
       "label": "up to 2 accounts and up to 2 transfers",
       "accounts": 2,
       "transfers": 2,
       "status": "failed",
-      "secs": 2.974492,
+      "secs": 2.1872566,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k81_r2",
+      "harness": "k88_r2",
       "label": "up to 4 accounts and up to 1 transfer",
       "accounts": 4,
       "transfers": 1,
       "status": "failed",
-      "secs": 3.5988932,
+      "secs": 2.2084627,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k81_r3",
+      "harness": "k88_r3",
       "label": "up to 2 accounts and up to 3 transfers",
       "accounts": 2,
       "transfers": 3,
       "status": "failed",
-      "secs": 2.8030856,
+      "secs": 2.790983,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k81_r4",
+      "harness": "k88_r4",
       "label": "up to 6 accounts and up to 4 transfers",
       "accounts": 6,
       "transfers": 4,
       "status": "failed",
-      "secs": 4.107661,
+      "secs": 3.9480128,
       "failed_checks": [
        "RULE"
       ]
      }
     ],
-    "witness_harness": "k81_r0",
+    "witness_harness": "k88_r0",
     "witness_rung": "up to 2 accounts and up to 1 transfer",
     "witness": {
      "the_batch": "[18446744073709551615->18446744073709551615:18446744073709551615]",
@@ -6121,7 +6394,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 272,
+    "elapsed_ms": 200,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -6141,48 +6414,48 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k82_r0",
+      "harness": "k89_r0",
       "label": "up to 2 accounts and up to 1 transfer",
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 2.3018808,
+      "secs": 2.050648,
       "failed_checks": []
      },
      {
-      "harness": "k82_r1",
+      "harness": "k89_r1",
       "label": "up to 2 accounts and up to 2 transfers",
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 3.3635504,
+      "secs": 2.3915408,
       "failed_checks": []
      },
      {
-      "harness": "k82_r2",
+      "harness": "k89_r2",
       "label": "up to 4 accounts and up to 1 transfer",
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 2.4583578,
+      "secs": 2.467574,
       "failed_checks": []
      },
      {
-      "harness": "k82_r3",
+      "harness": "k89_r3",
       "label": "up to 2 accounts and up to 3 transfers",
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 3.6044025,
+      "secs": 3.5411441,
       "failed_checks": []
      },
      {
-      "harness": "k82_r4",
+      "harness": "k89_r4",
       "label": "up to 6 accounts and up to 4 transfers",
       "accounts": 6,
       "transfers": 4,
       "status": "verified",
-      "secs": 4.904762,
+      "secs": 4.3486376,
       "failed_checks": []
      }
     ]
@@ -6196,7 +6469,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 275,
+    "elapsed_ms": 202,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -6216,48 +6489,48 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k83_r0",
+      "harness": "k90_r0",
       "label": "up to 2 accounts and up to 1 transfer",
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 4.5704145,
+      "secs": 2.7446423,
       "failed_checks": []
      },
      {
-      "harness": "k83_r1",
+      "harness": "k90_r1",
       "label": "up to 2 accounts and up to 2 transfers",
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 3.7284124,
+      "secs": 3.8201518,
       "failed_checks": []
      },
      {
-      "harness": "k83_r2",
+      "harness": "k90_r2",
       "label": "up to 4 accounts and up to 1 transfer",
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 4.6579356,
+      "secs": 4.103676,
       "failed_checks": []
      },
      {
-      "harness": "k83_r3",
+      "harness": "k90_r3",
       "label": "up to 2 accounts and up to 3 transfers",
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 7.778191,
+      "secs": 4.4597125,
       "failed_checks": []
      },
      {
-      "harness": "k83_r4",
+      "harness": "k90_r4",
       "label": "up to 6 accounts and up to 4 transfers",
       "accounts": 6,
       "transfers": 4,
       "status": "verified",
-      "secs": 14.345703,
+      "secs": 8.430343,
       "failed_checks": []
      }
     ]
@@ -6271,7 +6544,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 346,
+    "elapsed_ms": 258,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -6291,48 +6564,48 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k84_r0",
+      "harness": "k91_r0",
       "label": "up to 2 accounts and up to 1 transfer",
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 3.8257341,
+      "secs": 2.5524945,
       "failed_checks": []
      },
      {
-      "harness": "k84_r1",
+      "harness": "k91_r1",
       "label": "up to 2 accounts and up to 2 transfers",
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 4.224247,
+      "secs": 2.6689448,
       "failed_checks": []
      },
      {
-      "harness": "k84_r2",
+      "harness": "k91_r2",
       "label": "up to 4 accounts and up to 1 transfer",
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 5.4728174,
+      "secs": 4.007522,
       "failed_checks": []
      },
      {
-      "harness": "k84_r3",
+      "harness": "k91_r3",
       "label": "up to 2 accounts and up to 3 transfers",
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 3.4267333,
+      "secs": 3.6689014,
       "failed_checks": []
      },
      {
-      "harness": "k84_r4",
+      "harness": "k91_r4",
       "label": "up to 6 accounts and up to 4 transfers",
       "accounts": 6,
       "transfers": 4,
       "status": "verified",
-      "secs": 5.69667,
+      "secs": 5.8679185,
       "failed_checks": []
      }
     ]
@@ -6346,7 +6619,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 162,
+    "elapsed_ms": 119,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -6366,16 +6639,16 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k85_r0",
+      "harness": "k92_r0",
       "label": "up to 2 accounts",
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 1.0314142,
+      "secs": 1.051101,
       "failed_checks": []
      },
      {
-      "harness": "k85_r1",
+      "harness": "k92_r1",
       "label": "up to 4 accounts",
       "accounts": 4,
       "transfers": null,
@@ -6384,7 +6657,7 @@
       "failed_checks": []
      },
      {
-      "harness": "k85_r2",
+      "harness": "k92_r2",
       "label": "up to 6 accounts",
       "accounts": 6,
       "transfers": null,
@@ -6403,7 +6676,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 862,
+    "elapsed_ms": 614,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -6423,30 +6696,30 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k86_r0",
+      "harness": "k93_r0",
       "label": "up to 2 accounts",
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 1.0552963,
+      "secs": 0.80057997,
       "failed_checks": []
      },
      {
-      "harness": "k86_r1",
+      "harness": "k93_r1",
       "label": "up to 4 accounts",
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 1.223572,
+      "secs": 0.8598452,
       "failed_checks": []
      },
      {
-      "harness": "k86_r2",
+      "harness": "k93_r2",
       "label": "up to 6 accounts",
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 1.4786942,
+      "secs": 0.9669162,
       "failed_checks": []
      }
     ]
@@ -6460,7 +6733,7 @@
     "calls_to_first_failure": 182,
     "cases": 29,
     "compared_with_tree": true,
-    "elapsed_ms": 5,
+    "elapsed_ms": 3,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -6483,40 +6756,40 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k87_r0",
+      "harness": "k94_r0",
       "label": "up to 2 accounts",
       "accounts": 2,
       "transfers": null,
       "status": "failed",
-      "secs": 0.99929494,
+      "secs": 0.7656597,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k87_r1",
+      "harness": "k94_r1",
       "label": "up to 4 accounts",
       "accounts": 4,
       "transfers": null,
       "status": "failed",
-      "secs": 0.98996615,
+      "secs": 0.74076575,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k87_r2",
+      "harness": "k94_r2",
       "label": "up to 6 accounts",
       "accounts": 6,
       "transfers": null,
       "status": "failed",
-      "secs": 1.091661,
+      "secs": 0.77124834,
       "failed_checks": [
        "RULE"
       ]
      }
     ],
-    "witness_harness": "k87_r0",
+    "witness_harness": "k94_r0",
     "witness_rung": "up to 2 accounts",
     "witness": {
      "the_ledger": "[18446744073709551615, 0]",
@@ -6601,40 +6874,40 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k88_r0",
+      "harness": "k95_r0",
       "label": "up to 2 accounts",
       "accounts": 2,
       "transfers": null,
       "status": "failed",
-      "secs": 1.1342556,
+      "secs": 0.7021007,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k88_r1",
+      "harness": "k95_r1",
       "label": "up to 4 accounts",
       "accounts": 4,
       "transfers": null,
       "status": "failed",
-      "secs": 0.95156866,
+      "secs": 0.76688325,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k88_r2",
+      "harness": "k95_r2",
       "label": "up to 6 accounts",
       "accounts": 6,
       "transfers": null,
       "status": "failed",
-      "secs": 1.1894586,
+      "secs": 0.78297704,
       "failed_checks": [
        "RULE"
       ]
      }
     ],
-    "witness_harness": "k88_r0",
+    "witness_harness": "k95_r0",
     "witness_rung": "up to 2 accounts",
     "witness": {
      "the_ledger": "[18446744073709551615]",
@@ -6686,7 +6959,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 166,
+    "elapsed_ms": 118,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -6706,30 +6979,30 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k89_r0",
+      "harness": "k96_r0",
       "label": "up to 2 accounts",
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 1.0055237,
+      "secs": 0.79685605,
       "failed_checks": []
      },
      {
-      "harness": "k89_r1",
+      "harness": "k96_r1",
       "label": "up to 4 accounts",
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 1.2939448,
+      "secs": 0.86147994,
       "failed_checks": []
      },
      {
-      "harness": "k89_r2",
+      "harness": "k96_r2",
       "label": "up to 6 accounts",
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 1.8337557,
+      "secs": 0.9084873,
       "failed_checks": []
      }
     ]
@@ -6743,7 +7016,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 412,
+    "elapsed_ms": 307,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -6763,30 +7036,30 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k90_r0",
+      "harness": "k97_r0",
       "label": "up to 2 accounts",
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 1.7281115,
+      "secs": 1.5347097,
       "failed_checks": []
      },
      {
-      "harness": "k90_r1",
+      "harness": "k97_r1",
       "label": "up to 4 accounts",
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 3.4920628,
+      "secs": 2.3133447,
       "failed_checks": []
      },
      {
-      "harness": "k90_r2",
+      "harness": "k97_r2",
       "label": "up to 6 accounts",
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 5.0523596,
+      "secs": 4.278708,
       "failed_checks": []
      }
     ]
@@ -6800,7 +7073,7 @@
     "calls_to_first_failure": 1,
     "cases": 64,
     "compared_with_tree": true,
-    "elapsed_ms": 2,
+    "elapsed_ms": 1,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -6823,40 +7096,40 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k91_r0",
+      "harness": "k98_r0",
       "label": "up to 2 accounts",
       "accounts": 2,
       "transfers": null,
       "status": "failed",
-      "secs": 1.4418448,
+      "secs": 0.72815007,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k91_r1",
+      "harness": "k98_r1",
       "label": "up to 4 accounts",
       "accounts": 4,
       "transfers": null,
       "status": "failed",
-      "secs": 1.0670824,
+      "secs": 0.81071347,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k91_r2",
+      "harness": "k98_r2",
       "label": "up to 6 accounts",
       "accounts": 6,
       "transfers": null,
       "status": "failed",
-      "secs": 1.2427309,
+      "secs": 1.0021697,
       "failed_checks": [
        "RULE"
       ]
      }
     ],
-    "witness_harness": "k91_r0",
+    "witness_harness": "k98_r0",
     "witness_rung": "up to 2 accounts",
     "witness": {
      "the_ledger": "[5, 9223372036854775824]",
@@ -6918,7 +7191,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 172,
+    "elapsed_ms": 131,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -6938,16 +7211,16 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k92_r0",
+      "harness": "k99_r0",
       "label": "up to 2 accounts",
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 4.570431,
+      "secs": 2.1410651,
       "failed_checks": []
      },
      {
-      "harness": "k92_r1",
+      "harness": "k99_r1",
       "label": "up to 4 accounts",
       "accounts": 4,
       "transfers": null,
@@ -6956,7 +7229,7 @@
       "failed_checks": []
      },
      {
-      "harness": "k92_r2",
+      "harness": "k99_r2",
       "label": "up to 6 accounts",
       "accounts": 6,
       "transfers": null,
@@ -6975,7 +7248,7 @@
     "calls_to_first_failure": 13,
     "cases": 81,
     "compared_with_tree": true,
-    "elapsed_ms": 5,
+    "elapsed_ms": 3,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -6998,40 +7271,40 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k93_r0",
+      "harness": "k100_r0",
       "label": "up to 2 accounts",
       "accounts": 2,
       "transfers": null,
       "status": "failed",
-      "secs": 1.8018801,
+      "secs": 1.3143103,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k93_r1",
+      "harness": "k100_r1",
       "label": "up to 4 accounts",
       "accounts": 4,
       "transfers": null,
       "status": "failed",
-      "secs": 1.7604401,
+      "secs": 1.296629,
       "failed_checks": [
        "RULE"
       ]
      },
      {
-      "harness": "k93_r2",
+      "harness": "k100_r2",
       "label": "up to 6 accounts",
       "accounts": 6,
       "transfers": null,
       "status": "failed",
-      "secs": 3.1967125,
+      "secs": 1.8563232,
       "failed_checks": [
        "RULE"
       ]
      }
     ],
-    "witness_harness": "k93_r0",
+    "witness_harness": "k100_r0",
     "witness_rung": "up to 2 accounts",
     "witness": {
      "the_ledger": "[18446744073709551615, 3]",
@@ -7093,7 +7366,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 72,
+    "elapsed_ms": 58,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -7113,12 +7386,12 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k94_r0",
+      "harness": "k101_r0",
       "label": "no size bound",
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.13420458,
+      "secs": 0.08026675,
       "failed_checks": []
      }
     ]
@@ -7155,18 +7428,18 @@
     "ran": true,
     "rungs": [
      {
-      "harness": "k95_r0",
+      "harness": "k102_r0",
       "label": "no size bound",
       "accounts": null,
       "transfers": null,
       "status": "failed",
-      "secs": 0.12218633,
+      "secs": 0.080028,
       "failed_checks": [
        "RULE"
       ]
      }
     ],
-    "witness_harness": "k95_r0",
+    "witness_harness": "k102_r0",
     "witness_rung": "no size bound",
     "witness": {
      "the_amount": "9223372036854775808",
@@ -7223,10 +7496,10 @@
   }
  },
  "cost": {
-  "property_build_secs": 1.24,
-  "property_secs": 52.96,
-  "bounded_secs": 629.9,
-  "bounded_witness_secs": 185.8
+  "property_build_secs": 0.27,
+  "property_secs": 29.61,
+  "bounded_secs": 467.5,
+  "bounded_witness_secs": 116.2
  },
  "kani_timeout": 30,
  "jobs": 6,

@@ -11,6 +11,7 @@ publish = false
 wallet = { path = "../wallet" }
 ledger = { path = "../ledger" }
 counter = { path = "../counter" }
+sigintake = { path = "../sigintake" }
 serde_json = "1"
 
 [dev-dependencies]

@@ -29,6 +29,11 @@
     "ledger/rust-toolchain.toml": "519e83cd3aa2a54d2c65489884ede487d1887a9bd6292a07dc0bd5aafdded545",
     "ledger/src/lib.rs": "4cbbcdd7af5c744f91ac1a7964a6b86906697b0437f3999ffd67fc1732fb706a",
     "ledger/tests/unit.rs": "8aad5bee76376030fbdaf7f3d73f9a7be421ac254019e629930fd798c790c76b",
+    "sigintake/Cargo.lock": "a0cfd686bd20a6ea04f5f93c0bc84b065c9f8d278343dc56afde1730d1ae17b0",
+    "sigintake/Cargo.toml": "3afe335b04eff90c0fe719e8bdf2551140ae1af8eccb7769625f2c892d7daae8",
+    "sigintake/rust-toolchain.toml": "519e83cd3aa2a54d2c65489884ede487d1887a9bd6292a07dc0bd5aafdded545",
+    "sigintake/src/lib.rs": "d728f3441a5745d7fda3a47adb6caaadf3e75afeaffaa89a8e0f043391bebbd3",
+    "sigintake/tests/unit.rs": "cfd599d6853b49319fd67dfb9bc3069a3580a5044070f1992f0edd753565851a",
     "wallet/Cargo.lock": "efd609182e73b48249054e6ab89239dbaf72505eb468598927c22328a3f5221f",
     "wallet/Cargo.toml": "046aff46866ca87cb0557002b8fab0d53762dfdb0e7346d3d663c08e477fb76f",
     "wallet/rust-toolchain.toml": "519e83cd3aa2a54d2c65489884ede487d1887a9bd6292a07dc0bd5aafdded545",
@@ -38,7 +43,8 @@
   "outputs": {
     "lean/Generated/Counter.lean": "b0aef4823fecb5b2d6f62c2d178702477e8966e1d6073f5e0b8ad149edeb52fe",
     "lean/Generated/Ledger.lean": "2da1cb96b236f83625f51473166b8766288231ca030c5e62040627acfe276ecb",
+    "lean/Generated/Sigintake.lean": "f8ec2263e8d972f40de1904145bf6f932faeda9f8cd1b8ba3539f90d639a7504",
     "lean/Generated/Wallet.lean": "855d3e8dd7d968bcf34b5cc151979a39617b4f1ee6cb7215f365283db784e6ad",
-    "lean/translation.json": "a326c1033108e96a5333c368a384d8bfc980aa2b6dfea10728902400e3ee755e"
+    "lean/translation.json": "5f1db56d685a064137bb2bb1e22b068c44a5a4d5d50f7d892d76c1a1bf06463d"
   }
 }

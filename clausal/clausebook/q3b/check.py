@@ -13,7 +13,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent.parent))
-from clausal import book, projects, vocab, vreport          # noqa: E402
+from clausal import attest, book, projects, vocab, vreport          # noqa: E402
 from clausal.core import Feature, Rule, load_glossary       # noqa: E402
 from clausal.pipeline import ROOT                           # noqa: E402
 
@@ -38,11 +38,12 @@ def main() -> int:
             what = ("ONE statement, about " + ", ".join(dict.fromkeys(o["id"] for c in r.info["clauses"] for o in c["ops"]))
                     if isinstance(r, vocab.Reading) else f"refused {r.status}")
             print(f"    {name}: {what}")
-    across = lambda p: sorted(x["skeleton"] for x in book.lint(voc, {}, p)[0] if x["check"] == "4 shared skeleton across systems")
+    across = lambda p: sorted(x["skeleton"] for x in book.lint(voc, attest.Records(), p)[0] if x["check"] == "4 shared skeleton across systems")
     print(f"  lint, skeletons shared across systems: declared projects: {across(None)}; "
           f"one project with the books of both: {across([('both', sorted(b.split('/', 1)[1] for b in both))])}; no project declared: {across([])}")
     print("2. Separations recorded in the books")
-    so = vreport.load_piece_signoff(voc)
+    recs = vreport.load_attestations(voc, {})
+    by = lambda i: attest.person_review(recs.of(i, {"separation"}))
     ok = True
     for s in voc.separations.values():
         st = book.separation_state(voc, s)
@@ -54,10 +55,13 @@ def main() -> int:
               + ("" if not st["ok"] else "; no separating input recorded" if w is None else
                  f"; separating input {s['witness']['input']} (the sentence for `{s['witness']['holds']}` holds), recorded for today's two terms" if w["ok"]
                  else "; RECORDED INPUT VOID: " + "; ".join(w["why"]))
-              + ("; signed by " + so[s["id"]].get("reviewer", "?") if s["id"] in so else "; UNSIGNED"))
+              + ("; " + attest.said(by(s["id"])) if by(s["id"]) else "; UNSIGNED (no person's review or approval on record)"))
     now, _ = book.lint(voc)
-    as_if = {i: {"digest": vreport.piece_digest(voc, {}, i), "reviewer": "(nobody: shown as if signed)", "date": "-"} for i in voc.separations}
-    V, _ = book.lint(voc, signoffs=as_if)
+    # WHAT-IF, in memory only: each proposed pair as if a person had approved it. Nobody has; nothing is stored.
+    as_if = attest.Records()
+    as_if.valid = [attest.make("separation", vreport.book_name(voc.book_of(i)), i, vreport.subject_digest(voc, {}, i), "approved",
+                               "human:nobody-shown-as-if-approved", "what-if of clausebook/q3b/check.py; stored nowhere") for i in voc.separations]
+    V, _ = book.lint(voc, records=as_if)
     print(f"  lint violations today: {len(now)}; were these {len(voc.separations)} separations signed: {len(V)}")
     for x in V:
         print(f"    [{x['check']}] {x['key']}")

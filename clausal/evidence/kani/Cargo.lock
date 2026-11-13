@@ -16,8 +16,13 @@ version = "0.1.0"
 dependencies = [
  "counter",
  "ledger",
+ "sigintake",
  "wallet",
 ]
+
+[[package]]
+name = "sigintake"
+version = "0.1.0"
 
 [[package]]
 name = "wallet"

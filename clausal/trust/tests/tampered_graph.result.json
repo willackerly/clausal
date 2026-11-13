@@ -1,0 +1,50 @@
+{
+ "proved": 74,
+ "checks": [
+  {
+   "what": "T1 graphlint refuses the tampered graph and names the kind mismatch",
+   "as_expected": true,
+   "got": "exit 1; 172 errors name the mismatch"
+  },
+  {
+   "what": "T2 `clausal trust --graph <tampered> --strict`, built-in policy: exit 2, refused, no line says a verdict passes",
+   "as_expected": true,
+   "got": "exit 2 | /var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/tmponj1yo_m/tampered.graph.json: not a valid graph (172 errors, the first 20 shown): REFUSED, strict "
+  },
+  {
+   "what": "T3 evaluate() on the tampered graph, built-in policy: 0 pass, all fail",
+   "as_expected": true,
+   "got": "{\"proved\": 74, \"pass\": 0, \"fail\": 74}"
+  },
+  {
+   "what": "T4 the same under person.yaml and under model.yaml: 0 pass under either",
+   "as_expected": true,
+   "got": "{\"person.yaml\": {\"proved\": 74, \"pass\": 0, \"fail\": 74}, \"model.yaml\": {\"proved\": 74, \"pass\": 0, \"fail\": 74}}"
+  },
+  {
+   "what": "T5 `clausal trust --strict`, untampered graph, built-in policy: exit 1, every proved verdict fails",
+   "as_expected": true,
+   "got": "exit 1 | graph 7e842b513948aac5 (sha256 of everything but the clock); strict mode would fail 74 proved verdicts"
+  },
+  {
+   "what": "T6 `clausal trust --strict`, untampered graph, the policies of projects.yaml: exit 1, every proved verdict fails",
+   "as_expected": true,
+   "got": "exit 1 | graph 7e842b513948aac5 (sha256 of everything but the clock); strict mode would fail 74 proved verdicts"
+  },
+  {
+   "what": "T7 a proved Rule verdict rewritten `pass` with an empty `unreviewed`: exit 2, refused",
+   "as_expected": true,
+   "got": "exit 2 | /var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/tmponj1yo_m/pass-empty.graph.json: not a valid graph (13 errors): REFUSED, strict mode is not compute"
+  },
+  {
+   "what": "(not in the freeze) a proved scenario whose `unreviewed` drops only its old-glossary entries: exit 2, the error names a phrase node",
+   "as_expected": true,
+   "got": "exit 2 | ERROR verdict scenario:Spec.wallet.transfer_conserves: code PROVED-FOR-ALL rests on phrase:G-balance, which no person has reviewed or approved, and `u"
+  },
+  {
+   "what": "(not in the freeze) a well-formed graph in which a person is written as having approved every entry is still a valid graph",
+   "as_expected": true,
+   "got": "exit 0 | /var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/tmponj1yo_m/person-claimed.graph.json: 1195 nodes, 1640 edges, 130 verdicts; valid"
+  }
+ ]
+}

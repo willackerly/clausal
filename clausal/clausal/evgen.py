@@ -69,6 +69,10 @@ def lit_expr(typ: str, text: str) -> tuple:
     if typ == "batch":
         xs = [tr_lit(x) for x in items(text)]
         return ("(&[" + ", ".join(f"({f}usize, {t}usize, {a}u64)" for f, t, a in xs) + "][..])") if xs else "(&[(0usize, 0usize, 0u64); 0][..])", "list"
+    if typ == "message":
+        f = [int(x) for x in text.strip().split("/")]
+        assert len(f) == 4, text
+        return "(" + ", ".join(f"{x}u64" for x in f) + ")", "message"
     if typ == "error":
         return {"insufficient funds": "WAns::InsufficientFunds", "overflow": "WAns::Overflow", "ok": "WAns::Ok"}[text], "name"
     raise Unsupported(f"literal type {typ}")
@@ -100,12 +104,12 @@ def lits_in(x, out: list):
 
 
 ANS_SORT = {"w.transfer": "name", "w.deposit": "name", "w.withdraw": "name", "l.apply_batch": "num", "l.apply_all": "bool",
-            "l.apply": "bool", "l.total": "opt", "l.lookup": "opt", "ctr.bump": "bool"}
+            "l.apply": "bool", "l.total": "opt", "l.lookup": "opt", "ctr.bump": "bool", "in.intake": "bool"}
 ACCEPTED = {"w.transfer": "({a} == WAns::Ok)", "w.deposit": "({a} == WAns::Ok)", "w.withdraw": "({a} == WAns::Ok)",
-            "l.apply_batch": "true", "l.apply_all": "{a}", "l.apply": "{a}", "l.total": "{a}.is_some()", "l.lookup": "{a}.is_some()", "ctr.bump": "{a}"}
+            "l.apply_batch": "true", "l.apply_all": "{a}", "l.apply": "{a}", "l.total": "{a}.is_some()", "l.lookup": "{a}.is_some()", "ctr.bump": "{a}", "in.intake": "{a}"}
 RUN_FN = {"w.transfer": "w_transfer", "w.deposit": "w_deposit", "w.withdraw": "w_withdraw", "l.apply_batch": "l_apply_batch",
-          "l.apply_all": "l_apply_all", "l.apply": "l_apply", "l.total": "l_total", "l.lookup": "l_lookup", "ctr.bump": "ctr_bump"}
-RUST_TY = {"amount": "u64", "index": "u64", "balances": "&[u64]", "transfer": "T", "batch": "&[T]"}
+          "l.apply_all": "l_apply_all", "l.apply": "l_apply", "l.total": "l_total", "l.lookup": "l_lookup", "ctr.bump": "ctr_bump", "in.intake": "in_intake"}
+RUST_TY = {"amount": "u64", "index": "u64", "balances": "&[u64]", "transfer": "T", "batch": "&[T]", "message": "M"}
 CALLS = {"rejected": "Calls::Rejected", "successful": "Calls::Accepted"}
 
 
@@ -181,6 +185,12 @@ def gen(x, e: Env) -> tuple:
         return f"({a('w')[0]} as u128)", "num"
     if p == "ctr.count":
         return f"({a('c')[0]} as u128)", "num"
+    if p == "in.verifies":
+        return f"in_verifies({a('k')[0]}, {a('m')[0]})", "bool"
+    if p == "in.last":
+        return f"({a('c')[0]} as u128)", "num"
+    if p == "in.counter_of":
+        return f"({a('m')[0]}.1 as u128)", "num"
     if p in ("w.maximum", "l.maximum"):
         return "MAX", "num"
     if p == "w.succeeds":
@@ -447,7 +457,7 @@ class Plan:
         text = i["lit"]
         if t in ("amount", "index"):
             return f"{int(text)}u64", f"{int(text)}u64"
-        if t == "transfer":
+        if t in ("transfer", "message"):
             e = lit_expr(t, text)[0]
             return e, e
         if t == "batch":
@@ -529,8 +539,9 @@ class Plan:
             if two_claims:
                 sc2 = f"sc{k}_2"
                 lines.append(f"    let {sc2}: bool = {scope(refs2, actors2, rd['run2'])};")
-                pv1 = pre_actors(actors1)[state[0]]
-                pv2 = pre_actors(actors2)[state[0]]
+                # the state as the relation sees it: the one actor, or (a state of several parts) the tuple of them
+                tup = lambda acts: (lambda xs: xs[0] if len(xs) == 1 else "(" + ", ".join(xs) + ")")([pre_actors(acts)[n_] for n_ in state])
+                pv1, pv2 = tup(actors1), tup(actors2)
                 raw2 = self.input_expr(rd["run2"]["inputs"][0], 0, lines)[1]
                 for c in two_claims:
                     piece = c["node"]["a"]["v"]["p"]
@@ -613,7 +624,7 @@ def table_file(ps: list) -> str:
     rows = []
     for p in ps:
         idx = {v: k for k, (v, _) in enumerate(p.vars)}
-        get = {"amount": "num", "index": "num", "balances": "bal", "transfer": "tr", "batch": "batch"}
+        get = {"amount": "num", "index": "num", "balances": "bal", "transfer": "tr", "batch": "batch", "message": "msg"}
         lets = [f"    let xb_{san(v)} = mk_batch(g[{idx[v]}].batch());" for v in p.batches]
         args = [f"g[{idx[v]}].{get[t]}()" for v, t in p.vars]
         args += [f"mk_ledger(g[{idx[var]}].bal())" for _, var in p.ledgers]
@@ -687,6 +698,9 @@ def kani_file(ps: list, only=None) -> tuple:
                 elif t == "transfer":
                     body.append(f"    let v_{s}: T = kani::any();")
                     layout.append((v, t, 1))
+                elif t == "message":
+                    body.append(f"    let v_{s}: M = kani::any();")
+                    layout.append((v, t, 1))
                 elif t == "balances":
                     body.append(f"    let a_{s}: [u64; {A}] = kani::any();\n    let n_{s}: usize = kani::any();\n    kani::assume(n_{s} <= {A});\n"
                                 f"    let v_{s}: &[u64] = &a_{s}[..n_{s}];")
@@ -735,6 +749,8 @@ def decode_playback(text: str, layout: list) -> dict | None:
             elif t == "transfer":
                 f, to, a = take(), take(), take()
                 out[v] = f"{f}->{to}:{a}"
+            elif t == "message":
+                out[v] = "/".join(str(take()) for _ in range(4))
             elif t == "balances":
                 xs = [take() for _ in range(size)]
                 n = take()

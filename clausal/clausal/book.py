@@ -19,7 +19,7 @@ the grammar entries of core):
                 phrase and "for <subject>, <Then claim>" are read, and both an adjective on the subject and a prefix on the claim)
   4  skeleton   no two forms of DIFFERENT pieces share a literal skeleton (the form with its holes blanked), unless a
                 separating pair is recorded (`separations:` in a book: one sentence for each piece, which the compiler
-                must read as that piece and not the other) and SIGNED (`clausal review <id>`; void when either piece or
+                must read as that piece and not the other) and APPROVED BY A PERSON (`clausal attest <id> --act approved --as human:…`; void when either piece or
                 either reading changes). Asked PER PROJECT (projects.yaml): a sentence is compiled against the books of
                 its own project, so only entries that some project loads together are compared. A separation that is
                 unsigned lifts nothing; it is a PROPOSAL, and no violation of its own, only while it separates and
@@ -27,7 +27,7 @@ the grammar entries of core):
                 THE PLAIN CHECK DOES NOT RUN THAT INPUT: it compiles the two sentences and compares the two recorded term
                 hashes, no more, and says so in what it prints. That the input separates is asked by `--separate` (which
                 runs `clausal separate` again and compares; ./run.sh runs it once the Rust is built) and by
-                `clausal review <id>`, which runs it before it signs and refuses to sign an unconfirmed one.
+                `clausal attest <id> --act approved|reviewed`, which runs it before it writes the record and refuses an unconfirmed one.
                 Any other separation not in force is a violation.
                 BARE HOLES: two forms with no literal word ("{x:amount}") are no violation when the (category, position)
                 pairs they are registered under are disjoint: the parser tries a form only where exactly its type is wanted.
@@ -449,9 +449,9 @@ def collisions(fs_all: list) -> tuple:
     return meet, across, apart
 
 
-def lint(voc, signoffs: dict | None = None, pr=None) -> tuple:
+def lint(voc, records=None, pr=None) -> tuple:
     """(violations, notes). A violation: {check, key, owner(s), what}. `key` identifies it in the expected file.
-    `signoffs`: entry id -> sign-off record (None: the records stored beside the books).
+    `records`: the attestation records (attest.Records; None: the ones stored beside the books).
     `pr`: the declared projects (None: projects.yaml; see `scopes_of`). Check 4 is asked PER PROJECT."""
     V, notes = [], {}
     forms = surface(voc)
@@ -577,26 +577,34 @@ def lint(voc, signoffs: dict | None = None, pr=None) -> tuple:
     signed, proposed = {}, {}
     if voc.separations:
         from . import vreport
-        so = vreport.load_piece_signoff(voc) if signoffs is None else signoffs
+        from . import attest
+        # (a separation names no Lean definition, so its digest needs none; records of other entries are not looked at here)
+        recs = vreport.load_attestations(voc, {}) if records is None else records
     for s in voc.separations.values():
         st = separation_state(voc, s, forms, pr)
-        rec = so.get(s["id"])
+        # IN FORCE needs a PERSON's review or approval of exactly this text and these readings (attest.person_review, fixed in
+        # code): a model's record is kept and shown and exempts nothing. (Merge of Q3b and W1: the record is an attestation
+        # record; the proposal rule and the recorded separating input are Q3b's.)
+        rec = attest.person_review(recs.of(s["id"], {"separation"}))
         wit = witness_state(s, st) if st["ok"] else None
         why = list(st["why"])
         if st["ok"]:
-            if rec and rec.get("digest") != vreport.piece_digest(voc, {}, s["id"]):
-                why.append(f"it was signed by {rec.get('reviewer')} on {rec.get('date')} and one of its two pieces, or what one of its sentences "
-                           "compiles to, has changed since: that sign-off is void")
+            void = [r for r, _ in recs.void if r["subject"]["id"] == s["id"] and r["signer"]["kind"] == "person" and r["act"] in attest.REVIEW_ACTS]
+            others = [r for r in recs.of(s["id"]) if r["signer"]["kind"] != "person"]
+            if not rec and void:
+                why.append(f"it was {void[0]['act']} by {void[0]['signer']['id']} on {void[0]['at'][:10]} and one of its two pieces, or what one of "
+                           "its sentences compiles to, has changed since: that record is void")
             elif not rec and wit is None:
-                why.append(f"nobody has signed it (python3 -m clausal review {s['id']} --reviewer <name>), and it records no separating input "
-                           "(`witness:`), so it is not a checked proposal either")
+                why.append(f"no person has reviewed or approved it (python3 -m clausal attest {s['id']} --act approved --as human:<id> --scope …)"
+                           + (f"; on record, and not a person's: {'; '.join(attest.said(r) for r in others)}" if others else "")
+                           + ", and it records no separating input (`witness:`), so it is not a checked proposal either")
             elif wit is not None and not wit["ok"]:
                 why += wit["why"] + ["its recorded separating input is void (python3 -m clausal book check --separate prints the one to record)"]
         if why:
             v("4 separation not in force", s["id"], f"separation `{s['id']}` of `{s['between'][0]}` and `{s['between'][1]}` ({voc.at(s['id'])}) "
               "exempts nothing: " + "; ".join(why), owner=s["id"])
         elif rec:
-            signed[frozenset(s["between"])] = {"id": s["id"], "signed_by": rec.get("reviewer")}
+            signed[frozenset(s["between"])] = {"id": s["id"], "signed_by": rec["signer"]["id"]}
         else:
             proposed[frozenset(s["between"])] = {"id": s["id"], "project": st["project"]}
     notes["signed"], notes["proposed"], notes["bare_typed"] = [], [], []
@@ -675,18 +683,27 @@ def lint(voc, signoffs: dict | None = None, pr=None) -> tuple:
     # a category that bare-hole forms fill at two instances (`term<num>` by "{x:amount}", `term<optnum>` by "{x:amount}"):
     # nothing in such a form fixes T, so a text both bare-hole forms read is read at each T. Each reading is at ONE type, so
     # this is no exception to the rule above; the two readings make the step AMBIGUOUS and the sentence is refused.
-    two_typed = {}
-    for f in forms:
-        if skeleton(f["form"]) == "{}":
-            for c, v_ in registered_types(voc, f):
-                if "<" in c:
-                    two_typed.setdefault(vocab.base_cat(c), set()).add(c)
-    two_typed = {b for b, cs in two_typed.items() if len(cs) > 1}
+    # Asked PER PROJECT, like check 4 (merge of Q3b with the fourth project): the bare-hole forms that count are the ones a
+    # project loads together with the form. (`in.last` of the intake fills `measure<num>` and `l.ledger` of the ledger fills
+    # `measure<balances>`; no project loads both, so no sentence meets a `measure<T>` hole that two of them fill.)
     notes["type_free"] = []
-    for f in forms:
-        ths = [vocab.base_cat(vocab.hole_voice(x[2])[0]) for x in vocab.segments(f["form"]) if x[0] == "hole" and x[2] and "<T>" in x[2]]
-        if ths and "<T>" not in f["cat"] and all(b in two_typed for b in ths):
-            notes["type_free"].append({"owner": f["owner"], "form": f["form"], "categories": sorted(set(ths))})
+    for name, rels in scopes:
+        fs_in = in_scope(rels)
+        two_typed = {}
+        for f in fs_in:
+            if skeleton(f["form"]) == "{}":
+                for c, v_ in registered_types(voc, f):
+                    if "<" in c:
+                        two_typed.setdefault(vocab.base_cat(c), set()).add(c)
+        two_typed = {b for b, cs in two_typed.items() if len(cs) > 1}
+        for f in fs_in:
+            ths = [vocab.base_cat(vocab.hole_voice(x[2])[0]) for x in vocab.segments(f["form"]) if x[0] == "hole" and x[2] and "<T>" in x[2]]
+            if ths and "<T>" not in f["cat"] and all(b in two_typed for b in ths):
+                e = next((x for x in notes["type_free"] if x["owner"] == f["owner"] and x["form"] == f["form"]), None)
+                if e is None:
+                    notes["type_free"].append({"owner": f["owner"], "form": f["form"], "categories": sorted(set(ths)), "projects": [name]})
+                else:
+                    e["projects"].append(name)
     # informational: a form that is an instance of another piece's skeleton ("takes another piece's head")
     sub = []
     pats = {}
@@ -758,6 +775,10 @@ def cmd_check(argv) -> int:
     core = core_alone(lean="--lean" in argv)
     V, notes = lint(voc)
     V5, drift, terms = same_terms(voc)
+    # plan node W4: a word that rests on an assumption names an entry the ledger holds (and the ledger's conditions are Rules
+    # that exist). A fault here is a fault of the book: FeatureError, the check fails.
+    from . import ledger
+    ledger.check(ledger.load(ROOT), voc, {i for i in terms if i.startswith("Rule.")})
     if "--update-terms" in argv:
         (ROOT / vocab.BOOK_DIR / LOCK).write_text(json.dumps({"what": "what every sentence of features/ and controls/ compiles to; written by `clausal book check --update-terms`",
                                                                "sentences": terms}, indent=1, sort_keys=True) + "\n")
@@ -826,7 +847,7 @@ def cmd_check(argv) -> int:
           "separating input for today's two terms, and each is unsigned: it lifts nothing)" + (": " + ", ".join(n_prop) if n_prop and "--quiet" not in argv else ""))
     if voc.separations and "--separate" not in argv:
         print("  separations: the recorded inputs were NOT run by this check (nothing here says that an input separates); "
-              "`book check --separate` runs each, and `clausal review <id>` runs it before it signs")
+              "`book check --separate` runs each, and `clausal attest <id> --act approved` runs it before it writes the record")
     rerun_ok = True
     if "--separate" in argv:
         print("  separations, run again with `clausal separate` (Lean model, then the compiled Rust):")

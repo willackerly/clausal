@@ -4,7 +4,7 @@
     python3 -m clausal.graphlint <graph.json> --what-if <node-id>  what goes stale if that node's interface changed
 
 Used by `clausal report` on out/graph.json and by schema/maths_fit.py on the maths-side example.
-The schema is schema/refinement-graph.v2.schema.json; the prose is ../docs/SCHEMA.md.
+The schema is schema/refinement-graph.v2.1.schema.json (2.1: schema/SCHEMA-2.1.md); the prose is ../docs/SCHEMA.md.
 
 Staleness is never stored. It is computed:
 
@@ -28,7 +28,10 @@ import json
 import sys
 from pathlib import Path
 
-SCHEMA = Path(__file__).resolve().parent.parent / "schema" / "refinement-graph.v2.schema.json"
+from . import attest
+
+# Version 2.1 is additive over 2 (every v2 graph is valid under it); the v2 file is kept beside it as it was.
+SCHEMA = Path(__file__).resolve().parent.parent / "schema" / "refinement-graph.v2.1.schema.json"
 
 # relation -> allowed (from-kind, to-kind) pairs
 RELATIONS = {
@@ -37,7 +40,7 @@ RELATIONS = {
     "binds":       {("phrase", "definition"), ("phrase", "function")},
     "formalises":  {("statement", "claim")},
     "uses":        {(a, b) for a in ("statement", "definition", "function") for b in ("statement", "definition", "function")},
-    "requires":    {("statement", "statement")},
+    "requires":    {("statement", "statement"), ("assumption", "group")},      # 2.1/W4: an assumption's usage condition is a Rule
     "translates":  {("function", "function")},
     "models":      {("function", "function")},
     "instance_of": {("example", "statement")},
@@ -47,6 +50,7 @@ RELATIONS = {
     "lifted_from": {("statement", "statement")},
     "generalises": {("statement", "statement")},
     "equivalent":  {("definition", "definition"), ("statement", "statement")},
+    "assumes":     {("phrase", "assumption")},                                    # 2.1/W4: a Clausebook entry rests on a ledger entry
 }
 
 
@@ -109,6 +113,9 @@ def lint(g: dict) -> list:
             errs.append(f"edge {e['id']}: duplicate evidence entries")
         for x in e["evidence"]:
             check_ev(f"edge {e['id']}", x)
+            # 2.1/W4: `assumed` says that nothing checks the thing. It is allowed where a word points at the ledger, nowhere else.
+            if x.get("kind") == "assumed" and e["relation"] != "assumes":
+                errs.append(f"edge {e['id']}: `assumed` evidence on a `{e['relation']}` edge (it is allowed on `assumes` edges only)")
     for v in g["verdicts"]:
         if v["node"] not in nodes:
             errs.append(f"verdict for unknown node {v['node']}")
@@ -118,7 +125,110 @@ def lint(g: dict) -> list:
         for u in v.get("unreviewed", []):
             if u not in eids and u not in nodes:
                 errs.append(f"verdict {v['node']}: unreviewed id {u} is not in the graph")
+        # 2.1: proved, and resting on something no person has reviewed, is `review`. It may not be written `pass`.
+        if v["outcome"] == "pass" and v["code"].startswith("PROVED") and v.get("unreviewed"):
+            errs.append(f"verdict {v['node']}: outcome `pass` with code {v['code']} and {len(v['unreviewed'])} unreviewed ids (it is `review`)")
+    # 2.1: what is stored on a Clausebook entry's node as an attestation is an attestation of THAT text
+    for n in g["nodes"]:
+        if "clausebook_entry" in n.get("attrs", {}):
+            for a in n["attrs"].get("attestations", []):
+                if a.get("digest") != n["interface"]["identity"]:
+                    errs.append(f"node {n['id']}: an attestation stored on it ({a.get('act')} by {a.get('by')}) is of another digest than the node's identity")
+    # 2.1 (fix round 1): the kind written on a stored attestation is the kind of its signer, on every node that stores one.
+    # Strict mode reads these (clausal/trust.py), so a record written `kind: person, by: model:...` must not be a valid graph.
+    for n in g["nodes"]:
+        stored = n.get("attrs", {}).get("attestations", [])
+        for a in stored if isinstance(stored, list) else [None]:
+            for why in stored_attestation_errors(a):
+                errs.append(f"node {n['id']}: a stored attestation {why}")
+    # 2.1 (fix round 1): a proved verdict lists EVERY entry it rests on that no person has reviewed or approved, so `pass` with
+    # an empty list cannot be written over unreviewed entries. An entry of the old glossary is listed by its `binds` edge.
+    composed, binds = {}, {}
+    for e in g["edges"]:
+        if e["relation"] == "composed_of":
+            composed.setdefault(e["from"], []).append(e["to"])
+        elif e["relation"] == "binds":
+            binds.setdefault(e["from"], []).append(e["id"])
+    for v in g["verdicts"]:
+        n = nodes.get(v["node"])
+        if n is None or not v["code"].startswith("PROVED"):
+            continue
+        listed = set(v.get("unreviewed", []))
+        reading = n.get("attrs", {}).get("reading")
+        rests = [f"piece:{p['id']}" for p in (reading.get("pieces", []) if isinstance(reading, dict) else []) if isinstance(p, dict) and "id" in p]
+        for i in dict.fromkeys(rests + composed.get(v["node"], [])):
+            s = nodes.get(i)
+            if s is None or "subject_kind" not in s.get("attrs", {}) or person_reviewed(s):
+                continue
+            if i not in listed and not listed & set(binds.get(i, [])):
+                errs.append(f"verdict {v['node']}: code {v['code']} rests on {i}, which no person has reviewed or approved, and `unreviewed` does not list it")
+    # 2.1/W4 (trust/FREEZE-w46.md): the assumption ledger. A ledger node stores no verdict of a usage condition (it is read from
+    # the Rule's verdict); a Rule whose reading uses an entry that rests on an assumption lists the assumption; and a proved
+    # verdict of such a Rule lists `assumed` among what it rests on.
+    assumes = {}
+    for e in g["edges"]:
+        if e["relation"] == "assumes":
+            assumes.setdefault(e["from"], []).append(e["to"])
+    for n in g["nodes"]:
+        if n["kind"] == "assumption":
+            for c in n.get("attrs", {}).get("usage_conditions", []):
+                if isinstance(c, dict) and set(c) - {"id", "rule", "unstated"}:
+                    errs.append(f"node {n['id']}: usage condition {c.get('id')} stores a verdict or another field ({sorted(set(c) - {'id', 'rule', 'unstated'})}): "
+                                "a condition's verdict is the Rule's verdict in this graph and is never stored")
+        reading = n.get("attrs", {}).get("reading")
+        if isinstance(reading, dict):
+            listed = {f"assumption:{a}" for a in reading.get("assumptions", [])}
+            for p in reading.get("pieces", []):
+                for a in assumes.get(f"piece:{p['id']}", []) if isinstance(p, dict) and "id" in p else []:
+                    if a not in listed:
+                        errs.append(f"node {n['id']}: its reading uses {p['id']}, which rests on {a}, and does not list the assumption")
+            for a in listed:
+                if a not in nodes:
+                    errs.append(f"node {n['id']}: its reading lists {a}, which is not a node of the graph")
+    for v in g["verdicts"]:
+        n = nodes.get(v["node"])
+        reading = (n or {}).get("attrs", {}).get("reading")
+        if isinstance(reading, dict) and reading.get("assumptions") and v["code"].startswith("PROVED") and "assumed" not in v["rests_on"]:
+            errs.append(f"verdict {v['node']}: code {v['code']} on a reading that rests on {', '.join(reading['assumptions'])}, and `rests_on` does not list `assumed`")
+        if isinstance(reading, dict) and reading.get("assumptions") and v["code"].startswith("PROVED") and v["outcome"] == "pass" \
+                and any(f.startswith(("ASSUMPTION-CONDITION-", "ASSUMPTION-NOT-VOUCHED:")) for f in v["flags"]):
+            errs.append(f"verdict {v['node']}: outcome `pass` with code {v['code']} on an assumption that is not vouched or whose conditions are not all proved (it is `review`)")
     return errs
+
+
+def stored_attestation_errors(a) -> list:
+    """Every reason `a` (an entry of a node's attrs.attestations, written by attest.brief) is not what a valid record leaves
+    on a node. The kind is the signer's own: it is read from `by` and compared with what is written."""
+    if not isinstance(a, dict):
+        return ["is not an object"]
+    out, by, kind = [], a.get("by"), a.get("kind")
+    of_id = attest.kind_of_id(by)
+    if of_id is None:
+        out.append(f"is by `{by}`, which is not a signer id (prefix {', '.join(attest.KINDS.values())})")
+    elif kind != of_id:
+        out.append(f"says kind `{kind}`, and its signer `{by}` is a {of_id}: kind `{kind}` is not the kind of its signer")
+    if a.get("act") not in attest.ACTS:
+        out.append(f"has act `{a.get('act')}`: act `{a.get('act')}` is not one of {', '.join(attest.ACTS)}")
+    elif of_id == "tool" and a["act"] not in attest.TOOL_ACTS:
+        out.append(f"is `{a['act']}` by the tool `{by}`: a tool can only have authored or tested something")
+    if of_id is not None and "evidence_kind" in a and a["evidence_kind"] != attest.EVIDENCE_KIND[of_id]:
+        out.append(f"by `{by}` has evidence_kind `{a['evidence_kind']}`: evidence_kind `{a['evidence_kind']}` is not that of a {of_id} "
+                   f"(`{attest.EVIDENCE_KIND[of_id]}`)")
+    obo = a.get("on_behalf_of")
+    if obo is not None and attest.kind_of_id(obo) is None:
+        out.append(f"is on behalf of `{obo}`, which is not an agent id")
+    return out
+
+
+def person_reviewed(n: dict) -> bool:
+    """Does the node store a well-formed attestation of act reviewed or approved whose signer IS a person? On a Clausebook
+    entry's node the record must also be of the node's identity (the digest a record of a piece names). An old-glossary
+    phrase node's identity is the phrase; its records name the digest of the Lean definition it binds, which is not compared
+    here (the report stores only records that were valid when the stores were read; void ones go to `void_attestations`)."""
+    own = "clausebook_entry" in n.get("attrs", {})
+    return any(not stored_attestation_errors(a) and attest.kind_of_id(a["by"]) == "person" and a["act"] in attest.REVIEW_ACTS
+               and (not own or a.get("digest") == n["interface"]["identity"])
+               for a in n.get("attrs", {}).get("attestations", []) if isinstance(a, dict))
 
 
 def staleness(g: dict) -> dict:

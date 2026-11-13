@@ -1,0 +1,16 @@
+# Test 1 (W6), frozen by W0: the ledger entry, as in docs/studies/2026-11-12/trust.md section 1c. Read by nothing yet (W4).
+assumptions:
+  - id: A.sig.unforgeable
+    statement: "Without the signing key, nobody can produce a message and tag that verify under the matching public key."
+    class: property              # or opaque-function: a Lean axiom standing for external code
+    lean_axioms: []              # opaque-function entries list the axiom names lclean may admit
+    stand_in: true               # the fixture's verifier is a toy; never printed as a claim about a real scheme
+    attached_to: [in.verifies]
+    usage_conditions:
+      - {id: U1, rule: Rule.intake.accept_only_if_verified}
+      - {id: U2, rule: Rule.intake.unverified_rejected_unchanged}
+      - {id: U3, rule: Rule.intake.unsigned_part_ignored}
+      - {id: U4, rule: null, unstated: "no counter is accepted twice over ANY sequence of intakes; no frame for it"}
+    not_covered: ["the expected key is the right key", "the library's verify is the scheme's verify"]
+    external_proof: null         # or {pointer, commit, sha256, theorem}
+    review_by: 2027-11-12

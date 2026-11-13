@@ -1,0 +1,26 @@
+[
+  {
+    "subject": {
+      "kind": "policy",
+      "book": "trust/counter.yaml",
+      "id": "policy:counter",
+      "digest": {
+        "alg": "sha256",
+        "value": "3c751cef19de89506d793ceca322540e3e1f281d1259f744dc145d3b961cd43c"
+      }
+    },
+    "act": "authored",
+    "signer": {
+      "kind": "model",
+      "id": "model:claude-fable-5-2",
+      "name": "Fable 5.2"
+    },
+    "on_behalf_of": null,
+    "at": "2026-11-12T12:50:02-05:00",
+    "scope": "wrote this policy file in plan node W3, to the keys frozen in trust/FREEZE.md (commit 09966fe): one owner root with no signer named, a person's approval required of every entry. Authorship only: no person has read or approved the policy, and it was written for no person's account",
+    "context": {
+      "commit": "09966fe"
+    },
+    "signature": null
+  }
+]

@@ -465,7 +465,7 @@ def main() -> int:
           [i for i in d0 if d0[i] != d1[i]] == ["calls.accepted"] and [i for i in d0 if d0[i] != d2[i]] == ["calls.every", "calls.accepted", "calls.rejected"])
     # ---- plan node Q3: every accepted surface form is in the book. CONTROL: take one form (or entry) out of the book and
     #      the sentence written with it no longer compiles; with the book intact it does. The book is edited in memory.
-    from . import book as bookmod
+    from . import attest, book as bookmod
     core_rel = f"{vocab.BOOK_DIR}/core.yaml"
     core_text = (ROOT / core_rel).read_text()
 
@@ -645,8 +645,10 @@ def main() -> int:
     s4 = seeded('forms: ["the balance of account {k:term<acct>} of {l:ledger}"]',
                 'forms: ["the balance of account {k:term<acct>} of {l:ledger}", "the balance of {k:term<acct>} in {l:ledger}"]', led)
     # A SEPARATION lifts a pair only while it is IN FORCE: its two sentences are compiled and each is read as its own piece and
-    # not the other, and a sign-off of the entry (`clausal review <id>`, stored beside its book) is on record for exactly that.
-    # Done in a copy of clausebook/, because signing writes a file.
+    # not the other, and a PERSON's approval of the entry (`clausal attest <id> --act approved --as human:…`, an attestation record
+    # stored beside its book) is on record for exactly that. Done in a copy of clausebook/, because attesting writes a file.
+    # The signer `human:selftest-fixture` is a fixture identity in a directory that is deleted: nobody, and nothing of it is stored.
+    FIX, FIX_SCOPE = "human:selftest-fixture", "self-test fixture in a temporary copy of clausebook/; no person signed anything"
     import contextlib, io, shutil
     S_MORE = "A withdrawal for which the amount is more than the wallet's balance is always rejected"          # read with more_than
     S_EXC = "A withdrawal for which the wallet's balance is more than the amount always answers"               # read with exceeds
@@ -654,16 +656,16 @@ def main() -> int:
     def sep_yaml(a=S_MORE, b=S_EXC):
         return f"separations:\n  - id: {SEP}\n    between: [more_than, exceeds]\n    inputs:\n      more_than: \"{a}\"\n      exceeds: \"{b}\"\ngrammar:\n"
     with tempfile.TemporaryDirectory() as d:
-        shutil.copytree(ROOT / vocab.BOOK_DIR, Path(d) / vocab.BOOK_DIR)
+        shutil.copytree(ROOT / vocab.BOOK_DIR, Path(d) / vocab.BOOK_DIR, ignore=shutil.ignore_patterns("*.attest.json"))     # a copy with no record: the tree's own are not the fixture's
         books_d = [(Path(d) / rel, rel) for _, rel in vocab.project_books(ROOT)]
         def with_sep(text=None):
             t = core_text.replace("grammar:\n", sep_yaml() if text is None else text)
             return vocab.Vocabulary(books_d, gl, overrides={core_rel: t})
         def sign(v):
             with contextlib.redirect_stdout(io.StringIO()):
-                # (Q3b fix round) `review` asks `clausal separate` before it signs a separation; this control is of the LINT, given
-                # a sign-off record, so the answer is given here (no Lean); the gate itself is checked under "Q3b fix round" below
-                vreport.review(v, SEP, "test-reviewer", confirm=lambda vv, ss: {"ok": True, "why": []})
+                # (Q3b fix round) `attest` asks `clausal separate` before it writes an approval of a separation; this control is of the
+                # LINT, given a person's record, so the answer is given here (no Lean); the gate itself is checked under "Q3b fix round" below
+                vreport.attest_entries(v, SEP, "approved", FIX, FIX_SCOPE, confirm=lambda vv, ss: {"ok": True, "why": []})
         v_sep = with_sep()
         k_unsigned = keys(v_sep)                                   # recorded, compiles, separates; nobody signed
         sign(v_sep)
@@ -809,7 +811,7 @@ def main() -> int:
     both_books = bk["wallet"] | bk["ledger"]
     both_pr = [("both", sorted(b.split("/", 1)[1] for b in both_books))]
     FOUR = ["it is accepted", "the first call is accepted", "the maximum", "transfer"]
-    across = lambda v, pr=None: sorted(x["skeleton"] for x in bookmod.lint(v, {}, pr)[0] if x["check"] == "4 shared skeleton across systems")
+    across = lambda v, pr=None: sorted(x["skeleton"] for x in bookmod.lint(v, attest.Records(), pr)[0] if x["check"] == "4 shared skeleton across systems")
     q3b_lines = ["A transfer is always accepted", "For a transfer, it is accepted"]
     def in_books(line, books, v=None):
         return vocab.Compiler(v or intact).rule(rules_of([line])[0], None, books)
@@ -822,34 +824,45 @@ def main() -> int:
           "named (every book read). The refusal still fires inside one project: AMBIGUOUS in a project that lists the local books of both "
           "(in memory), and AMBIGUOUS in the wallet project when its own book gives a second operation the noun \"transfer\" (in memory)",
           c1 == [(["w.transfer"], ["l.apply"], "AMBIGUOUS")] * 2 and c2 == ["AMBIGUOUS"] * 2 and c3 == ["AMBIGUOUS"] * 2)
-    twice_keys = {(x["check"], x["key"]) for x in bookmod.lint(twice_voc, {})[0]}
+    twice_keys = {(x["check"], x["key"]) for x in bookmod.lint(twice_voc, attest.Records())[0]}
     check("Q3b (1), book check: with the declared projects no skeleton is shared across systems (the four of the wallet and the ledger "
-          "are listed as loaded together by no project); they are reported again when a project lists the local books of both, and "
+          "are listed as loaded together by no project, and with them the bare-hole forms of the intake and of the ledger pack); they are reported again when a project lists the local books of both, and "
           "when no project is declared; not when the wallet's operation has a noun of its own; and a noun two operations of ONE "
           "project carry is reported as a shared skeleton",
           across(intact) == [] and across(intact, both_pr) == FOUR and across(intact, []) == FOUR and across(apart_voc, both_pr) == []
-          and sorted(n["skeleton"] for n in bookmod.lint(intact, {})[1]["no_project_loads_both"]) == FOUR
+          # (merge with the fourth project) a fifth is listed beside the four: "{}", the bare-hole `in.last` of the intake's local book
+          # against the bare-hole forms of the ledger pack, which the sigintake project does not list
+          and sorted(n["skeleton"] for n in bookmod.lint(intact, attest.Records())[1]["no_project_loads_both"]) == FOUR + ["{}"]
           and ("4 shared skeleton", "transfer|w.deposit,w.transfer") in twice_keys
           and isinstance(one("For a transfer, it is accepted", None, vocab.Compiler(apart_voc)), vocab.Reading))
     # ---- Q3b (2): a PROPOSED separation (separates, records a separating input for today's readings, unsigned) lifts nothing and
     # is no violation; with the recorded input void (a term changed), or with no input recorded, it is a violation of its own
     tl_ = (ROOT / led_local).read_text()
-    prop = bookmod.lint(intact, {})
+    prop = bookmod.lint(intact, attest.Records())
     n_sep = len(intact.separations)
     assert tl_.count("        more_than: 7931e18f") == 1 and tl_.count("    witness:\n      holds: within\n") == 1
     void_voc = vocab.load_project(ROOT, gl, overrides={led_local: tl_.replace("        more_than: 7931e18f", "        more_than: 0000000f")})
     none_voc = vocab.load_project(ROOT, gl, overrides={led_local: re.sub(r"    witness:\n      holds: within\n(      .*\n|        .*\n)*", "", tl_)})
-    nif = lambda v: sorted(x["key"] for x in bookmod.lint(v, {})[0] if x["check"] == "4 separation not in force")
-    lifted_if_signed = bookmod.lint(intact, {i: {"digest": vreport.piece_digest(intact, {}, i), "reviewer": "(self-test)", "date": "-"} for i in intact.separations})[0]
+    nif = lambda v: sorted(x["key"] for x in bookmod.lint(v, attest.Records())[0] if x["check"] == "4 separation not in force")
+    # WHAT-IF, in memory only: each proposed pair as if a person had approved it (the fixture identity; nothing is stored)
+    as_if = attest.Records()
+    as_if.valid = [attest.make("separation", vreport.book_name(intact.book_of(i)), i, vreport.subject_digest(intact, {}, i), "approved", FIX, FIX_SCOPE)
+                   for i in intact.separations]
+    as_if_model = attest.Records()
+    as_if_model.valid = [attest.make("separation", vreport.book_name(intact.book_of(i)), i, vreport.subject_digest(intact, {}, i), "approved",
+                                     "model:selftest-fixture", FIX_SCOPE) for i in intact.separations]
+    lifted_if_signed = bookmod.lint(intact, as_if)[0]
+    lifted_if_model = bookmod.lint(intact, as_if_model)[0]
     check(f"Q3b (2): the {n_sep} separations recorded in the ledger's local book are PROPOSED: each separates in the ledger project, records a "
           "separating input for exactly today's two readings, is unsigned, lifts nothing (the violation of its pair stays and names it) and "
           "is no violation of its own; with a recorded term changed, or the input taken out, it is reported as not in force; were all "
-          "signed, the five violations of their pairs would go",
+          "approved by a person, the five violations of their pairs would go; approved by a model, none goes (merge of Q3b and W1)",
           n_sep == 7 and nif(intact) == [] and sorted(x for n in prop[1]["proposed"] for x in n["separations"]) == sorted(intact.separations)
           and all(bookmod.separation_state(intact, s_)["project"] == "ledger" for s_ in intact.separations.values())
           and sum(bool(x.get("proposed")) for x in prop[0]) == 5
           and nif(void_voc) == ["sep.more_than.exceeds"] and nif(none_voc) == ["sep.within.covers"]
-          and len(prop[0]) - len(lifted_if_signed) == 5 and not any(x["check"].startswith("4 ") for x in lifted_if_signed))
+          and len(prop[0]) - len(lifted_if_signed) == 5 and not any(x["check"].startswith("4 ") for x in lifted_if_signed)
+          and [(x["check"], x["key"]) for x in lifted_if_model] == [(x["check"], x["key"]) for x in prop[0]])
     # fix round: the plain check does not run a recorded input, and says so; a separation is signed only when `clausal separate`,
     # asked at that moment, confirms it (here the answer is given: the self-test runs no Lean; clausebook/q3b/bogus.py asks for real)
     said = [x["what"] for x in prop[0] if x.get("proposed")]
@@ -858,19 +871,20 @@ def main() -> int:
     with tempfile.TemporaryDirectory() as d_:
         _sh.copytree(ROOT / vocab.BOOK_DIR, Path(d_) / vocab.BOOK_DIR)
         v_ = vocab.Vocabulary([(Path(d_) / rel, rel) for _, rel in vocab.project_books(ROOT)], gl)
-        sf = v_.book_of(SEPID).signoff_path
+        sf = v_.book_of(SEPID).attest_path
         before_ = sf.read_text() if sf.exists() else None
+        on_record = lambda: attest.person_review(vreport.load_attestations(v_, {}).of(SEPID, {"separation"}))
         with _cl.redirect_stdout(_io.StringIO()) as o_no:
-            rc_no = vreport.review(v_, SEPID, "test-reviewer", confirm=lambda vv, ss: {"ok": False, "why": ["(self-test) both hold"], "found": None})
-        unsigned_after = (sf.read_text() if sf.exists() else None) == before_ and SEPID not in vreport.load_piece_signoff(v_)
+            rc_no = vreport.attest_entries(v_, SEPID, "approved", FIX, FIX_SCOPE, confirm=lambda vv, ss: {"ok": False, "why": ["(self-test) both hold"], "found": None})
+        unsigned_after = (sf.read_text() if sf.exists() else None) == before_ and on_record() is None
         with _cl.redirect_stdout(_io.StringIO()):
-            rc_yes = vreport.review(v_, SEPID, "test-reviewer", confirm=lambda vv, ss: {"ok": True, "why": []})
-        signed_after = vreport.load_piece_signoff(v_).get(SEPID, {}).get("digest") == vreport.piece_digest(v_, {}, SEPID)
+            rc_yes = vreport.attest_entries(v_, SEPID, "approved", FIX, FIX_SCOPE, confirm=lambda vv, ss: {"ok": True, "why": []})
+        signed_after = (on_record() or {}).get("subject", {}).get("digest") == vreport.subject_digest(v_, {}, SEPID)
     check("Q3b fix round: the plain book check claims no more of a proposal than it checked (its violation says the recorded input is "
-          "NOT run by it, and nothing says `machine-checked`); `clausal review <separation>` asks `clausal separate` first: not "
-          "confirmed, it signs nothing, writes nothing and exits 1; confirmed, it signs",
+          "NOT run by it, and nothing says `machine-checked`); `clausal attest <separation> --act approved` asks `clausal separate` "
+          "first: not confirmed, it writes no record and exits 1; confirmed, it writes a person's approval of today's digest",
           len(said) == 5 and all("NOT run by this check" in w and "machine-checked" not in w for w in said)
-          and rc_no == 1 and unsigned_after and "NOT signed" in o_no.getvalue() and rc_yes == 0 and signed_after)
+          and rc_no == 1 and unsigned_after and "NOT attested" in o_no.getvalue() and rc_yes == 0 and signed_after)
     # ---- Q3b (3): bare-hole forms. Registered at disjoint types: no violation, and no text is read by two of them at one type
     # (clausebook/q3b/bare.py asks the parser, over every span of every sentence). Registered at ONE type: a violation, and a
     # sentence that needs the hole is refused.
@@ -879,7 +893,7 @@ def main() -> int:
     twin = '  - id: amount_twin\n    kind: modifier\n    cat: term<num>\n    forms: ["{x:amount}"]\n    lean: "{x}.val"\n    echo: "{x}"\n'
     assert tp_.count("  - id: index_number\n") == 1
     twin_voc = vocab.load_project(ROOT, gl, overrides={pack: tp_.replace("  - id: index_number\n", twin + "  - id: index_number\n")})
-    bare_v = lambda v: [x["key"] for x in bookmod.lint(v, {})[0] if x["check"].startswith("4 shared skeleton (no literal word")]
+    bare_v = lambda v: [x["key"] for x in bookmod.lint(v, attest.Records())[0] if x["check"].startswith("4 shared skeleton (no literal word")]
     dep_roles = lambda v: vocab.op_roles(v.ops["w.deposit"], v)
     step = lambda v, t: getattr(vocab.parse_step(v, "cond", "", t, 0, "", "wallet", "rule", dep_roles(v), {}), "status", "ONE READING")
     line3 = "A deposit for which the amount is at most the wallet's balance is always accepted"
@@ -894,14 +908,15 @@ def main() -> int:
     # text as `amount_value` (which a table keyed on the text could not see) or of another spelling, T1 reports both pieces
     t1_ctl = {w: bare_mod.run(bare_mod.control_voc(gl, w), gl) for w in bare_mod.CONTROLS}
     t1_pieces = {w: {tuple(x["pieces"]) for x in r["T1"]["read_by_two_pieces"]} for w, r in t1_ctl.items()}
-    bt = bookmod.lint(intact, {})[1]
-    check("Q3b (3), bare-hole forms: the seven of the book are registered at seven different types, so the lint counts none of their 21 "
+    bt = bookmod.lint(intact, attest.Records())[1]
+    check("Q3b (3), bare-hole forms: the eight of the books (seven, and `in.last` of the fourth project) are registered at eight different types, "
+          "so the lint counts none of the 22 pairs some project loads together (21, and `always` with `in.last`) "
           f"pairs; the parser, asked {bare_res['T1']['checked']} times over {bare_res['texts']} texts, never reads one text at one type through "
           "the bare-hole forms of two pieces; THE CONTROL: a second bare-hole form at the type of `amount_value` (in memory) is reported "
           "by the lint, the step that needs it is AMBIGUOUS and its Rule line is refused, where both read today; and the same test of the "
           f"parser reports it too, whether the twin is spelt as `amount_value` is ({len(t1_ctl['same text']['T1']['read_by_two_pieces'])} "
           f"exceptions) or otherwise ({len(t1_ctl['another spelling']['T1']['read_by_two_pieces'])})",
-          bare_v(intact) == [] and len(bt["bare_typed"]) == 1 and len(bt["bare_typed"][0]["pairs"]) == 21 and len(bt["bare_typed"][0]["types"]) == 7
+          bare_v(intact) == [] and len(bt["bare_typed"]) == 1 and len(bt["bare_typed"][0]["pairs"]) == 22 and len(bt["bare_typed"][0]["types"]) == 8
           and bare_rc == 0 and bare_res["T1"]["read_by_two_pieces"] == [] and bare_res["T1"]["read_by_a_bare_form"] > 0
           and bare_res["types_with_two_pieces"] == []
           and t1_pieces == {"same text": {("amount_twin", "amount_value")}, "another spelling": {("amount_value", "idx_num")}}
@@ -992,26 +1007,202 @@ def main() -> int:
           "entry's sign-off and no other; a Rule reading rests on the grammar it was read through and on every default printed with it",
           [i for i in d0 if d0[i] != d1[i]] == ["g.subject"] and [i for i in d0 if d0[i] != d2[i]] == ["D4"]
           and {"g.subject", "g.rule_vp", "g.line", "D1", "D2", "D4"} <= set(used))
-    # ---- plan node C1: a list of books; sign-offs stored per book, beside it
+    # ---- plan node C1: a list of books; attestation records stored per book, beside it (plan node W1: the records replace the
+    #      sign-off files; the expectations of this check are the ones it had with sign-off records)
     import contextlib, io, shutil
     with tempfile.TemporaryDirectory() as d:
-        shutil.copytree(ROOT / vocab.BOOK_DIR, Path(d) / vocab.BOOK_DIR)
+        shutil.copytree(ROOT / vocab.BOOK_DIR, Path(d) / vocab.BOOK_DIR, ignore=shutil.ignore_patterns("*.attest.json"))     # a copy with no record: the tree's own are not the fixture's
         v = vocab.Vocabulary([(Path(d) / rel, rel) for _, rel in vocab.project_books(ROOT)], gl)
         with contextlib.redirect_stdout(io.StringIO()):
-            vreport.review(v, "all", "test-reviewer")
+            vreport.attest_entries(v, "all", "approved", FIX, FIX_SCOPE)
         vd = vreport.lean_defs(v)
-        per_book = {b.name: set(json.loads(b.signoff_path.read_text())) for b in v.books}
-        # (Q3b) `review all` signs every entry but the separations: a separation is signed by its own id
+        per_book = {b.name: {r["subject"]["id"] for r in json.loads(b.attest_path.read_text())} for b in v.books}
+        # (Q3b) `attest all` attests every entry but the separations: a separation is attested by its own id
         all_signed = vreport.reviewed_pieces(v, vd) == set(vreport.all_ids(v)) - set(v.separations) and len(v.separations) == 7
         core_b, led_b = v.books[0], v.book_of("l.bal_of")
-        a_, b_ = json.loads(core_b.signoff_path.read_text()), json.loads(led_b.signoff_path.read_text())
-        a_["l.bal_of"] = b_.pop("l.bal_of")
-        core_b.signoff_path.write_text(json.dumps(a_))
-        led_b.signoff_path.write_text(json.dumps(b_))
-        moved = "l.bal_of" in vreport.reviewed_pieces(v, vd)
-    check("sign-offs are stored per book, beside it: each file holds exactly the entries its book defines (`review all` signs every "
-          "entry but the separations, which are signed one by one); a record of an entry in another book's file is not a sign-off of it",
-          all_signed and all(per_book[b.name] == {i for i, h in v.home.items() if h is b and i not in v.separations} for b in v.books) and not moved)
+        a_, b_ = json.loads(core_b.attest_path.read_text()), json.loads(led_b.attest_path.read_text())
+        a_.append(next(r for r in b_ if r["subject"]["id"] == "l.bal_of"))
+        b_ = [r for r in b_ if r["subject"]["id"] != "l.bal_of"]
+        core_b.attest_path.write_text(json.dumps(a_))
+        led_b.attest_path.write_text(json.dumps(b_))
+        moved_recs = vreport.load_attestations(v, vd)
+        moved = "l.bal_of" in vreport.reviewed_pieces(v, vd, moved_recs)
+        moved_refused = [why for _, why, r in moved_recs.refused if r["subject"]["id"] == "l.bal_of"]          # frozen R11
+        # ... and a sign-off file of the OLD format is neither read nor passed over: it stops the load
+        (Path(d) / vocab.BOOK_DIR / "core.signoff.json").write_text('{"always": {"reviewer": "x", "date": "2026-11-12", "digest": "0"}}')
+        try:
+            vreport.load_attestations(v, vd)
+            old_refused = False
+        except FeatureError as e:
+            old_refused = "old format" in str(e)
+    check("attestation records are stored per book, beside it: each store holds exactly the entries its book defines (`attest all` attests "
+          "every entry but the separations, which are attested one by one); a record of an entry "
+          "in another book's store is not an attestation of it (it is refused, with the reason); a sign-off file of the old format stops the load",
+          all_signed and all(per_book[b.name] == {i for i, h in v.home.items() if h is b and i not in v.separations} for b in v.books) and not moved
+          and len(moved_refused) == 1 and "is not an entry of core.yaml" in moved_refused[0][0] and old_refused)
+    # ---- plan node W1: the records that must be refused (frozen as R1 to R14 in trust/FREEZE.md, before this code was written)
+    dg_now = vreport.subject_digest(intact, defs, "always")
+    good = attest.make("piece", "core.yaml", "always", dg_now, "reviewed", "model:selftest-fixture", "fixture", at="2026-11-12T02:10:00-05:00")
+    def variant(**kw):
+        r = json.loads(json.dumps(good))
+        for k, val in kw.items():
+            if val is KeyError:
+                del r[k]
+            else:
+                r[k] = val
+        return r
+    r_dir = tempfile.TemporaryDirectory()
+    shutil.copytree(ROOT / vocab.BOOK_DIR, Path(r_dir.name) / vocab.BOOK_DIR, ignore=shutil.ignore_patterns("*.attest.json"))
+    r_voc = vocab.Vocabulary([(Path(r_dir.name) / rel, rel) for _, rel in vocab.project_books(ROOT)], gl)
+    def store_of(*recs):
+        """Sort records as if they were the store of core.yaml, against a copy of the real Clausebook."""
+        r_voc.books[0].attest_path.write_text(json.dumps(list(recs)))
+        return vreport.load_attestations(r_voc, defs)
+    R = {
+        "R1": (variant(signer={"kind": "person", "id": "model:claude-fable-5-2"}), "the kind is read from the id"),
+        "R2": (variant(signer={"kind": "model", "id": "human:someone"}), "the kind is read from the id"),
+        "R3": (variant(signer={"kind": "person", "id": "Will"}), "carries no kind"),
+        "R4": (variant(act="refereed"), "unknown act"),
+        "R6": (variant(signer={"kind": "tool", "id": "tool:clausal"}, act="approved"), "a tool may only"),
+        "R7a": (variant(on_behalf=None), "unknown field"),
+        "R7b": (variant(scope=KeyError), "missing field"),
+        "R8a": (variant(at="yesterday"), "ISO 8601"),
+        "R8b": (variant(at="2026-11-12T02:10:00"), "ISO 8601"),
+        "R9a": (variant(on_behalf_of="Will Ackerly"), "`on_behalf_of` is null or an agent id"),
+        "R9b": (variant(on_behalf_of="model:selftest-fixture"), "names the signer itself"),
+        "R10": (variant(signature="AAAAB3NzaC1yc2E"), "signatures are not checked"),
+        # (R12 was frozen with the kind `assumption`, reserved until W4 built the ledger; `specialist-term` is still reserved: trust/FREEZE-w46.md)
+        "R12": (variant(subject={"kind": "specialist-term", "book": "core.yaml", "id": "x.forward_secrecy", "digest": dg_now}), "reserved and not built"),
+        "R13": (variant(scope="  "), "may not be empty"),
+        "R14": (variant(subject={"kind": "piece", "book": "core.yaml", "id": "always", "digest": {"alg": "md5", "value": dg_now["value"]}}), "unknown digest algorithm"),
+    }
+    got = {}
+    for k, (rec, frag) in R.items():
+        rs_ = store_of(rec)
+        got[k] = (not rs_.valid and not rs_.void and len(rs_.refused) == 1 and any(frag in w for w in rs_.refused[0][1]))
+    # R5: well-formed, of a digest the entry no longer has: VOID (counts for nothing), not refused
+    r5 = store_of(variant(subject={"kind": "piece", "book": "core.yaml", "id": "always", "digest": {"alg": "sha256-text", "value": "0" * 64}}))
+    got["R5"] = not r5.valid and len(r5.void) == 1 and not r5.refused and "has changed since" in r5.void[0][1]
+    # R11: the wrong store, both ways
+    r11a = store_of(variant(subject={"kind": "piece", "book": "ledger.yaml", "id": "l.bal_of", "digest": vreport.subject_digest(intact, defs, "l.bal_of")}))
+    r11b = store_of(variant(subject={"kind": "piece", "book": "ledger.yaml", "id": "always", "digest": dg_now}))
+    got["R11a"] = not r11a.valid and len(r11a.refused) == 1 and "is not an entry of core.yaml" in r11a.refused[0][1][0]
+    got["R11b"] = not r11b.valid and len(r11b.refused) == 1 and "in the store of core.yaml" in r11b.refused[0][1][0]
+    ok_good = store_of(good)
+    r_dir.cleanup()
+    check("W1, the records that must be refused (frozen R1 to R14, 18 records): kind person with a model's id and kind model with a person's id; "
+          "a bare name; an unknown act; a tool that approves; a misspelt and a missing field; a time that is no ISO 8601 time with an offset; a "
+          "delegation with no kind prefix and one that names the signer; a signature (not checked in this build); a record in another book's "
+          "store, both ways; a reserved subject kind; an empty scope; an unknown digest algorithm: each is refused FOR THAT REASON and counts "
+          "for nothing. A well-formed record of a digest the entry no longer has is VOID. The same record, well-formed and current, is valid",
+          all(got.values()) and len(got) == 18 and len(ok_good.valid) == 1 and not ok_good.refused and not ok_good.void)
+    if not all(got.values()):
+        print(f"       not refused as expected: {sorted(k for k, x in got.items() if not x)}")
+    # ---- W1, kind mismatch at the level of what a record COUNTS for (frozen K1 to K3)
+    with tempfile.TemporaryDirectory() as d:
+        shutil.copytree(ROOT / vocab.BOOK_DIR, Path(d) / vocab.BOOK_DIR, ignore=shutil.ignore_patterns("*.attest.json"))     # a copy with no record: the tree's own are not the fixture's
+        v = vocab.Vocabulary([(Path(d) / rel, rel) for _, rel in vocab.project_books(ROOT)], gl)
+        vd = vreport.lean_defs(v)
+        with contextlib.redirect_stdout(io.StringIO()):
+            vreport.attest_entries(v, "all", "approved", "model:selftest-fixture", FIX_SCOPE)
+        k1 = vreport.load_attestations(v, vd)
+        n_all = len(vreport.all_ids(v)) - len(v.separations)        # (merge with Q3b) `all` attests every entry but the separations
+        k1_ok = len(k1.valid) == n_all and vreport.reviewed_pieces(v, vd, k1) == set() \
+            and all(attest.brief(r)["evidence_kind"] == "model-asserted" for r in k1.valid)
+        with contextlib.redirect_stdout(io.StringIO()):
+            vreport.attest_entries(v, "all", "approved", "model:selftest-fixture", FIX_SCOPE, on_behalf_of=FIX)
+        k2 = vreport.load_attestations(v, vd)
+        k2_ok = len(k2.valid) == n_all and all(r["on_behalf_of"] == FIX and r["signer"]["kind"] == "model" for r in k2.valid) \
+            and vreport.reviewed_pieces(v, vd, k2) == set()
+        before = {b.name: b.attest_path.read_text() for b in v.books}
+        try:
+            vreport.attest_entries(v, "all", "approved", "Some Name", FIX_SCOPE)
+            k3_ok = False
+        except FeatureError as e:
+            k3_ok = "is not a signer" in str(e) and before == {b.name: b.attest_path.read_text() for b in v.books}
+        # a person's record is what makes an entry reviewed; an edit of the entry voids it (the digest is the one a sign-off covered)
+        with contextlib.redirect_stdout(io.StringIO()):
+            vreport.attest_entries(v, "always", "reviewed", FIX, FIX_SCOPE)
+        person_ok = vreport.reviewed_pieces(v, vd) == {"always"}
+        cb = v.books[0]
+        keep_ = list(cb.lines)
+        cb.lines = [l.replace('was: "always succeeds"', 'was: "always wins"') for l in cb.lines]
+        after_edit = vreport.load_attestations(v, vd)
+        cb.lines = keep_
+        void_ok = "always" not in vreport.reviewed_pieces(v, vd, after_edit) and {r["subject"]["id"] for r, _ in after_edit.void} == {"always"}
+    check("W1, a model's record is its own kind (frozen K1 to K3): with every entry attested `approved` by a model, every record is valid and "
+          "model-asserted and NO entry is reviewed; the same on behalf of a person: delegation does not upgrade; `attest … --as \"Some Name\"` is "
+          "refused and writes nothing. A person's record makes exactly its entry reviewed, and an edit of the entry voids the records of that "
+          "entry and of no other (the model's too)", k1_ok and k2_ok and k3_ok and person_ok and void_ok)
+    # ---- plan node W3: a trust policy; strict mode is a function of (graph, policy)
+    from . import projects, trust
+    pr = projects.load(ROOT)
+    def pol(text):
+        import yaml as _y
+        return trust.Policy(_y.safe_load(text), "selftest policy")
+    def refused(text, frag):
+        try:
+            pol(text)
+            return False
+        except FeatureError as e:
+            return frag in str(e)
+    P_HEAD = "version: 1\nproject: p\nroots:\n  - {id: owner, signer: 'human:selftest-fixture'}\n  - {id: m, signer: 'model:selftest-fixture'}\n  - {id: later, signer: null}\n"
+    p_person = pol(P_HEAD + "requirements:\n  meaning: {subject: piece, act: [reviewed, approved], kinds: [person], roots: [owner]}\nstrict:\n  demands: [meaning]\n")
+    p_model = pol(P_HEAD + "requirements:\n  meaning: {subject: piece, act: [reviewed, approved], kinds: [person, model]}\nstrict:\n  demands: [meaning]\n")
+    p_obo = pol("version: 1\nproject: p\nroots:\n  - {id: m, signer: 'model:selftest-fixture', on_behalf_of: ['human:selftest-fixture']}\n"
+                "requirements:\n  meaning: {subject: piece, act: reviewed, kinds: [model]}\nstrict:\n  demands: [meaning]\n")
+    p_refuse = pol(P_HEAD + "requirements:\n  meaning: {subject: piece, act: approved, kinds: [person]}\nstrict:\n  demands: [meaning]\n  unsigned_person_record: refuse\n")
+    q_ = lambda p: p.requirements["meaning"]
+    rec_m = {"act": "reviewed", "kind": "model", "by": "model:selftest-fixture", "on_behalf_of": None}
+    rec_mo = dict(rec_m, on_behalf_of="human:selftest-fixture")
+    rec_h = {"act": "approved", "kind": "person", "by": "human:selftest-fixture", "on_behalf_of": None}
+    rec_other = {"act": "approved", "kind": "person", "by": "human:someone-else", "on_behalf_of": None}
+    check("W3, a policy admits a record by act, by the signer's kind and by root: a requirement for a person is not met by a model's record, "
+          "with or without a delegation to that person; a policy that lists `model` is; a person who is no root is not admitted; a root that "
+          "lists delegations admits its signer only with one of them; `unsigned_person_record: refuse` admits no person; an awaited root admits nothing",
+          not p_person.admitted(q_(p_person), rec_m) and not p_person.admitted(q_(p_person), rec_mo) and p_person.admitted(q_(p_person), rec_h)
+          and p_model.admitted(q_(p_model), rec_m) and not p_person.admitted(q_(p_person), rec_other)
+          and not p_obo.admitted(q_(p_obo), rec_m) and p_obo.admitted(q_(p_obo), rec_mo)
+          and not p_refuse.admitted(q_(p_refuse), rec_h) and p_person.awaited() == ["later"])
+    check("W3, a malformed policy is refused at load: an unknown key (`min:`), a root with a bare name, a requirement for a person that names a "
+          "model root, a demand that is no requirement, an `ssh_key` (not checked in this build), a requirement a tool could never meet, records "
+          "said both to count and not to count",
+          refused(P_HEAD + "requirements:\n  meaning: {subject: piece, act: approved, kinds: [person], min: 2}\n", "unknown key(s) ['min']")
+          and refused("version: 1\nproject: p\nroots:\n  - {id: owner, signer: Will}\n", "is not a signer id")
+          and refused(P_HEAD + "requirements:\n  meaning: {subject: piece, act: approved, kinds: [person], roots: [m]}\n", "that root could never meet it")
+          and refused(P_HEAD + "strict:\n  demands: [meaning]\n", "is not a requirement of the policy")
+          and refused("version: 1\nproject: p\nroots:\n  - {id: owner, signer: 'human:x', ssh_key: 'ssh-ed25519 AAAA'}\n", "`ssh_key` must be null")
+          and refused(P_HEAD + "requirements:\n  meaning: {subject: piece, act: approved, kinds: [tool]}\n", "a tool can only")
+          and refused(P_HEAD + "requirements:\n  meaning: {subject: piece, act: reviewed, kinds: [model]}\nrecorded_not_counted:\n  - {act: [reviewed], kinds: [model]}\n",
+                      "it cannot be both"))
+    # two policies over ONE graph: different strict outcomes, and the graph is not touched
+    idn = {"alg": "sha256-text", "value": "1" * 64}
+    def gnode(i, kind, attrs, file=None):
+        return {"id": i, "kind": kind, "status": "proposed", "origin": {"by": "tool:selftest"}, "reviews": [], "implementations": [],
+                "interface": {"language": "english", "text": i, "text_complete": True, "identity": idn, **({"source": {"file": file}} if file else {})}, "attrs": attrs}
+    wf = pr.items[0].features[0]
+    def tiny(atts):
+        return {"schema": "rosette.refinement-graph/2.1", "generated_at": "x", "runs": [], "edges": [],
+                "nodes": [gnode("piece:always", "phrase", {"clausebook_entry": "always", "subject_kind": "piece", "book": "core.yaml", "attestations": atts}),
+                          gnode("group:rule:r", "group", {"reading": {"pieces": [{"id": "always"}]}}, wf)],
+                "verdicts": [{"node": "group:rule:r", "outcome": "review", "code": "PROVED-FOR-ALL", "flags": [], "chain": [], "rests_on": [],
+                              "unreviewed": ["piece:always"]}]}
+    g_m = tiny([dict(rec_m, digest=idn)])
+    g_text = json.dumps(g_m, sort_keys=True)
+    ev_ = lambda g_, p: trust.evaluate(g_, pr, {x.name: p for x in pr})
+    e_person, e_model, e_none = ev_(g_m, p_person), ev_(g_m, p_model), ev_(tiny([]), p_model)
+    # (frozen with `subject: assumption`, which W4 built; a specialist term is what this build still cannot evaluate)
+    p_later = pol(P_HEAD + "requirements:\n  term: {subject: specialist-term, act: approved, kinds: [person]}\nstrict:\n  demands: [term]\n")
+    check("W3, two policies over one graph: with a model's record on the one piece a proved rule rests on, the policy that asks for a person "
+          "fails the rule in strict mode and names the piece; the policy that lists `model` passes it and flags it MEANING-MODEL-ONLY; with no "
+          "record both fail; the graph is byte-identical after both evaluations and its digest is the same in both results; a demand this build "
+          "cannot evaluate (a specialist term's approval) fails closed; and the model's record is listed as recorded, not counted, under the first policy",
+          e_person["strict_fail"] == 1 and [(u["requirement"], u["subjects"]) for u in e_person["verdicts"][0]["unmet"]] == [("meaning", ["piece:always"])]
+          and e_model["strict_fail"] == 0 and e_model["verdicts"][0]["flags"] == ["MEANING-MODEL-ONLY"] and e_none["strict_fail"] == 1
+          and json.dumps(g_m, sort_keys=True) == g_text and e_person["graph_sha256"] == e_model["graph_sha256"]
+          and ev_(g_m, p_later)["strict_fail"] == 1 and "cannot be evaluated" in ev_(g_m, p_later)["verdicts"][0]["unmet"][0]["why"]
+          and e_person["projects"][pr.items[0].name]["recorded_not_counted"] == {"model reviewed": 1}
+          and e_model["projects"][pr.items[0].name]["recorded_not_counted"] == {})
     core_only = vocab.Vocabulary([(ROOT / core_rel, core_rel)])
     try:
         vocab.Vocabulary([(ROOT / core_rel, core_rel), (ROOT / core_rel, core_rel)])
@@ -1080,6 +1271,203 @@ def main() -> int:
     check("Q3b: in the wallet project \"A deposit earns interest\" is refused UNBOUND for its claim (\"earns interest\"), the subject being "
           "an operation of the project's books; no refusal of another project's system is reported in its place",
           isinstance(dep, vocab.Problem) and dep.status == "UNBOUND" and "\"earns interest\" as a claim" in dep.message)
+    # ---- plan node W4: the assumption ledger (trust/FREEZE-w46.md section 3). Made-up ledgers and graphs; nothing is run.
+    import datetime
+    from . import ledger, rules as rules_
+    GOOD = {"id": "A.x", "statement": "nobody can do X without the key", "class": "property", "lean_axioms": [], "stand_in": True,
+            "attached_to": ["l.valid"], "usage_conditions": [{"id": "U1", "rule": "Rule.r.one"}, {"id": "U2", "rule": None, "unstated": "no frame for it"}],
+            "not_covered": ["the key is the right key"], "external_proof": None, "review_by": datetime.date(2027, 11, 12)}
+
+    def led_refused(entries, why, voc_=None, rule_ids=("Rule.r.one",)):
+        try:
+            led_ = ledger.parse({"assumptions": entries})
+            if voc_ is not None:
+                ledger.check(led_, voc_, set(rule_ids))
+            return False
+        except FeatureError as e:
+            return why in str(e)
+
+    def entry(**kw):
+        e = copy.deepcopy(GOOD)
+        for k, v in kw.items():
+            if v is KeyError:
+                e.pop(k)
+            else:
+                e[k] = v
+        return e
+    ll_rel = core_rel.replace("core.yaml", "local/ledger.yaml")
+    ll_text = (ROOT / ll_rel).read_text()
+    assert ll_text.count("    lean: \"L.valid {l} {item}\"\n") == 1
+    with_assumes = lambda a_: vocab.load_project(ROOT, gl, overrides={ll_rel: ll_text.replace("    lean: \"L.valid {l} {item}\"\n",
+                                                                                                f"    lean: \"L.valid {{l}} {{item}}\"\n    assumes: [{a_}]\n")})
+    a_voc, a_nope = with_assumes("A.x"), with_assumes("A.nope")          # the ledger fixture's word `l.valid`, made to rest on an assumption
+    # (the tree's own ledger entries stay in: the tree's own words name them)
+    real_led = ledger.load(ROOT)
+    real_rules = {i for i in ledger.lock_terms(ROOT) if i.startswith("Rule.")}
+    ok_led = ledger.Ledger({**real_led.entries, "A.x": GOOD})
+    try:
+        ledger.check(ok_led, a_voc, real_rules | {"Rule.r.one"})
+        ledger.check(real_led, st_voc, real_rules)
+        l_ok = True
+    except FeatureError as e:
+        l_ok = False
+        print(e)
+    L = {
+        "L1": led_refused([entry(status="settled")], "unknown key"),
+        "L2": led_refused([entry(statement=KeyError)], "missing key"),
+        "L3": led_refused([entry(**{"class": "fact"})], "`class`"),
+        "L4": led_refused([entry(usage_conditions=[{"id": "U9", "rule": None}])], "unstated"),
+        "L5": led_refused([GOOD], "is not a Rule", a_voc, rule_ids=("Rule.r.other",)),
+        "L6": led_refused([entry(usage_conditions=[{"id": "U1", "rule": "Rule.r.one", "verdict": "PROVED-FOR-ALL"}])], "unknown key"),
+        "L7": led_refused([GOOD], "the ledger does not hold", a_nope),
+        "L8a": led_refused([entry(attached_to=["l.maximum"])], "attached_to", a_voc),
+        "L8b": led_refused([GOOD], "attached_to", st_voc),                       # the entry names a word that does not say `assumes:` it
+        "L9a": led_refused([entry(external_proof={"pointer": "x", "commit": "c", "theorem": "t"})], "external_proof"),
+        "L9b": led_refused([entry(external_proof={"pointer": "x", "commit": "c", "theorem": "t", "sha256": "abc"})], "external_proof"),
+        "L10": led_refused([GOOD, GOOD], "twice"),
+        "L11": led_refused([entry(lean_axioms=["propext"])], "standard"),
+        "L12": led_refused([entry(review_by="next year")], "review_by"),
+    }
+    check("W4, the ledger: a well-formed entry attached to a word that says `assumes:` it loads; " + f"{sum(L.values())} of {len(L)} malformed or inconsistent "
+          "ledgers (L1 to L12 of the freeze: an unknown key, a missing key, an unknown class, a condition with neither a rule nor `unstated`, a "
+          "condition naming no Rule, a stored verdict, a word naming an entry the ledger does not hold, `attached_to` and `assumes:` disagreeing "
+          "either way, a broken external-proof link, an id used twice, a standard axiom listed, a review date that is no date) are each refused "
+          "for the reason named" + ("" if all(L.values()) else ": NOT REFUSED AS EXPECTED: " + ", ".join(k for k, v in L.items() if not v)),
+          l_ok and all(L.values()))
+    lock_ = {"Rule.r.one": {"lean_sha256": "a" * 64}}
+    d0 = ledger.digest(GOOD, lock_)
+    changed_ = [ledger.digest(entry(statement="nobody can do Y without the key"), lock_), ledger.digest(GOOD, {"Rule.r.one": {"lean_sha256": "b" * 64}}),
+                ledger.digest(entry(usage_conditions=GOOD["usage_conditions"][:1]), lock_), ledger.digest(entry(not_covered=[]), lock_),
+                ledger.digest(entry(lean_axioms=["m.verify"]), lock_), ledger.digest(entry(stand_in=False), lock_)]
+    with tempfile.TemporaryDirectory() as d:
+        root_ = Path(d)
+        (root_ / "trust").mkdir()
+        (root_ / "clausebook").mkdir()
+        (root_ / "clausebook" / "terms.lock.json").write_text(json.dumps({"sentences": lock_}))
+        mk = lambda signer, act, at=None, dg_=None: attest.make("assumption", ledger.FILE, "A.x", dg_ or d0, act, signer, "selftest fixture", at=at)
+        def stored_(*recs_, today=datetime.date(2026, 11, 12)):
+            attest.write_store(root_ / ledger.STORE, list(recs_))
+            return ledger.load_records(ok_led, root_, today)
+        r_org, r_model = mk("org:selftest-fixture", "vouched", "2026-11-12T00:00:00+00:00"), mk("model:selftest-fixture", "vouched", "2026-11-12T00:00:00+00:00")
+        v_org = ledger.vouch(stored_(r_org).of("A.x"))
+        v_model = ledger.vouch(stored_(r_model).of("A.x"))
+        v_old = stored_(mk("org:selftest-fixture", "vouched", "2026-11-12T00:00:00+00:00", ledger.digest(entry(statement="other"), lock_)))
+        v_late = stored_(r_org, today=datetime.date(2027, 11, 13))
+        try:
+            mk("tool:clausal", "vouched")
+            tool_vouch = True
+        except FeatureError:
+            tool_vouch = False
+    check("W4, the vouch: the digest of an entry changes when its statement, a condition's compiled term, the list of conditions, what is not "
+          "covered, the axiom list or the stand-in mark changes; an organisation's `vouched` record of the current digest is the vouch; a model's "
+          "is on record and is NOT a vouch; a tool cannot vouch; a vouch of another digest is void; a vouch read after the entry's review date is void",
+          all(x != d0 for x in changed_) and len({x["value"] for x in changed_}) == len(changed_) and v_org is not None and v_model is None and not tool_vouch
+          and len(v_old.void) == 1 and not v_old.valid and len(v_late.void) == 1 and not v_late.valid)
+    sta_ok = ledger.state(GOOD, {"Rule.r.one": "PROVED-FOR-ALL"})
+    sta_bad = ledger.state(GOOD, {"Rule.r.one": "REFUTED"})
+    check("W4, the flags: an entry with one proved and one unstated condition, not vouched, gives ASSUMES, CONDITION-UNSTATED and NOT-VOUCHED; "
+          "with the stated condition REFUTED also CONDITION-NOT-MET; vouched, NOT-VOUCHED goes; a proof that uses an axiom the entry lists adds AXIOM-USED",
+          ledger.flags(GOOD, sta_ok, False) == ["ASSUMES:A.x", "ASSUMPTION-CONDITION-UNSTATED:A.x", "ASSUMPTION-NOT-VOUCHED:A.x"]
+          and ledger.flags(GOOD, sta_bad, False) == ["ASSUMES:A.x", "ASSUMPTION-CONDITION-NOT-MET:A.x", "ASSUMPTION-CONDITION-UNSTATED:A.x", "ASSUMPTION-NOT-VOUCHED:A.x"]
+          and ledger.flags(GOOD, sta_ok, True) == ["ASSUMES:A.x", "ASSUMPTION-CONDITION-UNSTATED:A.x"]
+          and ledger.flags(entry(lean_axioms=["m.verify"]), sta_ok, True, ["m.verify"])[:2] == ["ASSUMES:A.x", "ASSUMPTION-AXIOM-USED:A.x"])
+    thm_ = lambda ax: {"theorems": {"T": {"exists": True, "is_theorem": True, "type_ok": True, "axioms": ax, "uses_proof": False}}}
+    std_ = ["propext", "Classical.choice", "Quot.sound"]
+    check("W4, the axiom allow-list: a theorem that uses an axiom beyond the standard three does not count; it counts when that axiom is on the "
+          "allow-list it is asked with, and only then (another axiom still rejects it; `sorryAx` is never allowed by an empty list); the reason names "
+          "the axiom; the allow-list of a reading is the `lean_axioms` of the ledger entries its words name and nothing else",
+          vreport.lclean(thm_(std_), "T") and not vreport.lclean(thm_(std_ + ["m.verify"]), "T") and vreport.lclean(thm_(std_ + ["m.verify"]), "T", {"m.verify"})
+          and not vreport.lclean(thm_(std_ + ["m.verify", "m.other"]), "T", {"m.verify"}) and not vreport.lclean(thm_(std_ + ["sorryAx"]), "T", set())
+          and "m.other" in vreport.lwhy(thm_(std_ + ["m.verify", "m.other"]), "T", {"m.verify"})
+          and ledger.allowed_axioms(ledger.parse({"assumptions": [entry(lean_axioms=["m.verify"])]}), ["A.x"]) == {"m.verify": "A.x"}
+          and ledger.allowed_axioms(ledger.parse({"assumptions": [entry(lean_axioms=["m.verify"])]}), []) == {}
+          and ledger.assumed_by(a_voc, ["l.valid", "always"]) == ["A.x"] and ledger.assumed_by(st_voc, ["l.valid", "always"]) == [])
+    # strict mode over a made-up graph with one assumption: the vouch requirement and the usage requirement
+    def agraph(code1, atts):
+        gg = tiny([])
+        gg["nodes"][1]["interface"]["source"] = {"file": pr.items[0].features[0]}       # (`wf` is a parsed feature by now)
+        gg["nodes"][1]["attrs"]["reading"]["assumptions"] = ["A.x"]
+        gg["nodes"] += [gnode("assumption:A.x", "assumption", {"ledger_entry": "A.x", "subject_kind": "assumption", "book": ledger.FILE,
+                                                               "usage_conditions": [{"id": "U1", "rule": "Rule.c"}, {"id": "U2", "rule": None, "unstated": "x"}],
+                                                               "attestations": atts}),
+                        gnode("group:rule:Rule.c", "group", {"reading": {"pieces": []}}, pr.items[0].features[0])]
+        gg["verdicts"][0]["rests_on"] = ["assumed"]
+        gg["verdicts"].append({"node": "group:rule:Rule.c", "outcome": "review", "code": code1, "flags": [], "chain": [], "rests_on": [], "unreviewed": []})
+        return gg
+    P_A = ("version: 1\nproject: p\nroots:\n  - {id: crypto, signer: 'org:selftest-fixture', roles: ['specialist:cryptography']}\n  - {id: owner, signer: null}\n"
+           "requirements:\n  vouch: {subject: assumption, act: vouched, kinds: [person, organisation], roles: ['specialist:cryptography']}\n"
+           "  usage: {every_condition: PROVED-FOR-ALL}\n")
+    p_vouch, p_usage = pol(P_A + "strict:\n  demands: [vouch]\n"), pol(P_A + "strict:\n  demands: [usage]\n")
+    vouched_ = [{"act": "vouched", "kind": "organisation", "by": "org:selftest-fixture", "on_behalf_of": None, "at": "2026-11-12T00:00:00+00:00",
+                 "scope": "x", "digest": idn, "evidence_kind": "organisation-asserted"}]
+    by_model = [dict(vouched_[0], kind="model", by="model:selftest-fixture", evidence_kind="model-asserted")]
+    rule_of = lambda res: next(x for x in res["verdicts"] if x["node"] == "group:rule:r")
+    u_none, u_org, u_model = (rule_of(ev_(agraph("PROVED-FOR-ALL", a_), p_vouch)) for a_ in ([], vouched_, by_model))
+    c_ok, c_bad = rule_of(ev_(agraph("PROVED-FOR-ALL", []), p_usage)), rule_of(ev_(agraph("REFUTED", []), p_usage))
+    check("W4, strict mode: a demanded vouch is unmet with no record and the output names who is awaited (the root holding the role); it is met by "
+          "the organisation root's `vouched` record and NOT by a model's; `every_condition: PROVED-FOR-ALL` is unmet while a condition cannot be "
+          "stated, and names it; with the stated condition REFUTED it names both",
+          u_none["strict"] == "fail" and "root `crypto`" in u_none["unmet"][0]["awaited"] and u_none["unmet"][0]["subjects"] == ["assumption:A.x"]
+          and u_org["strict"] == "pass" and u_model["strict"] == "fail"
+          and c_ok["strict"] == "fail" and c_ok["unmet"][0]["conditions"] == ["A.x/U2 (cannot be stated)"]
+          and c_bad["unmet"][0]["conditions"] == ["A.x/U1 (REFUTED)", "A.x/U2 (cannot be stated)"])
+    # the block of a rule that rests on an assumption: the assumption first, with its conditions' verdicts read from the graph
+    def ablock(code1, atts, assume=True):
+        gg = agraph(code1, atts)
+        if not assume:
+            gg["nodes"][1]["attrs"]["reading"]["assumptions"] = []
+        gg["nodes"][2]["attrs"].update({"statement": "nobody can do X without the key", "stand_in": True, "attached": [{"id": "always", "form": "{c:class}"}],
+                                        "not_covered": ["the key is the right key"], "external_proof": None, "lean_axioms": [], "review_by": "2027-11-12"})
+        gg["nodes"][1]["attrs"].update({"level": "rule"})
+        gg["nodes"][1]["attrs"]["reading"].update({"compiled": True, "summary": "s", "headline": "h", "as_expected": True, "expected": "PROVED-FOR-ALL", "echo": [],
+                                                   "pieces": [{"id": "always", "kind": "frame", "signed": False, "by": None}]})
+        return "\n".join(rules_.render(next(b_ for b_ in rules_.blocks(gg) if b_["node"] == "group:rule:r")))
+    t_ok, t_bad, t_v = ablock("PROVED-FOR-ALL", []), ablock("REFUTED", []), ablock("PROVED-FOR-ALL", vouched_)
+    first_item = lambda t_: next(l for l in t_.splitlines() if l.startswith("  1 "))
+    check("W4, the block: a rule that rests on an assumption prints `Rests on   heaviest first`, the assumption as item 1 with STAND-IN, `vouched by: "
+          "nobody (AWAITED)`, each usage condition with the verdict its Rule has in the graph (`U1  PROVED-FOR-ALL`, `U2  CANNOT BE STATED`) and "
+          "`1 of 2 proved in this run`; with the condition's Rule REFUTED the same lines read `U1  REFUTED` and `0 of 2 proved in this run, 1 NOT PROVED`; "
+          "with an organisation's vouch the line names it and the item stays in the first tier while a condition cannot be stated; a rule that rests "
+          "on no assumption prints the block as before",
+          "Rests on   heaviest first" in t_ok and "ASSUMED" in first_item(t_ok) and "STAND-IN" in t_ok and "vouched by: nobody (AWAITED)" in t_ok
+          and "U1  PROVED-FOR-ALL" in t_ok and "U2  CANNOT BE STATED" in t_ok and "1 of 2 proved in this run, 1 cannot be stated" in t_ok
+          and "U1  REFUTED" in t_bad and "0 of 2 proved in this run, 1 NOT PROVED, 1 cannot be stated" in t_bad and t_ok != t_bad
+          and "vouched by: org:selftest-fixture (organisation)" in t_v and "ASSUMED" in first_item(t_v)
+          and "heaviest first" not in ablock("PROVED-FOR-ALL", [], assume=False) and "ASSUMED" not in ablock("PROVED-FOR-ALL", [], assume=False)
+          and "    meaning      1 Clausebook pieces" in ablock("PROVED-FOR-ALL", [], assume=False))
+    # fix round of W4-6: nothing in the block of a rule on an assumption may read as "fully verified"
+    def ablock2(own=False, assume=True):
+        gg = agraph("PROVED-FOR-ALL", [])
+        if not assume:
+            gg["nodes"][1]["attrs"]["reading"]["assumptions"] = []
+        if own:
+            gg["nodes"][2]["attrs"]["usage_conditions"][0]["rule"] = "r"
+        gg["nodes"][2]["attrs"].update({"statement": "nobody can do X without the key", "stand_in": True, "attached": [{"id": "always", "form": "{c:class}"}],
+                                        "not_covered": [], "external_proof": None, "lean_axioms": [], "review_by": "2027-11-12"})
+        gg["nodes"][1]["attrs"].update({"level": "rule"})
+        gg["nodes"][1]["attrs"]["reading"].update({"compiled": True, "summary": "s", "headline": "PROVED FOR ALL INPUTS, GIVEN 1 ASSUMPTION", "as_expected": True,
+                                                   "expected": "PROVED-FOR-ALL", "echo": [["assuming", "nothing: every state and every input"]],
+                                                   "proof": {"kind": "a supplied proof of its flat obligation", "theorems": ["T"], "axioms": []},
+                                                   "pieces": [{"id": "always", "kind": "frame", "signed": False, "by": None}]})
+        own_v = next(v_ for v_ in gg["verdicts"] if v_["node"] == "group:rule:r")
+        own_v.update({"outcome": "review", "code": "PROVED-FOR-ALL", "unreviewed": ["piece:always"]})
+        return rules_.render(next(b_ for b_ in rules_.blocks(gg) if b_["node"] == "group:rule:r"))
+    la, lo, ln = ablock2(), ablock2(own=True), ablock2(assume=False)
+    ta, to, tn = (" ".join(" ".join(l_).split()) for l_ in (la, lo, ln))        # one line each: a phrase may be wrapped
+    held = lambda l_: " ".join(" ".join(l_[next(i for i, x_ in enumerate(l_) if "STRONGEST HELD" in x_):][:4]).split())
+    rung4 = lambda l_: " ".join(" ".join(l_[next(i for i, x_ in enumerate(l_) if x_.strip().startswith("4 proof")):][:8]).split())
+    check("W4-6 fix round, the block of a PROVED rule that rests on an assumption: the line STRONGEST HELD says `GIVEN 1 ASSUMPTION THAT NOTHING HERE CHECKS` "
+          "and names the entry and that nobody vouches; what the proof rung rests on names the assumption as NOT covered by the proof; a row `Outcome` "
+          "says REVIEW, NOT PASS with the outcome of the graph; the `assuming` slot says it is about inputs only and names the assumption; a usage "
+          "condition that is the rule itself is marked `[THIS RULE ITSELF]` and the count says so (`of the other 1: 0 proved`), and is not marked when "
+          "it is another rule; the block of a rule that rests on no assumption has none of these lines",
+          "GIVEN 1 ASSUMPTION THAT NOTHING HERE CHECKS (A.x: vouched by nobody, 1 usage condition cannot be stated)" in held(la)
+          and "NOT covered by the proof, the assumption A.x behind the word always" in rung4(la) and "[assumed]" in rung4(la)
+          and "Outcome REVIEW, NOT PASS: the assumption A.x is vouched by nobody" in ta and "(outcome `review` in out/graph.json)" in ta
+          and "This slot is about inputs only. The rule ALSO rests on 1 assumption nothing here checks: A.x" in ta and "assuming nothing:" not in ta
+          and "[THIS RULE ITSELF]" in to and "U1 is THIS RULE ITSELF (of the other 1: 0 proved)" in to and "THIS RULE ITSELF" not in ta
+          and "ASSUMPTION" not in held(ln) and "assumed" not in rung4(ln) and "Outcome" not in tn and "assuming nothing: every state and every input" in tn
+          and "THIS RULE" not in tn)
     print(f"{'all checks passed' if not bad else str(len(bad)) + ' CHECKS FAILED'}")
     return 1 if bad else 0
 

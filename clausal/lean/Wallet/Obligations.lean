@@ -4,6 +4,7 @@
 -- generated from the `flat:` template of each frame. A proof is supplied by hand in lean/Wallet/Proofs/ (scenarios) or
 -- lean/Wallet/RuleProofs/ (rules): a theorem named exactly `<id>` of type exactly `<id>.obligation`.
 -- UNTRUSTED text: lean/Run/Links.lean kernel-checks `<id>.reading_iff_obligation : <id>.reading ↔ <id>.obligation`.
+import Intake.Pieces
 import Counter.Pieces
 import Wallet.Pieces
 import Ledger.Pieces
@@ -137,6 +138,41 @@ def Rule.counter_rules.rejected_bump_unchanged.obligation : Prop :=
     Rule: A bump is always accepted -/
 def Rule.counter_rules.bump_always_accepted.obligation : Prop :=
   (∀ (st : counter.Counter) (inp : U64), ∃ (ans : Bool) (st' : counter.Counter), (counter.Counter.bump st inp = ok (ans, st')) ∧ ((Ctr.said ans)))
+
+/-- features/intake.feature:11
+    Rule: An intake always answers -/
+def Rule.intake.always_answers.obligation : Prop :=
+  (∀ (st : sigintake.Key × sigintake.Counter) (inp : sigintake.Message), ∃ (ans : Bool) (st' : sigintake.Key × sigintake.Counter), (sigintake.intake st.1 st.2 inp = ok (ans, st')) ∧ True)
+
+/-- features/intake.feature:15
+    Rule: An intake is accepted only if the signature of the message verifies under the expected key -/
+def Rule.intake.accept_only_if_verified.obligation : Prop :=
+  (∀ (st : sigintake.Key × sigintake.Counter) (inp : sigintake.Message), ∃ (ans : Bool) (st' : sigintake.Key × sigintake.Counter), (sigintake.intake st.1 st.2 inp = ok (ans, st')) ∧ ((In.said ans) → ((In.verifies st.1 inp))))
+
+/-- features/intake.feature:19
+    Rule: An intake for which the signature of the message does not verify under the expected key is rejected and changes nothing -/
+def Rule.intake.unverified_rejected_unchanged.obligation : Prop :=
+  (∀ (st : sigintake.Key × sigintake.Counter) (inp : sigintake.Message), (¬ ((In.verifies st.1 inp))) → ∃ (ans : Bool) (st' : sigintake.Key × sigintake.Counter), (sigintake.intake st.1 st.2 inp = ok (ans, st')) ∧ (¬ (In.said ans) ∧ st' = st))
+
+/-- features/intake.feature:23
+    Rule: An intake gives the same answer when only the unsigned part of the message differs -/
+def Rule.intake.unsigned_part_ignored.obligation : Prop :=
+  (∀ (st : sigintake.Key × sigintake.Counter) (inp : sigintake.Message) (st2 : sigintake.Key × sigintake.Counter) (inp2 : sigintake.Message), In.unsignedDiffers st inp st2 inp2 → ∃ (ans : Bool) (st' : sigintake.Key × sigintake.Counter) (ans2 : Bool) (st2' : sigintake.Key × sigintake.Counter), (sigintake.intake st.1 st.2 inp = ok (ans, st')) ∧ (sigintake.intake st2.1 st2.2 inp2 = ok (ans2, st2')) ∧ (ans = ans2))
+
+/-- features/intake.feature:27
+    Rule: An intake is accepted only if the counter of the message is more than the last counter -/
+def Rule.intake.accept_only_if_counter_above.obligation : Prop :=
+  (∀ (st : sigintake.Key × sigintake.Counter) (inp : sigintake.Message), ∃ (ans : Bool) (st' : sigintake.Key × sigintake.Counter), (sigintake.intake st.1 st.2 inp = ok (ans, st')) ∧ ((In.said ans) → (((In.last st.2) < (In.counterOf inp)))))
+
+/-- features/intake.feature:36
+    Rule: For an accepted intake, the last counter is now the counter of the message -/
+def Rule.intake.counter_set.obligation : Prop :=
+  (∀ (st : sigintake.Key × sigintake.Counter) (inp : sigintake.Message), ∀ (ans : Bool) (st' : sigintake.Key × sigintake.Counter), (sigintake.intake st.1 st.2 inp = ok (ans, st')) → (In.said ans → (In.last st'.2) = (In.counterOf inp)))
+
+/-- features/intake.feature:40
+    Rule: An intake followed by an intake with the same input is always rejected -/
+def Rule.intake.same_message_again_rejected.obligation : Prop :=
+  (∀ (st : sigintake.Key × sigintake.Counter) (inp : sigintake.Message), ∃ (ans : Bool) (st' : sigintake.Key × sigintake.Counter), (∃ r_1 s_1, (sigintake.intake st.1 st.2 inp = ok (r_1, s_1)) ∧ (sigintake.intake s_1.1 s_1.2 inp = ok (ans, st'))) ∧ (¬ ((In.said ans))))
 
 /-- features/ledger_rules.feature:14
     Rule: An internal fund transfer never changes the total of the ledger's balances -/

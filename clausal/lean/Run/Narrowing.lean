@@ -3,6 +3,7 @@
 -- Plan nodes Q1 (narrowed claims that hold of every operation) and Q2 (the printed coverage is the Calls value).
 -- Theorems whose script fails are EXPECTED in parts 2 and 4: they are logged as errors and reported `notproved`.
 -- A statement that does not ELABORATE is never expected, except the one control of part 0: it is reported `badstatement`.
+import Intake.Pieces
 import Counter.Pieces
 import Wallet.Pieces
 import Ledger.Pieces
@@ -46,6 +47,8 @@ theorem NarrowingRun.fact_53 : ∀ ans, ((W.withdraw).successful).covered ans �
 theorem NarrowingRun.fact_58 : ∀ ans, ((W.withdraw).rejected).covered ans → ¬ (W.accepted ans) := by narrow_side
 theorem NarrowingRun.fact_60 : ∀ ans (_ : Unit) ans₂ (_ : Unit), ((Ctr.bump).successful).covered ans → ((Ctr.bump).successful).covered ans₂ → ans = ans₂ := by narrow_side
 theorem NarrowingRun.fact_62 : ∀ ans (_ : Unit) ans₂ (_ : Unit), ((Ctr.bump).rejected).covered ans → ((Ctr.bump).rejected).covered ans₂ → ans = ans₂ := by narrow_side
+theorem NarrowingRun.fact_64 : ∀ ans (_ : Unit) ans₂ (_ : Unit), ((In.intake).successful).covered ans → ((In.intake).successful).covered ans₂ → ans = ans₂ := by narrow_side
+theorem NarrowingRun.fact_66 : ∀ ans (_ : Unit) ans₂ (_ : Unit), ((In.intake).rejected).covered ans → ((In.intake).rejected).covered ans₂ → ans = ans₂ := by narrow_side
 
 -- ===== 2. what was NOT declared: each attempt must FAIL (else the book is missing a line)
 theorem NarrowingRun.fact_0 : ∀ ans, ¬ ((L.applyBatch).successful).covered ans := by narrow_side
@@ -85,6 +88,8 @@ theorem NarrowingRun.fact_56 : ∀ ans (_ : Unit) ans₂ (_ : Unit), ((W.withdra
 theorem NarrowingRun.fact_57 : ∀ ans, ((W.withdraw).rejected).covered ans → (W.accepted ans) := by narrow_side
 theorem NarrowingRun.fact_59 : ∀ ans, ¬ ((Ctr.bump).successful).covered ans := by narrow_side
 theorem NarrowingRun.fact_61 : ∀ ans, ¬ ((Ctr.bump).rejected).covered ans := by narrow_side
+theorem NarrowingRun.fact_63 : ∀ ans, ¬ ((In.intake).successful).covered ans := by narrow_side
+theorem NarrowingRun.fact_65 : ∀ ans, ¬ ((In.intake).rejected).covered ans := by narrow_side
 
 -- ===== 3. the control sentences the compiler REFUSES, compiled without the refusal: each narrowed claim it names
 --          holds for EVERY `run`, proved through the theorem the refusal names, and found by the fixed tactic
@@ -152,9 +157,10 @@ theorem NarrowingRun.open_26 : ∀ run, Frames.IncreasesBy ((({ L.apply with run
 theorem NarrowingRun.open_27 : ∀ run, Frames.ChangesOnly ((({ L.apply with run := run })).successful) (fun st => L.accounts st) (fun st k => L.bal st k) (fun st inp => [L.sender inp, L.receiver inp]) := by vacuous_by_narrowing
 theorem NarrowingRun.open_28 : ∀ run, Frames.NeverChanges ((({ L.applyAll with run := run })).rejected) (fun st inp => L.balances st) := by vacuous_by_narrowing
 theorem NarrowingRun.open_29 : ∀ run, Frames.NeverChanges ((({ Ctr.bump with run := run })).rejected) (fun st inp => Ctr.count st) := by vacuous_by_narrowing
-theorem NarrowingRun.open_30 : ∀ run, Frames.NeverChanges ((({ L.apply with run := run })).successful) (fun st inp => L.balances st) := by vacuous_by_narrowing
-theorem NarrowingRun.open_31 : ∀ run, Frames.Becomes ((({ L.apply with run := run })).rejected) (fun st inp => Frames.aggregate (((L.balances st).map L.amount))) (fun st inp => 0) := by vacuous_by_narrowing
-theorem NarrowingRun.open_32 : ∀ run, Frames.NeverChanges ((({ L.apply with run := run })).successful) (fun st inp => Frames.aggregate (((L.balances st).map L.amount))) := by vacuous_by_narrowing
+theorem NarrowingRun.open_30 : ∀ run, Frames.Becomes ((({ In.intake with run := run })).successful) (fun st inp => In.last st.2) (fun st inp => In.counterOf inp) := by vacuous_by_narrowing
+theorem NarrowingRun.open_31 : ∀ run, Frames.NeverChanges ((({ L.apply with run := run })).successful) (fun st inp => L.balances st) := by vacuous_by_narrowing
+theorem NarrowingRun.open_32 : ∀ run, Frames.Becomes ((({ L.apply with run := run })).rejected) (fun st inp => Frames.aggregate (((L.balances st).map L.amount))) (fun st inp => 0) := by vacuous_by_narrowing
+theorem NarrowingRun.open_33 : ∀ run, Frames.NeverChanges ((({ L.apply with run := run })).successful) (fun st inp => Frames.aggregate (((L.balances st).map L.amount))) := by vacuous_by_narrowing
 
 -- ===== 5. which calls each claim is about, ACCORDING TO LEAN: the constructor of Frames.Calls its operation carries
 #calls "Spec.wallet.transfer_conserves#0" : fun (a b : U64) => ((W.transfer).given (fun st inp => (W.balance st.1) = a.val ∧ (W.balance st.2) = b.val ∧ inp.val ≤ (W.balance st.1) ∧ (W.balance st.2) + inp.val ≤ W.maximum)).calls
@@ -254,6 +260,13 @@ theorem NarrowingRun.open_32 : ∀ run, Frames.NeverChanges ((({ L.apply with ru
 #calls "Rule.ledger.batch_then_total#0" : ((L.applyBatch).andThen L.total).calls
 #calls "Rule.counter_rules.rejected_bump_unchanged#0" : ((Ctr.bump).rejected).calls
 #calls "Rule.counter_rules.bump_always_accepted#0" : (Ctr.bump).calls
+#calls "Rule.intake.always_answers#0" : (In.intake).calls
+#calls "Rule.intake.accept_only_if_verified#0" : (In.intake).calls
+#calls "Rule.intake.unverified_rejected_unchanged#0" : ((In.intake).given (fun st inp => ¬ ((In.verifies st.1 inp)))).calls
+#calls "Rule.intake.unsigned_part_ignored#0" : (In.intake).calls
+#calls "Rule.intake.accept_only_if_counter_above#0" : (In.intake).calls
+#calls "Rule.intake.counter_set#0" : ((In.intake).successful).calls
+#calls "Rule.intake.same_message_again_rejected#0" : (((In.intake).andThen In.intake).tied Frames.sameInput).calls
 #calls "Rule.ledger_rules.readme_internal_transfers#0" : ((L.apply).internal L.isAccount L.parties).calls
 #calls "Rule.ledger_rules.n1_internal_transfer#0" : ((L.apply).internal L.isAccount L.parties).calls
 #calls "Rule.ledger_rules.n2_accepted_only_if_covered#0" : (L.apply).calls
@@ -318,6 +331,6 @@ theorem NarrowingRun.open_32 : ∀ run, Frames.NeverChanges ((({ L.apply with ru
 #calls "Rule.narrowing_controls.q2_sequence_narrowed_rejected#0" : (((L.applyBatch).andThen L.total).rejected).calls
 #calls "Rule.narrowing_controls.q2_internal_narrowed_on_claim#0" : (((L.apply).internal L.isAccount L.parties).successful).calls
 
-#narrowing_report NarrowingRun.control_bad_statement NarrowingRun.control_never_declared NarrowingRun.fact_2 NarrowingRun.fact_4 NarrowingRun.fact_5 NarrowingRun.fact_8 NarrowingRun.fact_10 NarrowingRun.fact_12 NarrowingRun.fact_13 NarrowingRun.fact_16 NarrowingRun.fact_18 NarrowingRun.fact_21 NarrowingRun.fact_24 NarrowingRun.fact_26 NarrowingRun.fact_29 NarrowingRun.fact_32 NarrowingRun.fact_34 NarrowingRun.fact_36 NarrowingRun.fact_37 NarrowingRun.fact_42 NarrowingRun.fact_44 NarrowingRun.fact_45 NarrowingRun.fact_50 NarrowingRun.fact_52 NarrowingRun.fact_53 NarrowingRun.fact_58 NarrowingRun.fact_60 NarrowingRun.fact_62 NarrowingRun.fact_0 NarrowingRun.fact_1 NarrowingRun.fact_3 NarrowingRun.fact_6 NarrowingRun.fact_7 NarrowingRun.fact_9 NarrowingRun.fact_11 NarrowingRun.fact_14 NarrowingRun.fact_15 NarrowingRun.fact_17 NarrowingRun.fact_19 NarrowingRun.fact_20 NarrowingRun.fact_22 NarrowingRun.fact_23 NarrowingRun.fact_25 NarrowingRun.fact_27 NarrowingRun.fact_28 NarrowingRun.fact_30 NarrowingRun.fact_31 NarrowingRun.fact_33 NarrowingRun.fact_35 NarrowingRun.fact_38 NarrowingRun.fact_39 NarrowingRun.fact_40 NarrowingRun.fact_41 NarrowingRun.fact_43 NarrowingRun.fact_46 NarrowingRun.fact_47 NarrowingRun.fact_48 NarrowingRun.fact_49 NarrowingRun.fact_51 NarrowingRun.fact_54 NarrowingRun.fact_55 NarrowingRun.fact_56 NarrowingRun.fact_57 NarrowingRun.fact_59 NarrowingRun.fact_61 NarrowingRun.cert_0 NarrowingRun.tactic_0 NarrowingRun.cert_1 NarrowingRun.tactic_1 NarrowingRun.cert_2 NarrowingRun.tactic_2 NarrowingRun.cert_3 NarrowingRun.tactic_3 NarrowingRun.cert_4 NarrowingRun.tactic_4 NarrowingRun.cert_5 NarrowingRun.tactic_5 NarrowingRun.cert_6 NarrowingRun.tactic_6 NarrowingRun.cert_7 NarrowingRun.tactic_7 NarrowingRun.cert_8 NarrowingRun.tactic_8 NarrowingRun.cert_9 NarrowingRun.tactic_9 NarrowingRun.cert_10 NarrowingRun.tactic_10 NarrowingRun.cert_11 NarrowingRun.tactic_11 NarrowingRun.open_12 NarrowingRun.open_13 NarrowingRun.open_14 NarrowingRun.open_15 NarrowingRun.open_16 NarrowingRun.open_17 NarrowingRun.open_18 NarrowingRun.open_19 NarrowingRun.open_20 NarrowingRun.open_21 NarrowingRun.open_22 NarrowingRun.open_23 NarrowingRun.open_24 NarrowingRun.open_25 NarrowingRun.open_26 NarrowingRun.open_27 NarrowingRun.open_28 NarrowingRun.open_29 NarrowingRun.open_30 NarrowingRun.open_31 NarrowingRun.open_32
+#narrowing_report NarrowingRun.control_bad_statement NarrowingRun.control_never_declared NarrowingRun.fact_2 NarrowingRun.fact_4 NarrowingRun.fact_5 NarrowingRun.fact_8 NarrowingRun.fact_10 NarrowingRun.fact_12 NarrowingRun.fact_13 NarrowingRun.fact_16 NarrowingRun.fact_18 NarrowingRun.fact_21 NarrowingRun.fact_24 NarrowingRun.fact_26 NarrowingRun.fact_29 NarrowingRun.fact_32 NarrowingRun.fact_34 NarrowingRun.fact_36 NarrowingRun.fact_37 NarrowingRun.fact_42 NarrowingRun.fact_44 NarrowingRun.fact_45 NarrowingRun.fact_50 NarrowingRun.fact_52 NarrowingRun.fact_53 NarrowingRun.fact_58 NarrowingRun.fact_60 NarrowingRun.fact_62 NarrowingRun.fact_64 NarrowingRun.fact_66 NarrowingRun.fact_0 NarrowingRun.fact_1 NarrowingRun.fact_3 NarrowingRun.fact_6 NarrowingRun.fact_7 NarrowingRun.fact_9 NarrowingRun.fact_11 NarrowingRun.fact_14 NarrowingRun.fact_15 NarrowingRun.fact_17 NarrowingRun.fact_19 NarrowingRun.fact_20 NarrowingRun.fact_22 NarrowingRun.fact_23 NarrowingRun.fact_25 NarrowingRun.fact_27 NarrowingRun.fact_28 NarrowingRun.fact_30 NarrowingRun.fact_31 NarrowingRun.fact_33 NarrowingRun.fact_35 NarrowingRun.fact_38 NarrowingRun.fact_39 NarrowingRun.fact_40 NarrowingRun.fact_41 NarrowingRun.fact_43 NarrowingRun.fact_46 NarrowingRun.fact_47 NarrowingRun.fact_48 NarrowingRun.fact_49 NarrowingRun.fact_51 NarrowingRun.fact_54 NarrowingRun.fact_55 NarrowingRun.fact_56 NarrowingRun.fact_57 NarrowingRun.fact_59 NarrowingRun.fact_61 NarrowingRun.fact_63 NarrowingRun.fact_65 NarrowingRun.cert_0 NarrowingRun.tactic_0 NarrowingRun.cert_1 NarrowingRun.tactic_1 NarrowingRun.cert_2 NarrowingRun.tactic_2 NarrowingRun.cert_3 NarrowingRun.tactic_3 NarrowingRun.cert_4 NarrowingRun.tactic_4 NarrowingRun.cert_5 NarrowingRun.tactic_5 NarrowingRun.cert_6 NarrowingRun.tactic_6 NarrowingRun.cert_7 NarrowingRun.tactic_7 NarrowingRun.cert_8 NarrowingRun.tactic_8 NarrowingRun.cert_9 NarrowingRun.tactic_9 NarrowingRun.cert_10 NarrowingRun.tactic_10 NarrowingRun.cert_11 NarrowingRun.tactic_11 NarrowingRun.open_12 NarrowingRun.open_13 NarrowingRun.open_14 NarrowingRun.open_15 NarrowingRun.open_16 NarrowingRun.open_17 NarrowingRun.open_18 NarrowingRun.open_19 NarrowingRun.open_20 NarrowingRun.open_21 NarrowingRun.open_22 NarrowingRun.open_23 NarrowingRun.open_24 NarrowingRun.open_25 NarrowingRun.open_26 NarrowingRun.open_27 NarrowingRun.open_28 NarrowingRun.open_29 NarrowingRun.open_30 NarrowingRun.open_31 NarrowingRun.open_32 NarrowingRun.open_33
 #print axioms Frames.Narrowed.holdsAt
 #print axioms Frames.Narrowed.holdsAt2

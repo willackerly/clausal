@@ -961,6 +961,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "sigintake"
+version = "0.1.0"
+
+[[package]]
 name = "slab"
 version = "0.4.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1228,6 +1232,7 @@ dependencies = [
  "ledger",
  "regex",
  "serde_json",
+ "sigintake",
  "tokio",
  "wallet",
 ]

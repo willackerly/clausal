@@ -1,0 +1,84 @@
+# CLAUSEBOOK, LOCAL BOOK OF THE SIGNED-INTAKE FIXTURE (plan node W6, trust test 1). HUMAN-ASSERTED, piece by piece.
+#
+# The fourth project: intake of a signed message on a TOY verifier (../../sigintake/src/lib.rs). Its own words: one
+# operation, the condition "verifies under", the last counter, the counter of a message, and the relation "only the
+# unsigned part differs". It needs core and nothing else: no pack. Lean side: lean/Intake/Pieces.lean (namespace In).
+#
+# The state of the operation has TWO parts, each with its own role: the expected key and the last counter.
+#
+# `assumes:` (plan node W4) names entries of the assumption ledger (../../trust/assumptions.yaml). It is part of the entry's
+# text, so it is under the entry's digest: adding, removing or renaming an assumption voids every attestation of the word.
+# A word that names an entry the ledger does not hold stops `clausal gen` and `clausal book check`.
+version: 1
+book: intake
+needs: [core]
+lean_imports: [Intake.Pieces]
+lean_files:
+  In: lean/Intake/Pieces.lean
+# literal and actor types its holes name (glossary.yaml: `param_types`, `actors`)
+uses_types: [sigkey, sigcounter, message, amount]
+# `amount`: the same text the ledger pack gives (this project does not list the pack; a type's echo may be given by
+# several books only if they agree)
+type_echo:
+  amount: "a u64: 0 to 2^64 - 1"
+  message: "payload/counter/tag/hint, four u64 numbers; the hint is the unsigned part"
+
+operations:
+  - id: in.intake
+    domain: intake
+    lean: In.intake
+    model: sigintake.intake
+    shape: mut2
+    state: [[expected key, sigkey], [last counter, sigcounter]]
+    input: [[message, message]]
+    accepted: In.said
+    answer: Bool
+    when: ["{message} is taken in"]
+    nouns: [intake]
+    echo: "taking in {message} under {expected key}, after {last counter}"
+    accepted_echo: "an acceptance is the answer yes (true); the answer no is a rejection"
+    narrowing:
+      accepted: { one_answer: true }
+      rejected: { one_answer: true }
+
+pieces:
+  # THE WORD THE ASSUMPTION HANGS ON. What is checked here is the toy relation of lean/Intake/Pieces.lean (`In.verifies`);
+  # that a tag which verifies was made by the holder of the key is NOT checked by anything: it is the ledger entry below.
+  - id: in.verifies
+    kind: domain
+    domain: intake
+    cat: cond
+    forms: ["the signature of {m:message} verifies under {k:sigkey}"]
+    not_forms: ["the signature of {m:message} does not verify under {k:sigkey}"]
+    lean: "In.verifies {k} {m}"
+    defs: [In.verifies]
+    assumes: [A.sig.unforgeable]
+    echo: "the tag of {m} is the one the toy verifier computes from {k}, the payload and the counter (STAND-IN for a signature check)"
+    not_echo: "the tag of {m} is NOT the one the toy verifier computes from {k}, the payload and the counter (STAND-IN for a signature check)"
+  - id: in.last
+    kind: domain
+    domain: intake
+    cat: measure<num>
+    forms: ["{c:sigcounter}"]
+    lean: "In.last {c}"
+    builds: true
+    defs: [In.last]
+    echo: "the number held as {c}"
+  - id: in.counter_of
+    kind: domain
+    domain: intake
+    cat: term<num>
+    forms: ["the counter of {m:message}"]
+    lean: "In.counterOf {m}"
+    defs: [In.counterOf]
+    echo: "the counter written in {m}"
+  # a relation between two calls (kind "a relation between two inputs"), for the two-run frames
+  - id: in.unsigned_differs
+    kind: domain
+    domain: intake
+    cat: variation
+    for_op: in.intake
+    forms: ["only the unsigned part of the message differs"]
+    lean: "In.unsignedDiffers"
+    defs: [In.unsignedDiffers]
+    echo: "the second call has the same expected key and the same last counter, and its message has the same payload, counter and tag (the two hints may be anything)"

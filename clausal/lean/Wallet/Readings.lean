@@ -2,6 +2,7 @@
 -- The COMPILED READING of every scenario and of every `Rule:` line: one Lean statement each, built from
 -- the pieces of the Clausebook (domain words, modifiers, frames of lean/Frames). The sentence is in the
 -- comment above each; the slot-structured English echo is in out/report.md.
+import Intake.Pieces
 import Counter.Pieces
 import Wallet.Pieces
 import Ledger.Pieces
@@ -705,6 +706,41 @@ def Rule.counter_rules.rejected_bump_unchanged.reading : Prop :=
     Rule: A bump is always accepted -/
 def Rule.counter_rules.bump_always_accepted.reading : Prop :=
   Frames.Always Ctr.bump (fun ans => (Ctr.bump).accepted ans)
+
+/-- features/intake.feature:11
+    Rule: An intake always answers -/
+def Rule.intake.always_answers.reading : Prop :=
+  Frames.AlwaysAnswers In.intake
+
+/-- features/intake.feature:15
+    Rule: An intake is accepted only if the signature of the message verifies under the expected key -/
+def Rule.intake.accept_only_if_verified.reading : Prop :=
+  Frames.OnlyIf In.intake (fun ans => (In.intake).accepted ans) (fun st inp => In.verifies st.1 inp)
+
+/-- features/intake.feature:19
+    Rule: An intake for which the signature of the message does not verify under the expected key is rejected and changes nothing -/
+def Rule.intake.unverified_rejected_unchanged.reading : Prop :=
+  Frames.RejectedUnchanged ((In.intake).given (fun st inp => ¬ ((In.verifies st.1 inp))))
+
+/-- features/intake.feature:23
+    Rule: An intake gives the same answer when only the unsigned part of the message differs -/
+def Rule.intake.unsigned_part_ignored.reading : Prop :=
+  Frames.IndependentOf In.intake In.unsignedDiffers (fun ans _ => ans)
+
+/-- features/intake.feature:27
+    Rule: An intake is accepted only if the counter of the message is more than the last counter -/
+def Rule.intake.accept_only_if_counter_above.reading : Prop :=
+  Frames.OnlyIf In.intake (fun ans => (In.intake).accepted ans) (fun st inp => (In.last st.2) < (In.counterOf inp))
+
+/-- features/intake.feature:36
+    Rule: For an accepted intake, the last counter is now the counter of the message -/
+def Rule.intake.counter_set.reading : Prop :=
+  Frames.Becomes (In.intake).successful (fun st inp => In.last st.2) (fun st inp => In.counterOf inp)
+
+/-- features/intake.feature:40
+    Rule: An intake followed by an intake with the same input is always rejected -/
+def Rule.intake.same_message_again_rejected.reading : Prop :=
+  Frames.Never (((In.intake).andThen In.intake).tied Frames.sameInput) (fun ans => (((In.intake).andThen In.intake).tied Frames.sameInput).accepted ans)
 
 /-- features/ledger_rules.feature:14
     Rule: An internal fund transfer never changes the total of the ledger's balances -/

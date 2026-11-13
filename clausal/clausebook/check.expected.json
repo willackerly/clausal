@@ -1,7 +1,7 @@
 {
  "what": "the violations `python3 -m clausal book check` reports on the book as it stands, accepted as known debt (plan node Q3; cleared by Q4). The check passes iff it reports exactly these.",
  "counts": {
-  "1 holes": 6,
+  "1 holes": 7,
   "3a one form per position": 4,
   "3b one form in a Rule line": 1,
   "4 head collision": 1,
@@ -22,6 +22,11 @@
    "check": "1 holes",
    "key": "if_then|vp_forms|is accepted whenever {k:cond}",
    "what": "`if_then` (Rule verb phrase) \"is accepted whenever {k:cond}\": `c` is not in the form: the words of the form stand for it (the book says `implied: c = accepted`)"
+  },
+  {
+   "check": "1 holes",
+   "key": "in.intake|when|{message} is taken in",
+   "what": "operation `in.intake` \"{message} is taken in\": its holes (['message']) are not its roles (['expected key', 'last counter', 'message'])"
   },
   {
    "check": "1 holes",

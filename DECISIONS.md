@@ -2077,3 +2077,10 @@ Agent's calls: the translator is designed as an injective encoder outside the co
 - **Why:** the owner deferred the choice and asked for maximum autonomy and for worktrees that keep working whatever happens to the other directories under `~/dev`; a separate clone has its own `.git` and depends on none of them.
 - **Not done yet:** nothing is committed or pushed there. The crate moves from `private/tdf-core` once the proof agents working in it have finished, with its history.
 - **Undo:** `mv TDFLite-Rust/sentinel-next-phase` somewhere safe, then delete the clone; nothing else references it.
+
+## Safety bundles of the owner's other repositories (2026-11-12, at the owner's request for help with the September branches)
+
+- **What:** read-only investigation of what is deployed for the owner's Azure demo and of the shape of the related repositories' histories (reports kept under the git-ignored `private/sentinel-state-2026-11-12/`). Then, as a safety net only: `git bundle --all` of nine repositories, verified ref-for-ref, plus exports of three stashes and of the uncommitted and untracked files of 17 dirty worktrees, written to `~/safety-bundles/2026-11-12/` (302 MB, mode 700, with checksums).
+- **Why:** several hundred commits and one whole repository exist only on this laptop. Bundling reads the repositories and changes nothing in them.
+- **Not done:** no tag, branch, push, fetch or worktree removal in any of those repositories; nothing on GitHub or Azure. Those wait for the owner.
+- **Undo:** delete `~/safety-bundles/2026-11-12/`.

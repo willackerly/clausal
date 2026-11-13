@@ -31,6 +31,9 @@ pub enum Val {
     Wallet(u64),     // an actor: a wallet is its balance
     Ledger(Vec<u64>), // an actor: a ledger is its balances, account 0 first
     Counter(u64),    // an actor: a counter is its count
+    Key(u64),        // an actor of the signed intake: the expected key is its number
+    Seq(u64),        // an actor of the signed intake: the last counter is its number
+    Msg(u64, u64, u64, u64), // a message: payload, counter, tag, hint
     Unit,
 }
 
@@ -57,6 +60,12 @@ impl Val {
         match self {
             Val::Ledger(l) => l,
             v => panic!("a ledger is needed, got {v:?}"),
+        }
+    }
+    pub fn msg(&self) -> (u64, u64, u64, u64) {
+        match self {
+            Val::Msg(p, c, t, h) => (*p, *c, *t, *h),
+            v => panic!("a message is needed, got {v:?}"),
         }
     }
     pub fn transfer(&self) -> (usize, usize, u64) {
@@ -102,6 +111,11 @@ pub fn parse_lit(typ: &str, s: &str) -> Val {
         }
         "batch" => Val::List(items(s).into_iter().map(|x| parse_lit("transfer", x)).collect()),
         "error" => Val::Name(s.to_string()),
+        "message" => {
+            let f: Vec<u64> = s.trim().split('/').map(|x| x.parse().unwrap_or_else(|_| panic!("not a message: {s}"))).collect();
+            assert!(f.len() == 4, "not a message: {s}");
+            Val::Msg(f[0], f[1], f[2], f[3])
+        }
         t => panic!("unknown literal type {t}"),
     }
 }
@@ -112,6 +126,8 @@ pub fn build_actor(typ: &str, v: &Val) -> Val {
         "wallet" => Val::Wallet(u64::try_from(v.num()).expect("a wallet balance is a u64")),
         "ledger" => Val::Ledger(v.list().iter().map(|x| u64::try_from(x.num()).expect("a balance is a u64")).collect()),
         "counter" => Val::Counter(u64::try_from(v.num()).expect("a count is a u64")),
+        "sigkey" => Val::Key(u64::try_from(v.num()).expect("a key number is a u64")),
+        "sigcounter" => Val::Seq(u64::try_from(v.num()).expect("a counter is a u64")),
         t => panic!("unknown actor type {t}"),
     }
 }
@@ -226,6 +242,17 @@ pub fn eval(x: &J, e: &Env) -> Val {
             Val::Counter(n) => Val::Num(n as u128),
             v => panic!("a counter is needed, got {v:?}"),
         },
+        // ---- signed intake (the toy relation, written again here: the tag is three hex digits, one each from the key,
+        //      the payload and the counter). A STAND-IN for a signature check.
+        "in.verifies" => match (a("k"), a("m")) {
+            (Val::Key(k), Val::Msg(p, c, t, _)) => Val::Bool(t as u128 == (k % 16) as u128 * 256 + (p % 16) as u128 * 16 + (c % 16) as u128),
+            v => panic!("a key and a message are needed, got {v:?}"),
+        },
+        "in.last" => match a("c") {
+            Val::Seq(n) => Val::Num(n as u128),
+            v => panic!("a last counter is needed, got {v:?}"),
+        },
+        "in.counter_of" => Val::Num(a("m").msg().1 as u128),
         // ---- ledger
         "l.ledger" => Val::List(a("l").ledger().iter().map(|&v| Val::Num(v as u128)).collect()),
         "l.balances_of" => Val::List(a("l").ledger().iter().map(|&v| Val::Num(v as u128)).collect()),
@@ -354,6 +381,15 @@ pub fn run_op(op: &str, state: &[Val], input: &Val) -> Option<(Val, Vec<Val>)> {
                 let ok = x.bump(amount());
                 (Val::Bool(ok), vec![Val::Counter(x.count)])
             }
+            "in.intake" => {
+                let (mut k, mut c) = match (&state[0], &state[1]) {
+                    (Val::Key(k), Val::Seq(c)) => (sigintake::Key { id: *k }, sigintake::Counter { last: *c }),
+                    v => panic!("an expected key and a last counter are needed, got {v:?}"),
+                };
+                let (payload, counter, tag, hint) = input.msg();
+                let ok = sigintake::intake(&mut k, &mut c, sigintake::Message { payload, counter, tag, hint });
+                (Val::Bool(ok), vec![Val::Key(k.id), Val::Seq(c.last)])
+            }
             "l.total" => (opt_num(l().total()), state.clone()),
             "l.lookup" => (opt_num(l().balance(usize::try_from(input.num()).expect("an account number is a usize"))), state.clone()),
             o => panic!("no Rust binding of operation `{o}`"),
@@ -367,7 +403,7 @@ pub fn accepted(op: &str, ans: &Val) -> bool {
     match op {
         "w.transfer" | "w.deposit" | "w.withdraw" => *ans == Val::Name("ok".into()),
         "l.apply_batch" => true,
-        "l.apply_all" | "l.apply" | "ctr.bump" => *ans == Val::Bool(true),
+        "l.apply_all" | "l.apply" | "ctr.bump" | "in.intake" => *ans == Val::Bool(true),
         "l.total" | "l.lookup" => matches!(ans, Val::Opt(Some(_))),
         o => panic!("no Rust binding of operation `{o}`"),
     }
@@ -547,6 +583,10 @@ pub fn variation(piece: &str, s: &[Val], a: &Val, s2: &[Val], a2: &Val) -> bool 
             a2 == a && at(&s2[0], a.num()) == at(&s[0], a.num())
         }
         "l.extended" => a2 == a && s2[0].ledger().starts_with(s[0].ledger()),
+        "in.unsigned_differs" => {
+            let ((p, c, t, _), (p2, c2, t2, _)) = (a.msg(), a2.msg());
+            s2 == s && p2 == p && c2 == c && t2 == t
+        }
         p => panic!("no Rust reading of relation `{p}`"),
     }
 }

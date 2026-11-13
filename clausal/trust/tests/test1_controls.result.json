@@ -1,0 +1,632 @@
+{
+ "what": "trust test 1 (plan node W6): the seven controls of trust/test1/controls.yaml, run by trust/tests/test1_controls.py",
+ "tree": "4793537aacff58d745d44820147bad7cf69e5a18",
+ "controls": {
+  "T1.1": {
+   "change": "sigintake/src/lib.rs: the verify step deleted",
+   "run": "./run.sh --quick --no-unit",
+   "exit": 1,
+   "unit_tests_of_the_crate_fail": true,
+   "result_line": "RESULT: MISMATCH between expected and actual verdicts, or errors (see above)",
+   "codes": {
+    "always_answers": "TESTED-ONLY",
+    "accept_only_if_verified": "REFUTED",
+    "unverified_rejected_unchanged": "REFUTED",
+    "unsigned_part_ignored": "TESTED-ONLY",
+    "accept_only_if_counter_above": "TESTED-ONLY",
+    "counter_set_frozen_wording": "UNBOUND",
+    "counter_set": "TESTED-ONLY",
+    "same_message_again_rejected": "TESTED-ONLY"
+   },
+   "codes_before": {
+    "always_answers": "PROVED-FOR-ALL",
+    "accept_only_if_verified": "PROVED-FOR-ALL",
+    "unverified_rejected_unchanged": "PROVED-FOR-ALL",
+    "unsigned_part_ignored": "PROVED-FOR-ALL",
+    "accept_only_if_counter_above": "PROVED-FOR-ALL",
+    "counter_set_frozen_wording": "UNBOUND",
+    "counter_set": "PROVED-FOR-ALL",
+    "same_message_again_rejected": "PROVED-FOR-ALL"
+   },
+   "rules_using_in.verifies": {
+    "accept_only_if_verified": {
+     "code": "REFUTED",
+     "flagged": true,
+     "flags": [
+      "ASSUMES:A.sig.unforgeable",
+      "ASSUMPTION-CONDITION-NOT-MET:A.sig.unforgeable",
+      "ASSUMPTION-CONDITION-UNSTATED:A.sig.unforgeable",
+      "ASSUMPTION-NOT-VOUCHED:A.sig.unforgeable"
+     ]
+    },
+    "unverified_rejected_unchanged": {
+     "code": "REFUTED",
+     "flagged": true,
+     "flags": [
+      "ASSUMES:A.sig.unforgeable",
+      "ASSUMPTION-CONDITION-NOT-MET:A.sig.unforgeable",
+      "ASSUMPTION-CONDITION-UNSTATED:A.sig.unforgeable",
+      "ASSUMPTION-NOT-VOUCHED:A.sig.unforgeable"
+     ]
+    }
+   },
+   "flagged_before": [],
+   "assumption_item_of_U1": [
+    "  1 ASSUMED      Without the signing key, nobody can produce a message and tag that verify under the matching public",
+    "                 key. (A.sig.unforgeable; STAND-IN: what the word is bound to in this tree is a toy, not the real",
+    "                 thing)   [assumed: nothing here checks it]",
+    "                 through the word in.verifies: \"the signature of {m:message} verifies under {k:sigkey}\"",
+    "                 vouched by: nobody (AWAITED)",
+    "                 usage conditions: 0 of 4 proved in this run, 3 NOT PROVED, 1 cannot be stated; U1 is THIS RULE",
+    "                 ITSELF (of the other 3: 0 proved)",
+    "                   U1  REFUTED          [THIS RULE ITSELF] Rule: An intake is accepted only if the signature of the",
+    "                                         message verifies under the expected key",
+    "                                         (Rule.intake.accept_only_if_verified)",
+    "                   U2  REFUTED          Rule: An intake for which the signature of the message does not verify",
+    "                                         under the expected key is rejected and changes nothing",
+    "                                         (Rule.intake.unverified_rejected_unchanged)",
+    "                   U3  TESTED-ONLY      Rule: An intake gives the same answer when only the unsigned part of the",
+    "                                         message differs  (Rule.intake.unsigned_part_ignored)",
+    "                   U4  CANNOT BE STATED no counter is accepted twice over ANY sequence of intakes; no frame for it",
+    "                 not covered by the assumption or its conditions: the expected key is the right key; the library's",
+    "                 verify is the scheme's verify",
+    "                 external proof: none",
+    "                 Lean axioms a proof resting on it may use: none",
+    "                 review by 2027-11-12; 1 other Rule statement rests on it"
+   ],
+   "assumption_item_of_U1_unmutated": [
+    "  1 ASSUMED      Without the signing key, nobody can produce a message and tag that verify under the matching public",
+    "                 key. (A.sig.unforgeable; STAND-IN: what the word is bound to in this tree is a toy, not the real",
+    "                 thing)   [assumed: nothing here checks it]",
+    "                 through the word in.verifies: \"the signature of {m:message} verifies under {k:sigkey}\"",
+    "                 vouched by: nobody (AWAITED)",
+    "                 usage conditions: 3 of 4 proved in this run, 1 cannot be stated; U1 is THIS RULE ITSELF (of the",
+    "                 other 3: 2 proved)",
+    "                   U1  PROVED-FOR-ALL   [THIS RULE ITSELF] Rule: An intake is accepted only if the signature of the",
+    "                                         message verifies under the expected key",
+    "                                         (Rule.intake.accept_only_if_verified)",
+    "                   U2  PROVED-FOR-ALL   Rule: An intake for which the signature of the message does not verify",
+    "                                         under the expected key is rejected and changes nothing",
+    "                                         (Rule.intake.unverified_rejected_unchanged)",
+    "                   U3  PROVED-FOR-ALL   Rule: An intake gives the same answer when only the unsigned part of the",
+    "                                         message differs  (Rule.intake.unsigned_part_ignored)",
+    "                   U4  CANNOT BE STATED no counter is accepted twice over ANY sequence of intakes; no frame for it",
+    "                 not covered by the assumption or its conditions: the expected key is the right key; the library's",
+    "                 verify is the scheme's verify",
+    "                 external proof: none",
+    "                 Lean axioms a proof resting on it may use: none",
+    "                 review by 2027-11-12; 1 other Rule statement rests on it"
+   ],
+   "counterexample_of_U1": {
+    "values": {
+     "the_expected_key": "0",
+     "the_last_counter": "0",
+     "the_message": "1/1/273/0"
+    },
+    "failed": "the answer is an acceptance (see `accepted`) only if the tag of the message is the one the toy verifier computes from the expected key, the payload and the counter (STAND-IN for a signature check)",
+    "kernel_checked": true,
+    "replayed_on_rust": "reproduced"
+   },
+   "passed": true
+  },
+  "T1.2": {
+   "change": "sigintake/src/lib.rs: verify is called with a key made from msg.hint",
+   "run": "./run.sh --quick --no-unit",
+   "exit": 1,
+   "unit_tests_of_the_crate_fail": true,
+   "result_line": "RESULT: MISMATCH between expected and actual verdicts, or errors (see above)",
+   "codes": {
+    "always_answers": "TESTED-ONLY",
+    "accept_only_if_verified": "REFUTED",
+    "unverified_rejected_unchanged": "REFUTED",
+    "unsigned_part_ignored": "REFUTED",
+    "accept_only_if_counter_above": "TESTED-ONLY",
+    "counter_set_frozen_wording": "UNBOUND",
+    "counter_set": "TESTED-ONLY",
+    "same_message_again_rejected": "TESTED-ONLY"
+   },
+   "codes_before": {
+    "always_answers": "PROVED-FOR-ALL",
+    "accept_only_if_verified": "PROVED-FOR-ALL",
+    "unverified_rejected_unchanged": "PROVED-FOR-ALL",
+    "unsigned_part_ignored": "PROVED-FOR-ALL",
+    "accept_only_if_counter_above": "PROVED-FOR-ALL",
+    "counter_set_frozen_wording": "UNBOUND",
+    "counter_set": "PROVED-FOR-ALL",
+    "same_message_again_rejected": "PROVED-FOR-ALL"
+   },
+   "rules_using_in.verifies": {
+    "accept_only_if_verified": {
+     "code": "REFUTED",
+     "flagged": true,
+     "flags": [
+      "ASSUMES:A.sig.unforgeable",
+      "ASSUMPTION-CONDITION-NOT-MET:A.sig.unforgeable",
+      "ASSUMPTION-CONDITION-UNSTATED:A.sig.unforgeable",
+      "ASSUMPTION-NOT-VOUCHED:A.sig.unforgeable"
+     ]
+    },
+    "unverified_rejected_unchanged": {
+     "code": "REFUTED",
+     "flagged": true,
+     "flags": [
+      "ASSUMES:A.sig.unforgeable",
+      "ASSUMPTION-CONDITION-NOT-MET:A.sig.unforgeable",
+      "ASSUMPTION-CONDITION-UNSTATED:A.sig.unforgeable",
+      "ASSUMPTION-NOT-VOUCHED:A.sig.unforgeable"
+     ]
+    }
+   },
+   "flagged_before": [],
+   "assumption_item_of_U1": [
+    "  1 ASSUMED      Without the signing key, nobody can produce a message and tag that verify under the matching public",
+    "                 key. (A.sig.unforgeable; STAND-IN: what the word is bound to in this tree is a toy, not the real",
+    "                 thing)   [assumed: nothing here checks it]",
+    "                 through the word in.verifies: \"the signature of {m:message} verifies under {k:sigkey}\"",
+    "                 vouched by: nobody (AWAITED)",
+    "                 usage conditions: 0 of 4 proved in this run, 3 NOT PROVED, 1 cannot be stated; U1 is THIS RULE",
+    "                 ITSELF (of the other 3: 0 proved)",
+    "                   U1  REFUTED          [THIS RULE ITSELF] Rule: An intake is accepted only if the signature of the",
+    "                                         message verifies under the expected key",
+    "                                         (Rule.intake.accept_only_if_verified)",
+    "                   U2  REFUTED          Rule: An intake for which the signature of the message does not verify",
+    "                                         under the expected key is rejected and changes nothing",
+    "                                         (Rule.intake.unverified_rejected_unchanged)",
+    "                   U3  REFUTED          Rule: An intake gives the same answer when only the unsigned part of the",
+    "                                         message differs  (Rule.intake.unsigned_part_ignored)",
+    "                   U4  CANNOT BE STATED no counter is accepted twice over ANY sequence of intakes; no frame for it",
+    "                 not covered by the assumption or its conditions: the expected key is the right key; the library's",
+    "                 verify is the scheme's verify",
+    "                 external proof: none",
+    "                 Lean axioms a proof resting on it may use: none",
+    "                 review by 2027-11-12; 1 other Rule statement rests on it"
+   ],
+   "assumption_item_of_U1_unmutated": [
+    "  1 ASSUMED      Without the signing key, nobody can produce a message and tag that verify under the matching public",
+    "                 key. (A.sig.unforgeable; STAND-IN: what the word is bound to in this tree is a toy, not the real",
+    "                 thing)   [assumed: nothing here checks it]",
+    "                 through the word in.verifies: \"the signature of {m:message} verifies under {k:sigkey}\"",
+    "                 vouched by: nobody (AWAITED)",
+    "                 usage conditions: 3 of 4 proved in this run, 1 cannot be stated; U1 is THIS RULE ITSELF (of the",
+    "                 other 3: 2 proved)",
+    "                   U1  PROVED-FOR-ALL   [THIS RULE ITSELF] Rule: An intake is accepted only if the signature of the",
+    "                                         message verifies under the expected key",
+    "                                         (Rule.intake.accept_only_if_verified)",
+    "                   U2  PROVED-FOR-ALL   Rule: An intake for which the signature of the message does not verify",
+    "                                         under the expected key is rejected and changes nothing",
+    "                                         (Rule.intake.unverified_rejected_unchanged)",
+    "                   U3  PROVED-FOR-ALL   Rule: An intake gives the same answer when only the unsigned part of the",
+    "                                         message differs  (Rule.intake.unsigned_part_ignored)",
+    "                   U4  CANNOT BE STATED no counter is accepted twice over ANY sequence of intakes; no frame for it",
+    "                 not covered by the assumption or its conditions: the expected key is the right key; the library's",
+    "                 verify is the scheme's verify",
+    "                 external proof: none",
+    "                 Lean axioms a proof resting on it may use: none",
+    "                 review by 2027-11-12; 1 other Rule statement rests on it"
+   ],
+   "counterexample_of_U1": {
+    "values": {
+     "the_expected_key": "0",
+     "the_last_counter": "0",
+     "the_message": "1/1/273/1"
+    },
+    "failed": "the answer is an acceptance (see `accepted`) only if the tag of the message is the one the toy verifier computes from the expected key, the payload and the counter (STAND-IN for a signature check)",
+    "kernel_checked": true,
+    "replayed_on_rust": "reproduced"
+   },
+   "passed": true
+  },
+  "T1.3": {
+   "change": "lean/Intake/Pieces.lean: `(m.payload.val % 16) * 16` -> `(m.payload.val % 8) * 16` in the definition of In.verifies",
+   "command": "python3 -m clausal attest check",
+   "exit": 0,
+   "before": [
+    "valid       1 piece records: reviewed by a model (model:claude-fable-5-2)   [model-asserted; never a person's review]"
+   ],
+   "after": [],
+   "void": [
+    "VOID     intake.attest.json, record 1: `in.verifies` has changed since model:claude-fable-5-2 reviewed it on 2026-11-12T17:34:51-05:00: the record is void"
+   ],
+   "passed": true
+  },
+  "T1.4": {
+   "change": "clausebook/local/intake.attest.json: a second record on in.verifies, act approved, signer {kind: person, id: model:claude-fable-5-2}",
+   "command": "python3 -m clausal attest check",
+   "exit": 1,
+   "refused": [
+    "REFUSED  intake.attest.json, record 2: signer kind `person` with the id `model:claude-fable-5-2`, which is a model's: the kind is read from the id and the two must agree"
+   ],
+   "summary": "attestation records: 4 valid, 0 void, 1 refused; entries reviewed or approved by a person: 0 of 127 Clausebook entries, 0 of 44 glossary entries; assumptions vouched for by a person or an organisation: 0 of 1",
+   "passed": true
+  },
+  "T1.5": {
+   "command": "python3 -m clausal trust --strict",
+   "exit": 1,
+   "proved_sigintake_verdicts": 7,
+   "strict_fail": 7,
+   "awaited_owner": [
+    "approved by root `owner` (human:will-ackerly, a person)"
+   ],
+   "awaited_specialist": [
+    "vouched by root `crypto` (nobody named; role specialist:cryptography)"
+   ],
+   "assumption.usage_unmet": [
+    "A.sig.unforgeable/U4 (cannot be stated)"
+   ],
+   "output": [
+    "trust, project sigintake: trust/sigintake.yaml (sha256 3c8532b74437)",
+    "    root owner: human:will-ackerly (person)",
+    "    root fable: model:claude-fable-5-2 (model)",
+    "    root crypto: AWAITED (nobody named)",
+    "    demanded meaning.core: 27 entries under proved verdicts; met: none; unmet: 27; AWAITED: approved by root `owner` (human:will-ackerly, a person)",
+    "    demanded meaning.domain: 5 entries under proved verdicts; met: none; unmet: 5; AWAITED: approved by root `owner` (human:will-ackerly, a person)",
+    "    stated   separation: 0 entries under proved verdicts; met: none; unmet: 0",
+    "    demanded assumption.vouch: 1 entries under proved verdicts; met: none; unmet: 1; AWAITED: vouched by root `crypto` (nobody named; role specialist:cryptography)",
+    "    demanded assumption.usage: 1 entries under proved verdicts; met: none; unmet: 1",
+    "    stated   specialist.term: 0 entries under proved verdicts; met: none; unmet: 0",
+    "    recorded, not counted: 1 entries model reviewed",
+    "    strict: 0 of 7 proved verdicts pass, 7 fail; awaited: crypto",
+    "graph 7e842b513948aac5 (sha256 of everything but the clock); strict mode would fail 74 proved verdicts"
+   ],
+   "policy_is_the_frozen_one_but_for_the_project_line": true,
+   "passed": true
+  },
+  "T1.6": {
+   "change": "trust/assumptions.yaml: the entry A.sig.unforgeable deleted (`assumptions: []`)",
+   "gen_exit": 1,
+   "gen_says": [
+    "clausal: the assumption ledger and the Clausebook disagree:",
+    "  clausebook/local/intake.yaml:47: `in.verifies` says `assumes: [A.sig.unforgeable]`, and the ledger does not hold `A.sig.unforgeable` (trust/assumptions.yaml): a word may not rest on an assumption that is written nowhere"
+   ],
+   "book_check_exit": 1,
+   "book_check_says": [
+    "  clausebook/local/intake.yaml:47: `in.verifies` says `assumes: [A.sig.unforgeable]`, and the ledger does not hold `A.sig.unforgeable` (trust/assumptions.yaml): a word may not rest on an assumption that is written nowhere"
+   ],
+   "run_exit": 1,
+   "run_steps_started": [
+    "1",
+    "2",
+    "3"
+   ],
+   "run_tail": [
+    "projects: 4 declared (wallet, ledger, counter, sigintake); the list agrees with the files",
+    "clausal: the assumption ledger and the Clausebook disagree:",
+    "  clausebook/local/intake.yaml:47: `in.verifies` says `assumes: [A.sig.unforgeable]`, and the ledger does not hold `A.sig.unforgeable` (trust/assumptions.yaml): a word may not rest on an assumption that is written nowhere"
+   ],
+   "passed": true
+  },
+  "T1.7": {
+   "change": "sigintake: `verify` moved to the path dependency sigintake/sigverify (not translated); intake calls sigverify::verify(expected_key.id, ...)",
+   "scope": "REDUCED (trust/FREEZE-w46.md section 5): translation, one theorem, the audit, lclean and the flags; not a pipeline run",
+   "translate_exit": 0,
+   "axiom_in_model": [
+    "axiom sigverify.verify"
+   ],
+   "model_is_noncomputable": true,
+   "model_builds": true,
+   "lean_exit": 0,
+   "lean_errors": [],
+   "U1_as_generated": {
+    "statement": "(∀ (st : sigintake.Key × sigintake.Counter) (inp : sigintake.Message), ∃ (ans : Bool) (st' : sigintake.Key × sigintake.Counter), (sigintake.intake st.1 st.2 inp = ok (ans, st')) ∧ ((T17.said ans) → ((T17.verifies st.1 inp))))",
+    "is": "the body of `Rule.intake.accept_only_if_verified.obligation` (lean/Wallet/Obligations.lean, generated) with `In.verifies` -> `T17.verifies` (the axiom's answer) and `In.said` -> `T17.said` (the same definition)",
+    "theorem": "T17.U1",
+    "audit": {
+     "exists": false,
+     "is_theorem": false,
+     "type_ok": false,
+     "axioms": []
+    },
+    "with_the_ledger_as_frozen": {
+     "lean_axioms": [],
+     "counts": false,
+     "why_not": "no such theorem was generated"
+    },
+    "with_the_axiom_listed": {
+     "lean_axioms": [
+      "sigintake.sigverify.verify"
+     ],
+     "counts": false,
+     "why_not": "no such theorem was generated",
+     "flags": [
+      "ASSUMES:A.sig.unforgeable",
+      "ASSUMPTION-CONDITION-NOT-MET:A.sig.unforgeable",
+      "ASSUMPTION-CONDITION-UNSTATED:A.sig.unforgeable",
+      "ASSUMPTION-NOT-VOUCHED:A.sig.unforgeable"
+     ],
+     "flags_note": "computed with no verdict for any usage condition (nothing was run on the variant): ASSUMPTION-CONDITION-NOT-MET is therefore among them and says nothing about the variant"
+    },
+    "with_another_axiom_listed": {
+     "counts": false
+    },
+    "proved": false
+   },
+   "why_U1_is_not_proved": {
+    "theorem": "T17.needs : U1.generated → ∀ k p c t, ∃ b, sigintake.sigverify.verify k p c t = ok b",
+    "audit": {
+     "exists": true,
+     "is_theorem": true,
+     "type_ok": true,
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound",
+      "sigintake.sigverify.verify"
+     ]
+    },
+    "kernel_checked": true,
+    "says": "U1 as generated says every call answers. Of the variant that needs the external verifier to return at every input; the model's axiom gives it a type and nothing else. No proof of U1 was found. That none exists without a second assumed fact (the verifier returns) is an argument from this theorem, not itself a theorem"
+   },
+   "weaker_statement": {
+    "statement": "T17.U1.weaker: ∀ st inp ans st', sigintake.intake st.1 st.2 inp = ok (ans, st') → ans = true → T17.verifies st.1 inp",
+    "is": "HAND-WRITTEN in this script, NOT generated, and WEAKER than U1: only the calls that answer. `type_ok` compares the theorem with this same hand-written statement, so it says only that the theorem is of the type the script wrote",
+    "theorem": "T17.U1_weaker",
+    "audit": {
+     "exists": true,
+     "is_theorem": true,
+     "type_ok": true,
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound",
+      "sigintake.sigverify.verify"
+     ]
+    },
+    "with_the_ledger_as_frozen": {
+     "lean_axioms": [],
+     "counts": false,
+     "why_not": "non-standard axioms ['sigintake.sigverify.verify']: beyond the standard three, a proof may use only the axioms an entry of the assumption ledger that the sentence rests on lists under `lean_axioms` (none are listed)"
+    },
+    "with_the_axiom_listed": {
+     "lean_axioms": [
+      "sigintake.sigverify.verify"
+     ],
+     "counts": true,
+     "why_not": null,
+     "flags": [
+      "ASSUMES:A.sig.unforgeable",
+      "ASSUMPTION-AXIOM-USED:A.sig.unforgeable",
+      "ASSUMPTION-CONDITION-NOT-MET:A.sig.unforgeable",
+      "ASSUMPTION-CONDITION-UNSTATED:A.sig.unforgeable",
+      "ASSUMPTION-NOT-VOUCHED:A.sig.unforgeable"
+     ],
+     "flags_note": "computed with no verdict for any usage condition (nothing was run on the variant): ASSUMPTION-CONDITION-NOT-MET is therefore among them and says nothing about the variant"
+    },
+    "with_another_axiom_listed": {
+     "counts": false
+    },
+    "shown": true,
+    "shows_only": "the audit reports the model's axiom, and `lclean` rejects a theorem that uses it while the ledger lists no axiom, admits it once the entry lists that axiom (flag ASSUMPTION-AXIOM-USED), and rejects it when the entry lists another"
+   },
+   "pipeline_on_the_variant": {
+    "exit": 1,
+    "steps_started": [
+     "1",
+     "2",
+     "3",
+     "4"
+    ],
+    "stopped_with": [
+     "error: Intake/Pieces.lean:52:17: failed to compile definition, consider marking it as 'noncomputable' because it depends on 'sigintake.intake', which is 'noncomputable'",
+     "error: build failed"
+    ]
+   },
+   "passed": false,
+   "shown_on_a_weaker_statement_only": true,
+   "why": "U1 as generated is not proved of the variant, with or without the axiom listed; what the control shows is only that the allow-list admits a listed axiom, on a hand-written statement weaker than U1"
+  }
+ },
+ "passed": [
+  "T1.1",
+  "T1.2",
+  "T1.3",
+  "T1.4",
+  "T1.5",
+  "T1.6"
+ ],
+ "not_passed": [
+  "T1.7"
+ ],
+ "not_run": [],
+ "model_record_and_sign_off_counts": {
+  "records_on_in.verifies": [
+   {
+    "act": "reviewed",
+    "kind": "model",
+    "by": "model:claude-fable-5-2",
+    "evidence_kind": "model-asserted"
+   }
+  ],
+  "pieces_marked_signed_in_intake_readings": 0,
+  "meaning_lines_of_U1": [
+   "2 meaning      13 Clausebook pieces, 0 signed   [NOT ASSERTED by any person]",
+   "1 of 13 carry a record by a model   [model-asserted; not a person's review]",
+   "tool-trusted     rule line compiled by clausal 83ee58d4ed45 (clausal-rule/4) from 13 Clausebook pieces;",
+   "NOT ASSERTED     0 of 13 Clausebook pieces reviewed or approved by a person",
+   "model-asserted   1 of 13 Clausebook pieces carry a record by a model (recorded under its own kind; not a"
+  ],
+  "proved_rules_on_in.verifies_that_do_not_list_it_unreviewed": 0,
+  "in_no_sign_off_count": true
+ },
+ "first_round": {
+  "what": "the same controls as first run, on the tree of commit ac2dfbe (before the step lemma of `verify` was registered, lean/Intake/Lemmas/Verify.lean): kept whatever they said",
+  "passed": [
+   "T1.1",
+   "T1.3",
+   "T1.4",
+   "T1.5",
+   "T1.6",
+   "T1.7"
+  ],
+  "not_passed": [
+   "T1.2"
+  ],
+  "controls": {
+   "T1.2": {
+    "change": "sigintake/src/lib.rs: verify is called with a key made from msg.hint",
+    "run": "./run.sh --quick --no-unit",
+    "exit": 1,
+    "unit_tests_of_the_crate_fail": true,
+    "result_line": "RESULT: MISMATCH between expected and actual verdicts, or errors (see above)",
+    "codes": {
+     "always_answers": "TESTED-ONLY",
+     "accept_only_if_verified": "COUNTEREXAMPLE",
+     "unverified_rejected_unchanged": "COUNTEREXAMPLE",
+     "unsigned_part_ignored": "COUNTEREXAMPLE",
+     "accept_only_if_counter_above": "TESTED-ONLY",
+     "counter_set_frozen_wording": "UNBOUND",
+     "counter_set": "TESTED-ONLY",
+     "same_message_again_rejected": "TESTED-ONLY"
+    },
+    "codes_before": {
+     "always_answers": "PROVED-FOR-ALL",
+     "accept_only_if_verified": "PROVED-FOR-ALL",
+     "unverified_rejected_unchanged": "PROVED-FOR-ALL",
+     "unsigned_part_ignored": "PROVED-FOR-ALL",
+     "accept_only_if_counter_above": "PROVED-FOR-ALL",
+     "counter_set_frozen_wording": "UNBOUND",
+     "counter_set": "PROVED-FOR-ALL",
+     "same_message_again_rejected": "PROVED-FOR-ALL"
+    },
+    "rules_using_in.verifies": {
+     "accept_only_if_verified": {
+      "code": "COUNTEREXAMPLE",
+      "flagged": true,
+      "flags": [
+       "ASSUMES:A.sig.unforgeable",
+       "ASSUMPTION-CONDITION-NOT-MET:A.sig.unforgeable",
+       "ASSUMPTION-CONDITION-UNSTATED:A.sig.unforgeable",
+       "ASSUMPTION-NOT-VOUCHED:A.sig.unforgeable"
+      ]
+     },
+     "unverified_rejected_unchanged": {
+      "code": "COUNTEREXAMPLE",
+      "flagged": true,
+      "flags": [
+       "ASSUMES:A.sig.unforgeable",
+       "ASSUMPTION-CONDITION-NOT-MET:A.sig.unforgeable",
+       "ASSUMPTION-CONDITION-UNSTATED:A.sig.unforgeable",
+       "ASSUMPTION-NOT-VOUCHED:A.sig.unforgeable"
+      ]
+     }
+    },
+    "flagged_before": [],
+    "assumption_item_of_U1": [
+     "  1 ASSUMED      Without the signing key, nobody can produce a message and tag that verify under the matching public",
+     "                 key. (A.sig.unforgeable; STAND-IN: what the word is bound to in this tree is a toy, not the real",
+     "                 thing)   [assumed: nothing here checks it]",
+     "                 through the word in.verifies: \"the signature of {m:message} verifies under {k:sigkey}\"",
+     "                 vouched by: nobody (AWAITED)",
+     "                 usage conditions: 0 of 4 proved in this run, 3 NOT PROVED, 1 cannot be stated",
+     "                   U1  COUNTEREXAMPLE   Rule: An intake is accepted only if the signature of the message verifies",
+     "                                         under the expected key  (Rule.intake.accept_only_if_verified)",
+     "                   U2  COUNTEREXAMPLE   Rule: An intake for which the signature of the message does not verify",
+     "                                         under the expected key is rejected and changes nothing",
+     "                                         (Rule.intake.unverified_rejected_unchanged)",
+     "                   U3  COUNTEREXAMPLE   Rule: An intake gives the same answer when only the unsigned part of the",
+     "                                         message differs  (Rule.intake.unsigned_part_ignored)",
+     "                   U4  CANNOT BE STATED no counter is accepted twice over ANY sequence of intakes; no frame for it",
+     "                 not covered by the assumption or its conditions: the expected key is the right key; the library's",
+     "                 verify is the scheme's verify",
+     "                 external proof: none",
+     "                 Lean axioms a proof resting on it may use: none",
+     "                 review by 2027-11-12; 1 other Rule statement rests on it"
+    ],
+    "assumption_item_of_U1_unmutated": [
+     "  1 ASSUMED      Without the signing key, nobody can produce a message and tag that verify under the matching public",
+     "                 key. (A.sig.unforgeable; STAND-IN: what the word is bound to in this tree is a toy, not the real",
+     "                 thing)   [assumed: nothing here checks it]",
+     "                 through the word in.verifies: \"the signature of {m:message} verifies under {k:sigkey}\"",
+     "                 vouched by: nobody (AWAITED)",
+     "                 usage conditions: 3 of 4 proved in this run, 1 cannot be stated",
+     "                   U1  PROVED-FOR-ALL   Rule: An intake is accepted only if the signature of the message verifies",
+     "                                         under the expected key  (Rule.intake.accept_only_if_verified)",
+     "                   U2  PROVED-FOR-ALL   Rule: An intake for which the signature of the message does not verify",
+     "                                         under the expected key is rejected and changes nothing",
+     "                                         (Rule.intake.unverified_rejected_unchanged)",
+     "                   U3  PROVED-FOR-ALL   Rule: An intake gives the same answer when only the unsigned part of the",
+     "                                         message differs  (Rule.intake.unsigned_part_ignored)",
+     "                   U4  CANNOT BE STATED no counter is accepted twice over ANY sequence of intakes; no frame for it",
+     "                 not covered by the assumption or its conditions: the expected key is the right key; the library's",
+     "                 verify is the scheme's verify",
+     "                 external proof: none",
+     "                 Lean axioms a proof resting on it may use: none",
+     "                 review by 2027-11-12; 1 other Rule statement rests on it"
+    ],
+    "counterexample_of_U1": {
+     "values": {
+      "the_expected_key": "0",
+      "the_last_counter": "0",
+      "the_message": "1/1/273/1"
+     },
+     "failed": "the answer is an acceptance (see `accepted`) only if the tag of the message is the one the toy verifier computes from the expected key, the payload and the counter (STAND-IN for a signature check)",
+     "kernel_checked": false,
+     "replayed_on_rust": "reproduced"
+    },
+    "passed": false
+   }
+  }
+ },
+ "shown_on_a_weaker_statement_only": [
+  "T1.7"
+ ],
+ "T1.7_as_first_reported": {
+  "tree": "2f0a5c7e742e790e1eebe64d92d7db4434062c04",
+  "reported": "passed",
+  "result": {
+   "change": "sigintake: `verify` moved to the path dependency sigintake/sigverify (not translated); intake calls sigverify::verify(expected_key.id, ...)",
+   "scope": "REDUCED (trust/FREEZE-w46.md section 5): translation, one theorem, the audit, lclean and the flags; not a pipeline run",
+   "translate_exit": 0,
+   "axiom_in_model": [
+    "axiom sigverify.verify"
+   ],
+   "model_is_noncomputable": true,
+   "model_builds": true,
+   "lean_exit": 0,
+   "lean_errors": [],
+   "audit": {
+    "exists": true,
+    "is_theorem": true,
+    "type_ok": true,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound",
+     "sigintake.sigverify.verify"
+    ]
+   },
+   "with_the_ledger_as_frozen": {
+    "lean_axioms": [],
+    "counts": false,
+    "why_not": "non-standard axioms ['sigintake.sigverify.verify']: beyond the standard three, a proof may use only the axioms an entry of the assumption ledger that the sentence rests on lists under `lean_axioms` (none are listed)"
+   },
+   "with_the_axiom_listed": {
+    "lean_axioms": [
+     "sigintake.sigverify.verify"
+    ],
+    "counts": true,
+    "flags": [
+     "ASSUMES:A.sig.unforgeable",
+     "ASSUMPTION-AXIOM-USED:A.sig.unforgeable"
+    ]
+   },
+   "with_another_axiom_listed": {
+    "counts": false
+   },
+   "pipeline_on_the_variant": {
+    "exit": 1,
+    "steps_started": [
+     "1",
+     "2",
+     "3",
+     "4"
+    ],
+    "stopped_with": [
+     "error: Intake/Pieces.lean:52:17: failed to compile definition, consider marking it as 'noncomputable' because it depends on 'sigintake.intake', which is 'noncomputable'",
+     "error: build failed"
+    ]
+   },
+   "passed": true
+  },
+  "withdrawn": "the theorem that counted was of a hand-written statement weaker than U1 (only the calls that answer) and its `type_ok` compared it with that same statement; it was not a theorem of U1"
+ }
+}

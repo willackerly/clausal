@@ -39,7 +39,10 @@ for node, e in exp["functions"].items():
     print(f"  {'ok ' if got == sorted(e['codes']) else 'BAD'}  {node}: expected {sorted(e['codes'])}, got {got}")
     if got != sorted(e["codes"]):
         bad.append(f"{node}: expected {sorted(e['codes'])}, got {got}")
-others = sorted(n for n in codes if "counter" in n.lower() and n not in seen)
+# "names the counter": a Rule or scenario of its feature file, or a function of its crate. (It was any node id containing
+# "counter", which also matched the fourth project's Rules about a message's counter, `Rule.intake.counter_set` and two more.)
+names_counter = lambda n: any(k in n for k in ("Rule.counter_rules.", "Spec.counter_rules.", ":counter.", "counter::", "feature:counter_rules"))
+others = sorted(n for n in codes if names_counter(n) and n not in seen)
 if others:
     bad.append(f"verdicts that name the counter and are not in expected.json: {others}")
 print(f"counter: {len(exp['rules'])} rule verdicts and {len(exp['functions'])} function verdict(s) expected; "

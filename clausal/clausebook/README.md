@@ -20,7 +20,7 @@ describe the book as Q3 left it; where Q4 changed a form they say so.
 | `local/ledger.yaml` | the ledger fixture: 5 operations, 19 words, 1 idiom | 25 |
 | `local/wallet.yaml` | the wallet fixture: 3 operations, 4 words | 7 |
 | `local/counter.yaml` | the counter fixture (plan node X7, `../projects.yaml`): 1 operation, 1 word; needs core only | 2 |
-| `<book>.signoff.json` | sign-offs of that book's entries (none exists yet) | – |
+| `<book>.attest.json` | attestation records about that book's entries (`../trust/README.md`; none exists yet). They replace `<book>.signoff.json`, which is refused if found | – |
 | `check.expected.json` | the violations `book check` reports today (34 before Q4), each listed with its reason in `q4/README.md` | 21 |
 | `terms.lock.json` | what each sentence of `features/` and `controls/` compiles to | 125 (111 before L2, 121 before the E2 probe and the three counter rules) |
 | `q4/` | the freeze of the first batch, its results, and the scripts that reproduce the numbers | – |
@@ -49,8 +49,9 @@ describe the book as Q3 left it; where Q4 changed a form they say so.
 
 - Generated Lean imports the books' `lean_imports` in reverse book order (most local first). With today's
   `project.yaml` that is the order the flat file had, so generated files did not change.
-- Sign-offs: `python3 -m clausal review <id|all> --reviewer NAME` writes each record to the file beside the book that
-  defines the entry. A record found in another book's file does not count.
+- Attestation records (plan node W1; they replace sign-offs): `python3 -m clausal attest <id|all> --act <act> --as <kind-prefixed id>
+  --scope "…"` writes each record to the store beside the book that defines the entry. A record found in another book's store is
+  refused. An entry is REVIEWED only by a person's record of act reviewed or approved; a model's record is kept under its own kind.
 
 ## Core stands alone
 
@@ -173,9 +174,9 @@ separations:
 
 It is in force, and lifts that one pair, only if all of this holds when the lint runs: the two pieces do share a
 literal skeleton; each sentence is written with that skeleton; each sentence compiles (it is compiled by the lint, as
-a Rule line) to a reading that uses its own piece and not the other; and the entry has a sign-off record
-(`python3 -m clausal review sep.more_than.exceeds --reviewer NAME`, stored in the book's `.signoff.json` like every
-other entry) whose digest is of the entry's text, the book text of both pieces and the Lean each sentence compiles to.
+a Rule line) to a reading that uses its own piece and not the other; and the entry has an attestation record of act reviewed or approved by a person
+(`python3 -m clausal attest sep.more_than.exceeds --act approved --as human:<id> --scope "…"`, stored in the book's `.attest.json`
+like every other entry; a model's record does not put a separation in force) whose digest is of the entry's text, the book text of both pieces and the Lean each sentence compiles to.
 Changing a sentence, a piece, or anything that changes either reading voids it. A separation that is recorded and not
 in force is reported as a violation of its own (`4 separation not in force`, with the reason), so it cannot sit in a
 book unnoticed. The first build accepted any two non-empty strings (`input`, `signed_by`); that form is now refused by

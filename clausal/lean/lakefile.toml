@@ -1,5 +1,5 @@
 name = "slice"
-defaultTargets = ["Frames", "Generated", "Bdd", "Ledger", "Counter", "Wallet"]
+defaultTargets = ["Frames", "Generated", "Bdd", "Ledger", "Counter", "Intake", "Wallet"]
 
 # The Aeneas Lean support library, exactly as shipped inside the release
 # tarball that also contains the `aeneas`/`charon` binaries we run
@@ -48,6 +48,12 @@ globs = ["Ledger.+"]
 [[lean_lib]]
 name = "Counter"
 globs = ["Counter.+"]
+
+# Fourth project (../sigintake, plan node W6; ../projects.yaml): signed intake on a toy verifier.
+# Intake/Pieces.lean  hand-written domain words of the intake   (human-asserted)
+[[lean_lib]]
+name = "Intake"
+globs = ["Intake.+"]
 
 # Run/Search.lean and Run/Audit.lean are GENERATED scripts, not library
 # modules: ../run.sh runs each once with `lake env lean`.
