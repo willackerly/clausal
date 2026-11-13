@@ -1,5 +1,5 @@
 name = "slice"
-defaultTargets = ["Frames", "Generated", "Bdd", "Ledger", "Counter", "Intake", "Wallet"]
+defaultTargets = ["Frames", "Generated", "Bdd", "Ledger", "Counter", "Intake", "Kvparse", "Wallet"]
 
 # The Aeneas Lean support library, exactly as shipped inside the release
 # tarball that also contains the `aeneas`/`charon` binaries we run
@@ -54,6 +54,13 @@ globs = ["Counter.+"]
 [[lean_lib]]
 name = "Intake"
 globs = ["Intake.+"]
+
+# Fifth project (../kvparse, plan node K1; ../projects.yaml): a toy byte-level parser, the first target of the rule
+# pack "validated input" (../packs/).
+# Kvparse/Pieces.lean  hand-written domain words of the parser: the format written out again   (human-asserted)
+[[lean_lib]]
+name = "Kvparse"
+globs = ["Kvparse.+"]
 
 # Run/Search.lean and Run/Audit.lean are GENERATED scripts, not library
 # modules: ../run.sh runs each once with `lake env lean`.

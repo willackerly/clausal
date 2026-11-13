@@ -2,6 +2,7 @@
 -- The COMPILED READING of every scenario and of every `Rule:` line: one Lean statement each, built from
 -- the pieces of the Clausebook (domain words, modifiers, frames of lean/Frames). The sentence is in the
 -- comment above each; the slot-structured English echo is in out/report.md.
+import Kvparse.Pieces
 import Intake.Pieces
 import Counter.Pieces
 import Wallet.Pieces
@@ -741,6 +742,56 @@ def Rule.intake.counter_set.reading : Prop :=
     Rule: An intake followed by an intake with the same input is always rejected -/
 def Rule.intake.same_message_again_rejected.reading : Prop :=
   Frames.Never (((In.intake).andThen In.intake).tied Frames.sameInput) (fun ans => (((In.intake).andThen In.intake).tied Frames.sameInput).accepted ans)
+
+/-- features/kvparse_rules.feature:10
+    Rule: A parse always answers -/
+def Rule.kvparse_rules.vi_1.reading : Prop :=
+  Frames.AlwaysAnswers KV.parse
+
+/-- features/kvparse_rules.feature:14
+    Rule: A parse is accepted only if the message is well-formed -/
+def Rule.kvparse_rules.vi_2.reading : Prop :=
+  Frames.OnlyIf KV.parse (fun ans => (KV.parse).accepted ans) (fun st inp => KV.wellFormed inp)
+
+/-- features/kvparse_rules.feature:18
+    Rule: A parse for which the length of the message is at most the parser's size limit is accepted whenever the message is well-formed -/
+def Rule.kvparse_rules.vi_3.reading : Prop :=
+  Frames.IfThen ((KV.parse).given (fun st inp => (KV.length inp) ≤ (KV.limit st))) (fun st inp => KV.wellFormed inp) (fun ans => (KV.parse).accepted ans)
+
+/-- features/kvparse_rules.feature:22
+    Rule: A parse is accepted only if the length of the message is at most the parser's size limit -/
+def Rule.kvparse_rules.vi_4.reading : Prop :=
+  Frames.OnlyIf KV.parse (fun ans => (KV.parse).accepted ans) (fun st inp => (KV.length inp) ≤ (KV.limit st))
+
+/-- features/kvparse_rules.feature:26
+    Rule: For a parse, the number of fields of the result is at most the field limit -/
+def Rule.kvparse_rules.vi_5.reading : Prop :=
+  Frames.ResultAtMost KV.parse (fun ans => KV.count ans) (fun st inp => KV.fieldLimit)
+
+/-- features/kvparse_rules.feature:30
+    Rule: A parse for which the message is not well-formed is rejected and changes nothing -/
+def Rule.kvparse_rules.vi_6.reading : Prop :=
+  Frames.RejectedUnchanged ((KV.parse).given (fun st inp => ¬ ((KV.wellFormed inp))))
+
+/-- features/kvparse_rules.feature:34
+    Rule: For an accepted parse, the encoding of the result is the bytes of the message -/
+def Rule.kvparse_rules.vi_7b.reading : Prop :=
+  Frames.ResultIs (KV.parse).successful (fun ans => KV.encoding ans) (fun st inp => KV.asEncoding inp)
+
+/-- features/kvparse_rules.feature:38
+    Rule: A parse is accepted only if every field of the message is a known field -/
+def Rule.kvparse_rules.vi_8.reading : Prop :=
+  Frames.OnlyIf KV.parse (fun ans => (KV.parse).accepted ans) (fun st inp => Frames.every ((KV.fields inp)) (fun x => (KV.known x)))
+
+/-- features/kvparse_rules.feature:42
+    Rule: A parse is accepted only if no key of the message is repeated in the message -/
+def Rule.kvparse_rules.vi_9.reading : Prop :=
+  Frames.OnlyIf KV.parse (fun ans => (KV.parse).accepted ans) (fun st inp => Frames.noneOf ((KV.keys inp)) (fun x => (KV.repeated inp x)))
+
+/-- features/kvparse_rules.feature:46
+    Rule: A parse agrees with the reference parse -/
+def Rule.kvparse_rules.vi_10.reading : Prop :=
+  Frames.AgreesWith KV.parse KV.refParse
 
 /-- features/ledger_rules.feature:14
     Rule: An internal fund transfer never changes the total of the ledger's balances -/

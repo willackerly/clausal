@@ -8,3 +8,4 @@ books:
   - local/wallet.yaml
   - local/counter.yaml
   - local/intake.yaml
+  - local/kvparse.yaml

@@ -86,3 +86,15 @@ projects:
       model: Generated.Sigintake
       modules: [Intake.Pieces]
       hand_written: [lean/Intake]
+
+  # The fifth project (plan node K1): a toy byte-level parser, the first target of the rule pack "validated input"
+  # (packs/validated-input/). Its Rule lines are written by `python3 -m clausal pack instantiate`; the pipeline reads them
+  # as plain lines. It lists core and its own local book: no word pack.
+  - name: kvparse
+    crate: kvparse
+    books: [core.yaml, local/kvparse.yaml]
+    features: [features/kvparse_rules.feature]
+    lean:
+      model: Generated.Kvparse
+      modules: [Kvparse.Pieces]
+      hand_written: [lean/Kvparse]

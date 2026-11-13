@@ -1,0 +1,817 @@
+{
+ "command": "./run.sh --no-unit --quick --no-adequacy --no-heldout",
+ "started": "2026-11-12 14:12:53",
+ "items": [
+  {
+   "id": "B1",
+   "what": "trailing garbage accepted: after a field, a byte that is not `;` ends the record instead of rejecting it",
+   "expected_by": [
+    "VI-2",
+    "VI-7b",
+    "VI-10"
+   ],
+   "compiles": true,
+   "translated": true,
+   "unit_tests": "caught",
+   "exit": 1,
+   "seconds": 417,
+   "verdicts": 127,
+   "shown_false_by": [],
+   "counterexample_unconfirmed": [
+    "VI-10",
+    "VI-2",
+    "VI-6",
+    "VI-7b"
+   ],
+   "proof_lost": [],
+   "other_verdicts_changed": {},
+   "where": {
+    "VI-2": "{\"the_parser\": \"4\", \"the_message\": \"\\\"a=1x\\\"\"}, on the compiled Rust too (reproduced)",
+    "VI-6": "{\"the_parser\": \"4\", \"the_message\": \"\\\"a=1x\\\"\"}, on the compiled Rust too (reproduced)",
+    "VI-7b": "{\"the_parser\": \"4\", \"the_message\": \"\\\"a=1x\\\"\"}, on the compiled Rust too (reproduced)",
+    "VI-10": "{\"the_parser\": \"4\", \"the_message\": \"\\\"a=1x\\\"\"}, on the compiled Rust too (reproduced)"
+   },
+   "frozen": true,
+   "wide": {
+    "exit": 1,
+    "limits": 10,
+    "messages": 429505,
+    "evaluations": 42950500,
+    "could_not_be_evaluated": 0,
+    "false": {
+     "VI-10": {
+      "points": 209500,
+      "messages": 81700,
+      "first": "limit 4, \"a=0\\x00\""
+     },
+     "VI-2": {
+      "points": 209500,
+      "messages": 81700,
+      "first": "limit 4, \"a=0\\x00\""
+     },
+     "VI-6": {
+      "points": 209500,
+      "messages": 81700,
+      "first": "limit 4, \"a=0\\x00\""
+     },
+     "VI-7b": {
+      "points": 209500,
+      "messages": 81700,
+      "first": "limit 4, \"a=0\\x00\""
+     }
+    },
+    "named": {
+     "a=1\\x0a": [
+      "VI-2",
+      "VI-6",
+      "VI-7b",
+      "VI-10"
+     ],
+     "a=1\\x0d\\x0a": [
+      "VI-2",
+      "VI-6",
+      "VI-7b",
+      "VI-10"
+     ],
+     "a=:": []
+    }
+   }
+  },
+  {
+   "id": "B2",
+   "what": "unknown item skipped: a field with a key that is neither `a` nor `b` is passed over instead of rejected",
+   "expected_by": [
+    "VI-8",
+    "VI-2",
+    "VI-10"
+   ],
+   "compiles": true,
+   "translated": true,
+   "unit_tests": "caught",
+   "exit": 1,
+   "seconds": 411,
+   "verdicts": 127,
+   "shown_false_by": [],
+   "counterexample_unconfirmed": [
+    "VI-10",
+    "VI-2",
+    "VI-6",
+    "VI-7b",
+    "VI-8"
+   ],
+   "proof_lost": [],
+   "other_verdicts_changed": {},
+   "where": {
+    "VI-2": "{\"the_parser\": \"3\", \"the_message\": \"\\\"c=1\\\"\"}, on the compiled Rust too (reproduced)",
+    "VI-6": "{\"the_parser\": \"3\", \"the_message\": \"\\\"c=1\\\"\"}, on the compiled Rust too (reproduced)",
+    "VI-7b": "{\"the_parser\": \"3\", \"the_message\": \"\\\"c=1\\\"\"}, on the compiled Rust too (reproduced)",
+    "VI-8": "{\"the_parser\": \"3\", \"the_message\": \"\\\"c=1\\\"\"}, on the compiled Rust too (reproduced)",
+    "VI-10": "{\"the_parser\": \"3\", \"the_message\": \"\\\"c=1\\\"\"}, on the compiled Rust too (reproduced)"
+   },
+   "frozen": true,
+   "wide": {
+    "exit": 1,
+    "limits": 10,
+    "messages": 429505,
+    "evaluations": 42950500,
+    "could_not_be_evaluated": 0,
+    "false": {
+     "VI-10": {
+      "points": 170180,
+      "messages": 53340,
+      "first": "limit 3, \"\\x00=0\""
+     },
+     "VI-2": {
+      "points": 170180,
+      "messages": 53340,
+      "first": "limit 3, \"\\x00=0\""
+     },
+     "VI-6": {
+      "points": 170180,
+      "messages": 53340,
+      "first": "limit 3, \"\\x00=0\""
+     },
+     "VI-7b": {
+      "points": 170180,
+      "messages": 53340,
+      "first": "limit 3, \"\\x00=0\""
+     },
+     "VI-8": {
+      "points": 170180,
+      "messages": 53340,
+      "first": "limit 3, \"\\x00=0\""
+     },
+     "VI-9": {
+      "points": 670,
+      "messages": 210,
+      "first": "limit 3, \";=0\""
+     }
+    },
+    "named": {
+     "a=1\\x0a": [],
+     "a=1\\x0d\\x0a": [],
+     "a=:": []
+    }
+   }
+  },
+  {
+   "id": "B3",
+   "what": "duplicate key, last wins: a repeated key is accepted and its last value kept",
+   "expected_by": [
+    "VI-9",
+    "VI-2",
+    "VI-7b",
+    "VI-10"
+   ],
+   "compiles": true,
+   "translated": true,
+   "unit_tests": "caught",
+   "exit": 1,
+   "seconds": 416,
+   "verdicts": 127,
+   "shown_false_by": [],
+   "counterexample_unconfirmed": [
+    "VI-10",
+    "VI-2",
+    "VI-6",
+    "VI-7b",
+    "VI-9"
+   ],
+   "proof_lost": [],
+   "other_verdicts_changed": {},
+   "where": {
+    "VI-2": "{\"the_parser\": \"7\", \"the_message\": \"\\\"a=1;a=2\\\"\"}, on the compiled Rust too (reproduced)",
+    "VI-6": "{\"the_parser\": \"7\", \"the_message\": \"\\\"a=1;a=2\\\"\"}, on the compiled Rust too (reproduced)",
+    "VI-7b": "{\"the_parser\": \"7\", \"the_message\": \"\\\"a=1;a=2\\\"\"}, on the compiled Rust too (reproduced)",
+    "VI-9": "{\"the_parser\": \"7\", \"the_message\": \"\\\"a=1;a=2\\\"\"}, on the compiled Rust too (reproduced)",
+    "VI-10": "{\"the_parser\": \"7\", \"the_message\": \"\\\"a=1;a=2\\\"\"}, on the compiled Rust too (reproduced)"
+   },
+   "frozen": true,
+   "wide": {
+    "exit": 1,
+    "limits": 10,
+    "messages": 429505,
+    "evaluations": 42950500,
+    "could_not_be_evaluated": 0,
+    "false": {
+     "VI-10": {
+      "points": 600,
+      "messages": 200,
+      "first": "limit 7, \"a=0;a=0\""
+     },
+     "VI-2": {
+      "points": 600,
+      "messages": 200,
+      "first": "limit 7, \"a=0;a=0\""
+     },
+     "VI-6": {
+      "points": 600,
+      "messages": 200,
+      "first": "limit 7, \"a=0;a=0\""
+     },
+     "VI-7b": {
+      "points": 600,
+      "messages": 200,
+      "first": "limit 7, \"a=0;a=0\""
+     },
+     "VI-9": {
+      "points": 600,
+      "messages": 200,
+      "first": "limit 7, \"a=0;a=0\""
+     }
+    },
+    "named": {
+     "a=1\\x0a": [],
+     "a=1\\x0d\\x0a": [],
+     "a=:": []
+    }
+   }
+  },
+  {
+   "id": "B4",
+   "what": "case mismatch: the keys `A` and `B` are taken for `a` and `b`",
+   "expected_by": [
+    "VI-8",
+    "VI-2",
+    "VI-10"
+   ],
+   "compiles": true,
+   "translated": true,
+   "unit_tests": "caught",
+   "exit": 1,
+   "seconds": 324,
+   "verdicts": 127,
+   "shown_false_by": [],
+   "counterexample_unconfirmed": [
+    "VI-10",
+    "VI-2",
+    "VI-6",
+    "VI-7b",
+    "VI-8"
+   ],
+   "proof_lost": [],
+   "other_verdicts_changed": {},
+   "where": {
+    "VI-2": "{\"the_parser\": \"3\", \"the_message\": \"\\\"A=1\\\"\"}, on the compiled Rust too (reproduced)",
+    "VI-6": "{\"the_parser\": \"3\", \"the_message\": \"\\\"A=1\\\"\"}, on the compiled Rust too (reproduced)",
+    "VI-7b": "{\"the_parser\": \"3\", \"the_message\": \"\\\"A=1\\\"\"}, on the compiled Rust too (reproduced)",
+    "VI-8": "{\"the_parser\": \"3\", \"the_message\": \"\\\"A=1\\\"\"}, on the compiled Rust too (reproduced)",
+    "VI-10": "{\"the_parser\": \"3\", \"the_message\": \"\\\"A=1\\\"\"}, on the compiled Rust too (reproduced)"
+   },
+   "frozen": true,
+   "wide": {
+    "exit": 1,
+    "limits": 10,
+    "messages": 429505,
+    "evaluations": 42950500,
+    "could_not_be_evaluated": 0,
+    "false": {
+     "VI-10": {
+      "points": 740,
+      "messages": 220,
+      "first": "limit 3, \"A=0\""
+     },
+     "VI-2": {
+      "points": 740,
+      "messages": 220,
+      "first": "limit 3, \"A=0\""
+     },
+     "VI-6": {
+      "points": 740,
+      "messages": 220,
+      "first": "limit 3, \"A=0\""
+     },
+     "VI-7b": {
+      "points": 740,
+      "messages": 220,
+      "first": "limit 3, \"A=0\""
+     },
+     "VI-8": {
+      "points": 740,
+      "messages": 220,
+      "first": "limit 3, \"A=0\""
+     }
+    },
+    "named": {
+     "a=1\\x0a": [],
+     "a=1\\x0d\\x0a": [],
+     "a=:": []
+    }
+   }
+  },
+  {
+   "id": "B5a",
+   "what": "length off by one: an input of exactly the limit is rejected",
+   "expected_by": [
+    "VI-3"
+   ],
+   "compiles": true,
+   "translated": true,
+   "unit_tests": "caught",
+   "exit": 1,
+   "seconds": 234,
+   "verdicts": 127,
+   "shown_false_by": [],
+   "counterexample_unconfirmed": [
+    "VI-10",
+    "VI-3"
+   ],
+   "proof_lost": [
+    "VI-4",
+    "VI-5"
+   ],
+   "other_verdicts_changed": {},
+   "where": {
+    "VI-3": "{\"the_parser\": \"3\", \"the_message\": \"\\\"a=1\\\"\"}, on the compiled Rust too (reproduced)",
+    "VI-10": "{\"the_parser\": \"3\", \"the_message\": \"\\\"a=1\\\"\"}, on the compiled Rust too (reproduced)"
+   },
+   "frozen": true,
+   "wide": {
+    "exit": 1,
+    "limits": 10,
+    "messages": 429505,
+    "evaluations": 42950500,
+    "could_not_be_evaluated": 0,
+    "false": {
+     "VI-10": {
+      "points": 120,
+      "messages": 120,
+      "first": "limit 3, \"a=0\""
+     },
+     "VI-3": {
+      "points": 120,
+      "messages": 120,
+      "first": "limit 3, \"a=0\""
+     }
+    },
+    "named": {
+     "a=1\\x0a": [],
+     "a=1\\x0d\\x0a": [],
+     "a=:": []
+    }
+   }
+  },
+  {
+   "id": "B5b",
+   "what": "length off by one: an input one byte longer than the limit is accepted",
+   "expected_by": [
+    "VI-4"
+   ],
+   "compiles": true,
+   "translated": true,
+   "unit_tests": "caught",
+   "exit": 1,
+   "seconds": 332,
+   "verdicts": 127,
+   "shown_false_by": [],
+   "counterexample_unconfirmed": [
+    "VI-10",
+    "VI-4"
+   ],
+   "proof_lost": [
+    "VI-5"
+   ],
+   "other_verdicts_changed": {},
+   "where": {
+    "VI-4": "{\"the_parser\": \"2\", \"the_message\": \"\\\"a=1\\\"\"}, on the compiled Rust too (reproduced)",
+    "VI-10": "{\"the_parser\": \"2\", \"the_message\": \"\\\"a=1\\\"\"}, on the compiled Rust too (reproduced)"
+   },
+   "frozen": true,
+   "wide": {
+    "exit": 1,
+    "limits": 10,
+    "messages": 429505,
+    "evaluations": 42950500,
+    "could_not_be_evaluated": 0,
+    "false": {
+     "VI-10": {
+      "points": 120,
+      "messages": 120,
+      "first": "limit 2, \"a=0\""
+     },
+     "VI-4": {
+      "points": 120,
+      "messages": 120,
+      "first": "limit 2, \"a=0\""
+     }
+    },
+    "named": {
+     "a=1\\x0a": [],
+     "a=1\\x0d\\x0a": [],
+     "a=:": []
+    }
+   }
+  },
+  {
+   "id": "B6",
+   "what": "default value returned: a record is accepted and the default record is answered (= T-default of the adequacy expectation)",
+   "expected_by": [
+    "VI-7b",
+    "VI-10"
+   ],
+   "compiles": true,
+   "translated": true,
+   "unit_tests": "caught",
+   "exit": 1,
+   "seconds": 368,
+   "verdicts": 127,
+   "shown_false_by": [],
+   "counterexample_unconfirmed": [
+    "VI-10",
+    "VI-7b"
+   ],
+   "proof_lost": [],
+   "other_verdicts_changed": {},
+   "where": {
+    "VI-7b": "{\"the_parser\": \"3\", \"the_message\": \"\\\"a=1\\\"\"}, on the compiled Rust too (reproduced)",
+    "VI-10": "{\"the_parser\": \"3\", \"the_message\": \"\\\"a=1\\\"\"}, on the compiled Rust too (reproduced)"
+   },
+   "frozen": true,
+   "wide": {
+    "exit": 1,
+    "limits": 10,
+    "messages": 429505,
+    "evaluations": 42950500,
+    "could_not_be_evaluated": 0,
+    "false": {
+     "VI-10": {
+      "points": 440,
+      "messages": 120,
+      "first": "limit 3, \"a=0\""
+     },
+     "VI-7b": {
+      "points": 440,
+      "messages": 120,
+      "first": "limit 3, \"a=0\""
+     }
+    },
+    "named": {
+     "a=1\\x0a": [],
+     "a=1\\x0d\\x0a": [],
+     "a=:": []
+    }
+   }
+  },
+  {
+   "id": "T-reject-all",
+   "what": "trivial implementation: rejects every input",
+   "expected_by": [
+    "VI-3"
+   ],
+   "compiles": true,
+   "translated": true,
+   "unit_tests": "caught",
+   "exit": 1,
+   "seconds": 357,
+   "verdicts": 127,
+   "shown_false_by": [],
+   "counterexample_unconfirmed": [
+    "VI-10",
+    "VI-3"
+   ],
+   "proof_lost": [
+    "VI-4",
+    "VI-5"
+   ],
+   "other_verdicts_changed": {},
+   "where": {
+    "VI-3": "{\"the_parser\": \"3\", \"the_message\": \"\\\"a=1\\\"\"}, on the compiled Rust too (reproduced)",
+    "VI-10": "{\"the_parser\": \"3\", \"the_message\": \"\\\"a=1\\\"\"}, on the compiled Rust too (reproduced)"
+   },
+   "frozen": true,
+   "wide": {
+    "exit": 1,
+    "limits": 10,
+    "messages": 429505,
+    "evaluations": 42950500,
+    "could_not_be_evaluated": 0,
+    "false": {
+     "VI-10": {
+      "points": 440,
+      "messages": 120,
+      "first": "limit 3, \"a=0\""
+     },
+     "VI-3": {
+      "points": 440,
+      "messages": 120,
+      "first": "limit 3, \"a=0\""
+     }
+    },
+    "named": {
+     "a=1\\x0a": [],
+     "a=1\\x0d\\x0a": [],
+     "a=:": []
+    }
+   }
+  },
+  {
+   "id": "T-accept-all",
+   "what": "trivial implementation: accepts every input with one fixed value",
+   "expected_by": [
+    "VI-2"
+   ],
+   "compiles": true,
+   "translated": true,
+   "unit_tests": "caught",
+   "exit": 1,
+   "seconds": 329,
+   "verdicts": 127,
+   "shown_false_by": [],
+   "counterexample_unconfirmed": [
+    "VI-10",
+    "VI-2",
+    "VI-4",
+    "VI-6",
+    "VI-7b",
+    "VI-8",
+    "VI-9"
+   ],
+   "proof_lost": [
+    "VI-5"
+   ],
+   "other_verdicts_changed": {},
+   "where": {
+    "VI-2": "{\"the_parser\": \"0\", \"the_message\": \"\\\"\\\"\"}, on the compiled Rust too (reproduced)",
+    "VI-4": "{\"the_parser\": \"0\", \"the_message\": \"\\\"a\\\"\"}, on the compiled Rust too (reproduced)",
+    "VI-6": "{\"the_parser\": \"0\", \"the_message\": \"\\\"\\\"\"}, on the compiled Rust too (reproduced)",
+    "VI-7b": "{\"the_parser\": \"0\", \"the_message\": \"\\\"\\\"\"}, on the compiled Rust too (reproduced)",
+    "VI-8": "{\"the_parser\": \"0\", \"the_message\": \"\\\"=1\\\"\"}, on the compiled Rust too (reproduced)",
+    "VI-9": "{\"the_parser\": \"0\", \"the_message\": \"\\\"a=1;a=2\\\"\"}, on the compiled Rust too (reproduced)",
+    "VI-10": "{\"the_parser\": \"0\", \"the_message\": \"\\\"\\\"\"}, on the compiled Rust too (reproduced)"
+   },
+   "frozen": true,
+   "wide": {
+    "exit": 1,
+    "limits": 10,
+    "messages": 429505,
+    "evaluations": 42950500,
+    "could_not_be_evaluated": 0,
+    "false": {
+     "VI-10": {
+      "points": 4295050,
+      "messages": 429505,
+      "first": "limit 0, \"\""
+     },
+     "VI-2": {
+      "points": 4293850,
+      "messages": 429385,
+      "first": "limit 0, \"\""
+     },
+     "VI-4": {
+      "points": 2785824,
+      "messages": 429504,
+      "first": "limit 0, \"\\x00\""
+     },
+     "VI-6": {
+      "points": 4293850,
+      "messages": 429385,
+      "first": "limit 0, \"\""
+     },
+     "VI-7b": {
+      "points": 4295050,
+      "messages": 429505,
+      "first": "limit 0, \"\""
+     },
+     "VI-8": {
+      "points": 2881700,
+      "messages": 288170,
+      "first": "limit 0, \"\\x00\""
+     },
+     "VI-9": {
+      "points": 4140,
+      "messages": 414,
+      "first": "limit 0, \";\""
+     }
+    },
+    "named": {
+     "a=1\\x0a": [
+      "VI-2",
+      "VI-4",
+      "VI-6",
+      "VI-7b",
+      "VI-10"
+     ],
+     "a=1\\x0d\\x0a": [
+      "VI-2",
+      "VI-4",
+      "VI-6",
+      "VI-7b",
+      "VI-10"
+     ],
+     "a=:": [
+      "VI-2",
+      "VI-4",
+      "VI-6",
+      "VI-7b",
+      "VI-10"
+     ]
+    }
+   }
+  },
+  {
+   "id": "R1",
+   "what": "(reviewer's; sibling of none of the six, a digit-range off by one) `:` is taken as a digit, value 10",
+   "expected_by": [
+    "VI-2",
+    "VI-6",
+    "VI-7b",
+    "VI-10"
+   ],
+   "compiles": true,
+   "translated": true,
+   "unit_tests": "MISSED",
+   "exit": 0,
+   "seconds": 222,
+   "verdicts": 127,
+   "shown_false_by": [],
+   "counterexample_unconfirmed": [],
+   "proof_lost": [],
+   "other_verdicts_changed": {},
+   "where": {},
+   "frozen": false,
+   "wide": {
+    "exit": 1,
+    "limits": 10,
+    "messages": 429505,
+    "evaluations": 42950500,
+    "could_not_be_evaluated": 0,
+    "false": {
+     "VI-10": {
+      "points": 74,
+      "messages": 22,
+      "first": "limit 3, \"a=:\""
+     },
+     "VI-2": {
+      "points": 74,
+      "messages": 22,
+      "first": "limit 3, \"a=:\""
+     },
+     "VI-6": {
+      "points": 74,
+      "messages": 22,
+      "first": "limit 3, \"a=:\""
+     },
+     "VI-7b": {
+      "points": 74,
+      "messages": 22,
+      "first": "limit 3, \"a=:\""
+     }
+    },
+    "named": {
+     "a=1\\x0a": [],
+     "a=1\\x0d\\x0a": [],
+     "a=:": [
+      "VI-2",
+      "VI-6",
+      "VI-7b",
+      "VI-10"
+     ]
+    }
+   }
+  },
+  {
+   "id": "R2",
+   "what": "(reviewer's; sibling of B1) one trailing newline is accepted",
+   "expected_by": [
+    "VI-2",
+    "VI-6",
+    "VI-7b",
+    "VI-10"
+   ],
+   "compiles": true,
+   "translated": true,
+   "unit_tests": "MISSED",
+   "exit": 0,
+   "seconds": 272,
+   "verdicts": 127,
+   "shown_false_by": [],
+   "counterexample_unconfirmed": [],
+   "proof_lost": [],
+   "other_verdicts_changed": {},
+   "where": {},
+   "frozen": false,
+   "wide": {
+    "exit": 1,
+    "limits": 10,
+    "messages": 429505,
+    "evaluations": 42950500,
+    "could_not_be_evaluated": 0,
+    "false": {
+     "VI-10": {
+      "points": 320,
+      "messages": 120,
+      "first": "limit 4, \"a=0\\x0a\""
+     },
+     "VI-2": {
+      "points": 320,
+      "messages": 120,
+      "first": "limit 4, \"a=0\\x0a\""
+     },
+     "VI-6": {
+      "points": 320,
+      "messages": 120,
+      "first": "limit 4, \"a=0\\x0a\""
+     },
+     "VI-7b": {
+      "points": 320,
+      "messages": 120,
+      "first": "limit 4, \"a=0\\x0a\""
+     }
+    },
+    "named": {
+     "a=1\\x0a": [
+      "VI-2",
+      "VI-6",
+      "VI-7b",
+      "VI-10"
+     ],
+     "a=1\\x0d\\x0a": [],
+     "a=:": []
+    }
+   }
+  },
+  {
+   "id": "R3",
+   "what": "(builder's, fix round; sibling of R2, outside the wider search by construction) a trailing `\\r\\n` is accepted",
+   "expected_by": [
+    "VI-2",
+    "VI-6",
+    "VI-7b",
+    "VI-10"
+   ],
+   "compiles": true,
+   "translated": true,
+   "unit_tests": "MISSED",
+   "exit": 1,
+   "seconds": 245,
+   "verdicts": 127,
+   "shown_false_by": [],
+   "counterexample_unconfirmed": [],
+   "proof_lost": [
+    "VI-4",
+    "VI-5"
+   ],
+   "other_verdicts_changed": {},
+   "where": {},
+   "frozen": false,
+   "wide": {
+    "exit": 0,
+    "limits": 10,
+    "messages": 429505,
+    "evaluations": 42950500,
+    "could_not_be_evaluated": 0,
+    "false": {},
+    "named": {
+     "a=1\\x0a": [],
+     "a=1\\x0d\\x0a": [
+      "VI-2",
+      "VI-6",
+      "VI-7b",
+      "VI-10"
+     ],
+     "a=:": []
+    }
+   }
+  }
+ ],
+ "baseline": {
+  "exit": 0,
+  "seconds": 219,
+  "verdicts": 127,
+  "pack_rules": {
+   "VI-1": "TESTED-ONLY",
+   "VI-10": "TESTED-ONLY",
+   "VI-2": "TESTED-ONLY",
+   "VI-3": "TESTED-ONLY",
+   "VI-4": "PROVED-FOR-ALL",
+   "VI-5": "PROVED-FOR-ALL",
+   "VI-6": "TESTED-ONLY",
+   "VI-7b": "TESTED-ONLY",
+   "VI-8": "TESTED-ONLY",
+   "VI-9": "TESTED-ONLY"
+  },
+  "tail": " kvparse/, 5 model functions): 0 scenarios (none); 10 Rule statements (8 TESTED-ONLY, 2 PROVED-FOR-ALL); functions: 5 INPUTS-NOT-COVERED\ngraph: 496 nodes, 1079 edges -> out/graph.json;  report -> out/report.md\nRESULT: every scenario got its expected verdict and every Rule statement its expected one\n",
+  "wide": {
+   "exit": 0,
+   "limits": 10,
+   "messages": 429505,
+   "evaluations": 42950500,
+   "could_not_be_evaluated": 0,
+   "false": {},
+   "named": {
+    "a=1\\x0a": [],
+    "a=1\\x0d\\x0a": [],
+    "a=:": []
+   }
+  }
+ },
+ "strip": {
+  "strip_exit": 0,
+  "strip_output": "pack strip: features/kvparse_rules.feature -> features/kvparse_rules.feature (pack tags removed, marker comments emptied; every line keeps its number; Rule lines, @id and @expect tags kept)",
+  "what_is_left": "features/kvparse_rules.feature\nls: clausal/pack.py: No such file or directory\nls: features/kvparse_rules.pack.validated-input.yaml: No such file or directory\nls: packs: No such file or directory",
+  "exit": 0,
+  "seconds": 175,
+  "verdicts": 127,
+  "differ": {}
+ }
+}

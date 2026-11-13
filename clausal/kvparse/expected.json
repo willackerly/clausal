@@ -1,0 +1,20 @@
+{
+ "what": "The verdicts the fourth project (kvparse, plan node K1) is expected to get on its ten Rule lines, which are the rule pack validated-input@1 instantiated with the words of clausebook/local/kvparse.yaml. Written and committed BEFORE the pipeline was run on them. Compared with out/graph.json by `python3 kvparse/check_expected.py` (run from clausal/, after ./run.sh).",
+ "rules": {
+  "Rule.kvparse_rules.vi_1": { "code": "TESTED-ONLY", "why": "believed true (every index is in range, no subtraction below zero); no proof is supplied: it needs a loop invariant" },
+  "Rule.kvparse_rules.vi_2": { "code": "TESTED-ONLY", "why": "believed true; no proof is supplied: it is the agreement of the loop with the specification's tokeniser" },
+  "Rule.kvparse_rules.vi_3": { "code": "TESTED-ONLY", "why": "believed true; no proof is supplied (as VI-2)" },
+  "Rule.kvparse_rules.vi_4": { "code": "PROVED-FOR-ALL", "why": "true, and the length check is before the loop: a hand-written proof of the generated obligation is to be supplied" },
+  "Rule.kvparse_rules.vi_5": { "code": "PROVED-FOR-ALL", "why": "true of EVERY operation with this answer type: a record has two keys, so the count is at most 2 whatever the code does. The proof does not look at the code. Reported as a rule that says nothing about this parser" },
+  "Rule.kvparse_rules.vi_6": { "code": "TESTED-ONLY", "why": "believed true; no proof is supplied (as VI-2). The half 'changes nothing' holds by construction: the parser is read, never written" },
+  "Rule.kvparse_rules.vi_7b": { "code": "TESTED-ONLY", "why": "believed true (the format is canonical: one input per record); no proof is supplied" },
+  "Rule.kvparse_rules.vi_8": { "code": "TESTED-ONLY", "why": "believed true; no proof is supplied" },
+  "Rule.kvparse_rules.vi_9": { "code": "TESTED-ONLY", "why": "believed true; no proof is supplied" },
+  "Rule.kvparse_rules.vi_10": { "code": "TESTED-ONLY", "why": "believed true; no proof is supplied: it is the whole correctness of the parser" }
+ },
+ "functions": {
+  "every_verdict_naming_kvparse": "INPUTS-NOT-COVERED",
+  "why": "input coverage is computed from proved universal SCENARIOS of the old glossary; kvparse has Rule lines only and no trivial-model entry, so no suite adequacy verdict either (as for the counter)"
+ },
+ "no_other_verdict": "no other rule or scenario verdict of out/graph.json may name kvparse"
+}

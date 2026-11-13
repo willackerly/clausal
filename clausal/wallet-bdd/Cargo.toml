@@ -12,6 +12,7 @@ wallet = { path = "../wallet" }
 ledger = { path = "../ledger" }
 counter = { path = "../counter" }
 sigintake = { path = "../sigintake" }
+kvparse = { path = "../kvparse" }
 serde_json = "1"
 
 [dev-dependencies]
@@ -30,4 +31,10 @@ harness = false
 # every compiled reading at every point of its grid, on the compiled Rust, through the per-piece readings
 [[test]]
 name = "grid"
+harness = false
+
+# K1, fix round: the kvparse rules at inputs taken from the format (every short byte string; every one-byte edit of a
+# record). NOT run by ../run.sh; run by packs/validated-input/kvparse_mutants.py and by hand (see the file's head).
+[[test]]
+name = "kv_wide"
 harness = false

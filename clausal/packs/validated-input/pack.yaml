@@ -1,0 +1,191 @@
+# RULE PACK "validated input", version 1 (plan node K1; docs/studies/2026-11-12/packs.md, section 2a).
+#
+# A rule pack is a parameterised suite of ORDINARY Clausal sentences. It has no meaning of its own: `clausal pack
+# instantiate` replaces each {slot} below with words the project's Clausebook already has and writes the resulting plain
+# Rule lines into the project's feature file. The ordinary compiler then reads them like any hand-written line. Nothing
+# in the pipeline reads this file; deleting it and stripping the tags it left changes no verdict (that is a test).
+#
+# FROZEN (packs/validated-input/FREEZE.md): the slots, the members and their sentences, the variants, the adequacy
+# expectation and the seeded bug list were committed before any target code was written or read for this purpose.
+# A change to a sentence, a slot or a variant is a new version of the pack (version: 2), never an edit of this one.
+pack: validated-input
+version: 1
+
+# SLOTS. Each is filled with the surface text of a piece (or of a composition of pieces) of the stated category that the
+# project's own books define, written the way a Rule line writes it ("the input", "the parser's size limit").
+# `means` is what the project's word must mean for the member to say what the pack intends. The pack cannot check it.
+slots:
+  parse:
+    category: operation
+    means: "the operation that takes untrusted input and either accepts it, answering a parsed value, or rejects it (the noun a Rule line names it by)"
+  well_formed:
+    category: cond
+    means: "the input is in the format: the WHOLE specification of the format, written without the code under test"
+  not_well_formed:
+    category: cond
+    negation_of: well_formed
+    means: "the negated form of the same condition (the book has one form for a negation: the piece's `not_forms`)"
+  length:
+    category: "term<num>"
+    means: "the length of the input, in the unit the limit is stated in"
+  limit:
+    category: "measure<num>"
+    means: "the size limit (the core comparison `{t:term<num>} is at most {m:measure<num>}` needs a quantity of the state on the right)"
+  count:
+    category: "ameasure<num>"
+    means: "the number of items (fields) of the parsed value"
+  count_limit:
+    category: "term<num>"
+    means: "the largest number of items a parsed value may have"
+  encoding:
+    category: "ameasure<T>"
+    means: "the parsed value written back in the format by the specification's own encoder (a domain word that hides a second function)"
+  input_value:
+    category: "term<T>"
+    means: "the input itself, as a value of the sort `encoding` has"
+  field:
+    category: "coll<T>"
+    means: "the items (fields) of the input, read off the input BEFORE the call by the specification's own tokeniser"
+  is_known:
+    category: "itempred<T>"
+    means: "the item is one the format defines"
+  unknown_differs:
+    category: variation
+    means: "two inputs that differ only in items the format does not define"
+  unknown_field:
+    category: "coll<T>"
+    means: "the items of the input the format does not define"
+  extra_field:
+    category: "acoll<T>"
+    means: "the items the parsed value carries along without interpreting them"
+  key:
+    category: "coll<T>"
+    means: "the keys (names) of the items of the input, with repetitions, read off the input before the call"
+  is_repeated:
+    category: "itempred<T>"
+    means: "the key occurs more than once in the input"
+  reference:
+    category: reference
+    means: "a reference parse: the whole answer for every input, written without the code under test"
+  encode:
+    category: operation
+    means: "the operation that writes a value in the format (used by VI-7a only)"
+
+# VARIANTS. A policy axis is a choice among WHOLE sentences, never a parameter inside one. `none` under a choice: the pack
+# has no sentence for that choice, and the member is printed as unstated for a project that chooses it.
+axes:
+  size:
+    choices: [bounded, unbounded]
+    means: "whether the format has a size limit"
+  unknown:
+    choices: [reject, ignore, preserve]
+    means: "what a parse does with an item the format does not define"
+  duplicates:
+    choices: [reject, first-wins, last-wins]
+    means: "what a parse does with a repeated key"
+  canonical:
+    choices: [canonical-only, lenient]
+    means: "whether each parsed value has exactly one accepted input"
+
+# MEMBERS. `sentence` is the canonical Rule line with {slot} holes. A member with `variants` has one sentence per choice of
+# its axis. `stated: workaround` = the sentence compiles, and its content sits in a project domain word that hides a
+# function (the study's term). `stated: no` = no composition of today's pieces says it; `draft` is what one would write
+# and `needs` the piece that is missing. A draft is never written into a feature file.
+members:
+  - id: VI-1
+    says: "a parse gives an answer for every input (no panic, no endless loop, in the model)"
+    sentence: "A {parse} always answers"
+  - id: VI-2
+    says: "nothing outside the format is accepted"
+    sentence: "A {parse} is accepted only if {well_formed}"
+  - id: VI-3
+    says: "everything in the format is accepted (progress: excludes reject-everything)"
+    axis: size
+    variants:
+      unbounded: "A {parse} is accepted whenever {well_formed}"
+      bounded: "A {parse} for which {length} is at most {limit} is accepted whenever {well_formed}"
+  - id: VI-4
+    says: "oversize input is rejected"
+    axis: size
+    variants:
+      bounded: "A {parse} is accepted only if {length} is at most {limit}"
+      unbounded: not-applicable
+  - id: VI-5
+    says: "the parsed value has a bounded number of items"
+    axis: size
+    variants:
+      bounded: "For a {parse}, {count} is at most {count_limit}"
+      unbounded: not-applicable
+  - id: VI-6
+    says: "input outside the format is rejected and changes nothing (the second half says something only of a parser with state)"
+    sentence: "A {parse} for which {not_well_formed} is rejected and changes nothing"
+  - id: VI-7a
+    says: "round trip: encoding a value and parsing the result gives the value back"
+    stated: no
+    draft: "A {encode} followed by a {parse} of its result gives back the value"
+    needs: "a sequence in which the second call's input is the first call's ANSWER (the tie of core takes it from the first call's input), and a claim that the last answer is the first input"
+  - id: VI-7b
+    says: "the accepted input is exactly the encoding of the parsed value (excludes a wrong or default value and a dropped field)"
+    stated: workaround
+    axis: canonical
+    variants:
+      canonical-only: "For an accepted {parse}, {encoding} is {input_value}"
+      lenient: none
+    needs_if_none: "a specification-level canonical form of an input"
+  - id: VI-8
+    says: "the stated policy for items the format does not define"
+    axis: unknown
+    stated_by_variant: { reject: workaround }
+    variants:
+      reject: "A {parse} is accepted only if every {field} {is_known}"
+      ignore: "A {parse} gives the same answer when {unknown_differs}"
+      preserve: "For an accepted {parse}, every {unknown_field} is a {extra_field}"
+  - id: VI-9
+    says: "the stated policy for a repeated key"
+    stated: workaround
+    axis: duplicates
+    variants:
+      reject: "A {parse} is accepted only if no {key} {is_repeated}"
+      first-wins: none
+      last-wins: none
+    needs_if_none: "a sentence form for 'the value of a repeated key is its first / its last occurrence' (the count frame has no surface form)"
+  - id: VI-10
+    says: "the answer is the reference's for every input (pins everything; costs a full signed definition of the format)"
+    sentence: "A {parse} agrees with {reference}"
+
+# ADEQUACY EXPECTATION. Trivial implementations the instantiated suite must exclude: each is put in the place of the
+# project's parse (as a mutant of the code under test) and must be shown false by a stated member. `by` is the member the
+# study expects to do it; the run reports every member that does.
+adequacy:
+  - id: T-reject-all
+    implementation: "rejects every input"
+    by: [VI-3]
+  - id: T-accept-all
+    implementation: "accepts every input with one fixed value"
+    by: [VI-2]
+  - id: T-default
+    implementation: "accepts exactly the well-formed inputs and answers one fixed (default) value"
+    by: [VI-7b, VI-10]
+
+# SEEDED BUGS (the study's list, section 5). Each is applied as a mutant of the project's parse. Expected: at least one
+# stated member is shown false, or the completeness line prints the member that would have shown it as unstated or waived.
+# `by` = the members the study's tables lead one to expect; the run reports every member that is shown false.
+seeded_bugs:
+  - id: B1
+    bug: "trailing garbage accepted"
+    by: [VI-2, VI-7b, VI-10]
+  - id: B2
+    bug: "unknown item skipped"
+    by: [VI-8, VI-2, VI-10]
+  - id: B3
+    bug: "duplicate key, last wins"
+    by: [VI-9, VI-2, VI-7b, VI-10]
+  - id: B4
+    bug: "case mismatch (a key or name matched without regard to case)"
+    by: [VI-8, VI-2, VI-10]
+  - id: B5
+    bug: "length off by one (applied in both directions: one byte too many accepted; an input of exactly the limit rejected)"
+    by: [VI-4, VI-3]
+  - id: B6
+    bug: "default value returned"
+    by: [VI-7b, VI-10]

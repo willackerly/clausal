@@ -12,6 +12,7 @@ wallet = { path = "../../wallet" }
 ledger = { path = "../../ledger" }
 counter = { path = "../../counter" }
 sigintake = { path = "../../sigintake" }
+kvparse = { path = "../../kvparse" }
 
 [lints.rust]
 unexpected_cfgs = { level = "warn", check-cfg = ['cfg(kani)'] }

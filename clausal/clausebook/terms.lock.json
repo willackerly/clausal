@@ -183,6 +183,209 @@
    ],
    "source": "features/intake.feature:19"
   },
+  "Rule.kvparse_rules.vi_1": {
+   "compiled": true,
+   "lean_sha256": "070d5390dcb6bffa48e983ec0607dd430a8738b8fb6fd4392333d3a8778f9156",
+   "pieces": [
+    "kv.parse",
+    "always_answers",
+    "calls.every",
+    "g.subject",
+    "g.rule_vp",
+    "g.line",
+    "D1",
+    "D2",
+    "D4"
+   ],
+   "source": "features/kvparse_rules.feature:10"
+  },
+  "Rule.kvparse_rules.vi_10": {
+   "compiled": true,
+   "lean_sha256": "28c21d886250c2959cc7c3f647d205d634fcda1b847df597fcfd2a914719febe",
+   "pieces": [
+    "kv.parse",
+    "agrees_with",
+    "kv.ref_parse",
+    "calls.every",
+    "g.subject",
+    "g.rule_vp",
+    "g.line",
+    "D1",
+    "D2",
+    "D4"
+   ],
+   "source": "features/kvparse_rules.feature:46"
+  },
+  "Rule.kvparse_rules.vi_2": {
+   "compiled": true,
+   "lean_sha256": "ac73a9c1e157faa5b8a9ff3059585ab3b98227fa41ce64b1a48b91525735ed1c",
+   "pieces": [
+    "kv.parse",
+    "only_if",
+    "kv.well_formed",
+    "accepted",
+    "calls.every",
+    "g.subject",
+    "g.rule_vp",
+    "g.role",
+    "g.line",
+    "D1",
+    "D2",
+    "D4",
+    "D8"
+   ],
+   "source": "features/kvparse_rules.feature:14"
+  },
+  "Rule.kvparse_rules.vi_3": {
+   "compiled": true,
+   "lean_sha256": "5f6124692e628bcd58f5ae1db4cf0f8c47358839a7aee7cd6e6d26437e94d4d8",
+   "pieces": [
+    "kv.parse",
+    "given",
+    "if_then",
+    "not_more_than",
+    "kv.length",
+    "kv.limit",
+    "kv.well_formed",
+    "accepted",
+    "calls.every",
+    "g.subject",
+    "g.rule_vp",
+    "g.role",
+    "g.line",
+    "D1",
+    "D2",
+    "D4",
+    "D8"
+   ],
+   "source": "features/kvparse_rules.feature:18"
+  },
+  "Rule.kvparse_rules.vi_4": {
+   "compiled": true,
+   "lean_sha256": "24fd9f88b5cd6079c3dea48493809e72d3fa0ef0a6c8d077cf14ebde350282ba",
+   "pieces": [
+    "kv.parse",
+    "only_if",
+    "not_more_than",
+    "kv.length",
+    "kv.limit",
+    "accepted",
+    "calls.every",
+    "g.subject",
+    "g.rule_vp",
+    "g.role",
+    "g.line",
+    "D1",
+    "D2",
+    "D4",
+    "D8"
+   ],
+   "source": "features/kvparse_rules.feature:22"
+  },
+  "Rule.kvparse_rules.vi_5": {
+   "compiled": true,
+   "lean_sha256": "6db1529aee690706a5cd27271d14abbc33fa0a5862709c70b63639911ac53e8d",
+   "pieces": [
+    "kv.parse",
+    "result_at_most",
+    "kv.count",
+    "kv.field_limit",
+    "calls.every",
+    "g.subject",
+    "g.rule_for",
+    "g.line",
+    "D1",
+    "D2",
+    "D4"
+   ],
+   "source": "features/kvparse_rules.feature:26"
+  },
+  "Rule.kvparse_rules.vi_6": {
+   "compiled": true,
+   "lean_sha256": "2c2f11564f19e061ef4b7e78b96ffb96e3ef5fcc6b4bec38802a57c161459f71",
+   "pieces": [
+    "kv.parse",
+    "given",
+    "rejected_unchanged",
+    "not",
+    "kv.well_formed",
+    "calls.every",
+    "g.subject",
+    "g.rule_vp",
+    "g.role",
+    "g.line",
+    "D1",
+    "D2",
+    "D3",
+    "D4",
+    "D8"
+   ],
+   "source": "features/kvparse_rules.feature:30"
+  },
+  "Rule.kvparse_rules.vi_7b": {
+   "compiled": true,
+   "lean_sha256": "84e598eba2b1bde954ec7ae92dcd99af4114a892b33b397eca83739056db49be",
+   "pieces": [
+    "kv.parse",
+    "successful",
+    "result_is",
+    "kv.encoding",
+    "kv.as_encoding",
+    "calls.accepted",
+    "g.subject",
+    "g.rule_for",
+    "g.role",
+    "g.line",
+    "D4"
+   ],
+   "source": "features/kvparse_rules.feature:34"
+  },
+  "Rule.kvparse_rules.vi_8": {
+   "compiled": true,
+   "lean_sha256": "dad6990d9644e7bd00988774ea441bb85f823f9b0d2becc0cbbd4c24af47be65",
+   "pieces": [
+    "kv.parse",
+    "only_if",
+    "every",
+    "kv.fields",
+    "kv.known",
+    "accepted",
+    "calls.every",
+    "g.subject",
+    "g.rule_vp",
+    "g.role",
+    "g.line",
+    "D1",
+    "D2",
+    "D4",
+    "D5",
+    "D8"
+   ],
+   "source": "features/kvparse_rules.feature:38"
+  },
+  "Rule.kvparse_rules.vi_9": {
+   "compiled": true,
+   "lean_sha256": "802a599890b7a454e54b0cc88174bc10dc560b50fb8cefcaa438991d6ec39f22",
+   "pieces": [
+    "kv.parse",
+    "only_if",
+    "no_such",
+    "kv.keys",
+    "kv.repeated",
+    "accepted",
+    "calls.every",
+    "g.subject",
+    "g.rule_vp",
+    "g.role",
+    "g.line",
+    "D1",
+    "D2",
+    "D4",
+    "D5",
+    "D8"
+   ],
+   "source": "features/kvparse_rules.feature:42"
+  },
   "Rule.ledger.batch_all_valid": {
    "compiled": true,
    "lean_sha256": "8d86a435b995ab7204d061f3e75c7a14622d64c7b54eac2ec4af29a8bf76df2e",

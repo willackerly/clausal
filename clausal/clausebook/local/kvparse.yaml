@@ -1,0 +1,152 @@
+# CLAUSEBOOK, LOCAL BOOK OF THE KVPARSE FIXTURE (plan node K1). HUMAN-ASSERTED, piece by piece.
+#
+# The fourth project: a toy byte-level parser (../../kvparse/src/lib.rs), the first target of the rule pack "validated
+# input" (../../packs/validated-input/). These are the WORDS the pack's slots are filled with. The pack supplies no word
+# and no meaning: every entry below is the project's, with its Lean definition in lean/Kvparse/Pieces.lean (namespace KV).
+# It needs core and nothing else: no word pack.
+#
+# WHAT THE WORDS HIDE (packs/README.md): `kv.well_formed`, `kv.fields`, `kv.keys`, `kv.encoding` and `kv.ref_parse` are a
+# second parser, an encoder and a tokeniser written in the specification. A rule that uses them is as good as they are.
+#
+# `builds: true` on a measure says the measure IS the whole of its actor (a parser is its size limit).
+version: 1
+book: kvparse
+needs: [core]
+lean_imports: [Kvparse.Pieces]
+lean_files:
+  KV: lean/Kvparse/Pieces.lean
+# sorts this book adds for `<T>`: an encoding that may be absent, a field of an input, a key of an input
+sorts: [optbytes, kvfield, kvkey]
+# literal and actor types its holes name (glossary.yaml: `param_types`, `actors`)
+uses_types: [parser, bytes, size]
+type_echo:
+  bytes: "a sequence of bytes, written as text"
+  size: "a number of bytes, a usize"
+
+# The operation entry is described at the head of clausebook/local/wallet.yaml.
+# The role of what is parsed is `message`, not `input`: `clausal book check` refuses a role noun that core's own text
+# uses ("the input of the call"), and core's text says "input" throughout.
+operations:
+  - id: kv.parse
+    domain: kvparse
+    lean: KV.parse
+    model: kvparse.Parser.parse
+    shape: read
+    state: [[parser, parser]]
+    input: [[message, bytes]]
+    accepted: KV.found
+    answer: Option kvparse.Record
+    when: ["{message} is parsed by {parser}"]
+    nouns: [parse]
+    echo: "parsing {message} with {parser}"
+    accepted_echo: "an acceptance is an answer that carries a record; an answer with no record is a rejection"
+    narrowing:
+      rejected: { one_answer: true }
+
+pieces:
+  - id: kv.limit
+    kind: domain
+    domain: kvparse
+    cat: measure<num>
+    forms: ["{p:parser}'s size limit"]
+    lean: "KV.limit {p}"
+    builds: true
+    defs: [KV.limit]
+    echo: "the longest input, in bytes, that {p} accepts"
+  - id: kv.length
+    kind: domain
+    domain: kvparse
+    cat: term<num>
+    forms: ["the length of {i:bytes}"]
+    lean: "KV.length {i}"
+    defs: [KV.length]
+    echo: "the number of bytes of {i}"
+  - id: kv.well_formed
+    kind: domain
+    domain: kvparse
+    cat: cond
+    forms: ["{i:bytes} is well-formed"]
+    not_forms: ["{i:bytes} is not well-formed"]
+    lean: "KV.wellFormed {i}"
+    defs: [KV.wellFormed, KV.fields, KV.split, KV.keys, KV.keyOf, KV.shaped, KV.bytes]
+    echo: "{i} is a record of the format (one or two fields separated by `;`, each a key, `=` and one decimal digit; the keys are `a`, or `b`, or `a` then `b`)"
+    not_echo: "{i} is NOT a record of the format (one or two fields separated by `;`, each a key, `=` and one decimal digit; the keys are `a`, or `b`, or `a` then `b`)"
+  - id: kv.fields
+    kind: domain
+    domain: kvparse
+    cat: coll<kvfield>
+    forms: ["field of {i:bytes}"]
+    lean: "KV.fields {i}"
+    defs: [KV.fields, KV.split, KV.bytes]
+    echo: "field of {i} (what stands between its `;`)"
+  - id: kv.known
+    kind: domain
+    domain: kvparse
+    cat: itempred<kvfield>
+    forms: ["is a known field"]
+    not_forms: ["is not a known field"]
+    lean: "KV.known {item}"
+    defs: [KV.known, KV.keyOf]
+    echo: "has the key `a` or the key `b` (its bytes before the first `=`)"
+    not_echo: "has a key that is neither `a` nor `b`"
+  - id: kv.keys
+    kind: domain
+    domain: kvparse
+    cat: coll<kvkey>
+    forms: ["key of {i:bytes}"]
+    lean: "KV.keys {i}"
+    defs: [KV.keys, KV.keyOf, KV.fields, KV.split, KV.bytes]
+    echo: "key of {i} (the key of each of its fields, with repetitions)"
+  - id: kv.repeated
+    kind: domain
+    domain: kvparse
+    cat: itempred<kvkey>
+    forms: ["is repeated in {i:bytes}"]
+    not_forms: ["is not repeated in {i:bytes}"]
+    lean: "KV.repeated {i} {item}"
+    defs: [KV.repeated, KV.keys, KV.keyOf, KV.fields, KV.split, KV.bytes]
+    echo: "is the key of more than one field of {i}"
+    not_echo: "is the key of at most one field of {i}"
+  - id: kv.count
+    kind: domain
+    domain: kvparse
+    cat: ameasure<num>
+    answer: Option kvparse.Record
+    forms: ["the number of fields of the result"]
+    lean: "KV.count ans"
+    defs: [KV.count]
+    echo: "the number of keys the answered record gives (0 if there is no record)"
+  - id: kv.field_limit
+    kind: domain
+    domain: kvparse
+    cat: term<num>
+    forms: ["the field limit"]
+    lean: "KV.fieldLimit"
+    defs: [KV.fieldLimit]
+    echo: "the largest number of fields a record has (2)"
+  - id: kv.encoding
+    kind: domain
+    domain: kvparse
+    cat: ameasure<optbytes>
+    answer: Option kvparse.Record
+    forms: ["the encoding of the result"]
+    lean: "KV.encoding ans"
+    defs: [KV.encoding, KV.encode, KV.writable]
+    echo: "the answered record written back in the format by the specification's encoder (absent if there is no record, or if the record is one the format cannot write: no key given, a digit above 9, or a digit other than 0 for a key that is not given)"
+  - id: kv.as_encoding
+    kind: domain
+    domain: kvparse
+    cat: term<optbytes>
+    forms: ["the bytes of {x:bytes}"]
+    lean: "KV.asEncoding {x}"
+    defs: [KV.asEncoding, KV.bytes]
+    echo: "the bytes of {x}"
+  - id: kv.ref_parse
+    kind: domain
+    domain: kvparse
+    cat: reference
+    for_op: kv.parse
+    forms: ["the reference parse"]
+    lean: "KV.refParse"
+    defs: [KV.refParse, KV.recordOf, KV.valueOf, KV.byte, KV.wellFormed, KV.fields, KV.split, KV.keys, KV.keyOf, KV.shaped, KV.bytes, KV.length, KV.limit]
+    echo: "the reference parse (the record of the input if the input is within the parser's size limit and is a record of the format, otherwise no record; the parser left as it was)"

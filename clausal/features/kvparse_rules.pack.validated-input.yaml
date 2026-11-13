@@ -1,0 +1,96 @@
+# BINDINGS of the rule pack validated-input@1 on the project `kvparse` (written by `python3 -m clausal pack
+# instantiate`; read by `python3 -m clausal pack check` and by nothing in the pipeline). `slots`, `variants`, `waive` and
+# `expect` are what the project chose; `members` is what came of it (rewritten on every instantiate).
+pack: validated-input
+version: 1
+project: kvparse
+feature: features/kvparse_rules.feature
+prefix: ''
+slots:
+  parse: parse
+  well_formed: the message is well-formed
+  not_well_formed: the message is not well-formed
+  length: the length of the message
+  limit: the parser's size limit
+  count: the number of fields of the result
+  count_limit: the field limit
+  encoding: the encoding of the result
+  input_value: the bytes of the message
+  field: field of the message
+  is_known: is a known field
+  key: key of the message
+  is_repeated: is repeated in the message
+  reference: the reference parse
+variants:
+  size: bounded
+  unknown: reject
+  duplicates: reject
+  canonical: canonical-only
+waive: {}
+expect:
+  VI-1: unproved
+  VI-2: unproved
+  VI-3: unproved
+  VI-6: unproved
+  VI-7b: unproved
+  VI-8: unproved
+  VI-9: unproved
+  VI-10: unproved
+members:
+- id: VI-1
+  state: stated
+  how: 'yes'
+  rule_id: vi_1
+  sentence: A parse always answers
+- id: VI-2
+  state: stated
+  how: 'yes'
+  rule_id: vi_2
+  sentence: A parse is accepted only if the message is well-formed
+- id: VI-3
+  state: stated
+  how: 'yes'
+  rule_id: vi_3
+  sentence: A parse for which the length of the message is at most the parser's size limit is accepted whenever the message is well-formed
+- id: VI-4
+  state: stated
+  how: 'yes'
+  rule_id: vi_4
+  sentence: A parse is accepted only if the length of the message is at most the parser's size limit
+- id: VI-5
+  state: stated
+  how: 'yes'
+  rule_id: vi_5
+  sentence: For a parse, the number of fields of the result is at most the field limit
+- id: VI-6
+  state: stated
+  how: 'yes'
+  rule_id: vi_6
+  sentence: A parse for which the message is not well-formed is rejected and changes nothing
+- id: VI-7a
+  state: cannot be stated
+  how: 'no'
+  rule_id: vi_7a
+  why: 'the pack has no sentence for it: needs a sequence in which the second call''s input is the first call''s ANSWER (the tie of core takes it from the first call''s input), and a claim that the last
+    answer is the first input; the draft "A {encode} followed by a parse of its result gives back the value" is refused by the compiler: UNBOUND'
+  draft: A {encode} followed by a parse of its result gives back the value
+- id: VI-7b
+  state: stated
+  how: workaround
+  rule_id: vi_7b
+  sentence: For an accepted parse, the encoding of the result is the bytes of the message
+- id: VI-8
+  state: stated
+  how: workaround
+  rule_id: vi_8
+  sentence: A parse is accepted only if every field of the message is a known field
+- id: VI-9
+  state: stated
+  how: workaround
+  rule_id: vi_9
+  sentence: A parse is accepted only if no key of the message is repeated in the message
+- id: VI-10
+  state: stated
+  how: 'yes'
+  rule_id: vi_10
+  sentence: A parse agrees with the reference parse
