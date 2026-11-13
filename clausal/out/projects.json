@@ -124,8 +124,8 @@
     "fail": 21
    },
    "bounded_rungs": {
-    "verified": 180,
-    "timeout": 32,
+    "verified": 185,
+    "timeout": 27,
     "failed": 71
    }
   }

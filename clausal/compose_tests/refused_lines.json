@@ -1,0 +1,305 @@
+{
+ "refused_fixture_rule_lines": 21,
+ "answered": 1,
+ "by_refusal_code_and_outcome": [
+  {
+   "code": "NARROWED-TWICE",
+   "outcome": "ASK (dropped)",
+   "n": 6
+  },
+  {
+   "code": "RETIRED-FORM",
+   "outcome": "ANSWER",
+   "n": 1
+  },
+  {
+   "code": "SAYS-NOTHING",
+   "outcome": "ASK (dropped)",
+   "n": 5
+  },
+  {
+   "code": "SAYS-NOTHING",
+   "outcome": "ASK (reading)",
+   "n": 1
+  },
+  {
+   "code": "SAYS-NOTHING",
+   "outcome": "ASK (system)",
+   "n": 6
+  },
+  {
+   "code": "UNBOUND",
+   "outcome": "ASK (dropped)",
+   "n": 1
+  },
+  {
+   "code": "UNBOUND",
+   "outcome": "DECLINE",
+   "n": 1
+  }
+ ],
+ "rows": [
+  {
+   "id": "Rule.counter_rules.bump_resets",
+   "refusal": {
+    "status": "UNBOUND",
+    "code": "UNBOUND",
+    "message": "features/counter_rules.feature:16: no composition of Clausebook pieces reads \"a bump resets the counter\" as a rule clause (<a / an> [rejected | accepted | internal] <operation> [followed by <operation> [with <tie>]] [for which <condition>] <what it does>, or: for <such an operation>, <what a Then would say>)"
+   },
+   "outcome": "ASK (dropped)",
+   "sentence": "A bump resets the counter",
+   "answer": null,
+   "secs": 0.1
+  },
+  {
+   "id": "Rule.intake.counter_set_frozen_wording",
+   "refusal": {
+    "status": "UNBOUND",
+    "code": "RETIRED-FORM",
+    "message": "features/intake.feature:32: \"for a successful intake, the last counter is now the counter of the message\" is written in a way the Clausebook no longer accepts (one live form per piece per position): the word 'successful' on the subject (`successful`, clausebook/core.yaml:295) was replaced by 'accepted'"
+   },
+   "outcome": "ANSWER",
+   "sentence": "For a successful intake, the last counter is now the counter of the message",
+   "answer": "For an accepted intake, the last counter is now the counter of the message",
+   "secs": 12.9,
+   "answer_is_the_fixture_line": [
+    "Rule.intake.counter_set"
+   ],
+   "answer_term_is_the_locked_one": true,
+   "coverage": {
+    "dropped": [],
+    "added": [],
+    "condition_dropped": [],
+    "full": true
+   }
+  },
+  {
+   "id": "Rule.wallet.interest",
+   "refusal": {
+    "status": "UNBOUND",
+    "code": "UNBOUND",
+    "message": "features/wallet.feature:156: no composition of Clausebook pieces reads \"a deposit earns interest\" as a rule clause (<a / an> [rejected | accepted | internal] <operation> [followed by <operation> [with <tie>]] [for which <condition>] <what it does>, or: for <such an operation>, <what a Then would say>)"
+   },
+   "outcome": "DECLINE",
+   "sentence": "A deposit earns interest",
+   "answer": null,
+   "secs": 0.1
+  },
+  {
+   "id": "Rule.narrowing_controls.q1_never_loses_acceptance",
+   "refusal": {
+    "status": "SAYS-NOTHING",
+    "code": "SAYS-NOTHING",
+    "message": "controls/narrowing.feature:38: \"an accepted transfer never loses acceptance when the amount is the same or larger\" SAYS NOTHING: vacuous by narrowing. The clause is about accepted calls only (asked for by 'accepted' on the subject), and the second call is accepted too, and every accepted answer is in the class `accepted`: nothing can be lost. Its statement `Frames.Monotone (L.apply).successful L.largerAmount (fun ans => (L.apply).accepted ans)` holds of EVERY possible operation with these types and this notion of acceptance, whatever the code does (theorem Frames.Narrowed.monotone_holds, lean/Frames/Narrowing.lean), so no code can break the rule and it is refused"
+   },
+   "outcome": "ASK (system)",
+   "sentence": "An accepted transfer never loses acceptance when the amount is the same or larger",
+   "answer": null,
+   "secs": 0.0
+  },
+  {
+   "id": "Rule.narrowing_controls.q1_same_answer_successful",
+   "refusal": {
+    "status": "SAYS-NOTHING",
+    "code": "SAYS-NOTHING",
+    "message": "controls/narrowing.feature:41: \"an accepted transfer gives the same answer when the amount is the same or larger\" SAYS NOTHING: vacuous by narrowing. The clause is about accepted calls only (asked for by 'accepted' on the subject), and both calls are accepted, and any two accepted answers of this operation are the same answer. Its statement `Frames.IndependentOf (L.apply).successful L.largerAmount (fun ans _ => ans)` holds of EVERY possible operation with these types and this notion of acceptance, whatever the code does (theorem Frames.Narrowed.independentOf, lean/Frames/Narrowing.lean), so no code can break the rule and it is refused"
+   },
+   "outcome": "ASK (system)",
+   "sentence": "An accepted transfer gives the same answer when the amount is the same or larger",
+   "answer": null,
+   "secs": 0.0
+  },
+  {
+   "id": "Rule.narrowing_controls.q1_same_answer_rejected",
+   "refusal": {
+    "status": "SAYS-NOTHING",
+    "code": "SAYS-NOTHING",
+    "message": "controls/narrowing.feature:44: \"a rejected transfer gives the same answer when only the amount differs\" SAYS NOTHING: vacuous by narrowing. The clause is about rejected calls only (asked for by 'rejected' on the subject), and both calls are rejected, and any two rejected answers of this operation are the same answer. Its statement `Frames.IndependentOf (L.apply).rejected L.onlyAmountDiffers (fun ans _ => ans)` holds of EVERY possible operation with these types and this notion of acceptance, whatever the code does (theorem Frames.Narrowed.independentOf, lean/Frames/Narrowing.lean), so no code can break the rule and it is refused"
+   },
+   "outcome": "ASK (system)",
+   "sentence": "A rejected transfer gives the same answer when only the amount differs",
+   "answer": null,
+   "secs": 0.0
+  },
+  {
+   "id": "Rule.narrowing_controls.q1_never_loses_rejection",
+   "refusal": {
+    "status": "SAYS-NOTHING",
+    "code": "SAYS-NOTHING",
+    "message": "controls/narrowing.feature:47: \"an accepted transfer never loses that it is rejected when the amount is the same or smaller\" SAYS NOTHING: vacuous by narrowing. The clause is about accepted calls only (asked for by 'accepted' on the subject), and the first call is accepted, and no accepted answer is in the class `not l.accepted`: there is nothing to lose. Its statement `Frames.Monotone (L.apply).successful L.smallerAmount (fun ans => ¬ ((L.said ans)))` holds of EVERY possible operation with these types and this notion of acceptance, whatever the code does (theorem Frames.Narrowed.monotone_fails, lean/Frames/Narrowing.lean), so no code can break the rule and it is refused"
+   },
+   "outcome": "ASK (system)",
+   "sentence": "An accepted transfer never loses that it is rejected when the amount is the same or smaller",
+   "answer": null,
+   "secs": 0.0
+  },
+  {
+   "id": "Rule.narrowing_controls.q1_no_rejected_batch",
+   "refusal": {
+    "status": "SAYS-NOTHING",
+    "code": "SAYS-NOTHING",
+    "message": "controls/narrowing.feature:51: \"for a rejected batch, the number of transfers applied is zero\" SAYS NOTHING: vacuous by narrowing. The clause is about rejected calls only (asked for by 'rejected' on the subject), and no answer of this operation is a rejection (every answer is an acceptance: applying a batch transfer by transfer reports a count and never rejects, so a clause about rejected calls covers no call), so the clause covers no call at all. Its statement `Frames.ResultIs (L.applyBatch).rejected (fun ans => L.applied ans) (fun st inp => 0)` holds of EVERY possible operation with these types and this notion of acceptance, whatever the code does (theorem Frames.Narrowed.covers_no_call, lean/Frames/Narrowing.lean), so no code can break the rule and it is refused"
+   },
+   "outcome": "ASK (dropped)",
+   "sentence": "For a rejected batch, the number of transfers applied is zero",
+   "answer": null,
+   "secs": 0.5
+  },
+  {
+   "id": "Rule.narrowing_controls.q1_always_answers",
+   "refusal": {
+    "status": "SAYS-NOTHING",
+    "code": "SAYS-NOTHING",
+    "message": "controls/narrowing.feature:54: \"an accepted lookup always answers\" SAYS NOTHING: vacuous by narrowing. The clause is about accepted calls only (asked for by 'accepted' on the subject), and only calls that give an answer are covered, and that a call answers is all the clause claims. Its statement `Frames.AlwaysAnswers (L.lookup).successful` holds of EVERY possible operation with these types and this notion of acceptance, whatever the code does (theorem Frames.Narrowed.alwaysAnswers, lean/Frames/Narrowing.lean), so no code can break the rule and it is refused"
+   },
+   "outcome": "ASK (dropped)",
+   "sentence": "An accepted lookup always answers",
+   "answer": null,
+   "secs": 7.7
+  },
+  {
+   "id": "Rule.narrowing_controls.q1_always",
+   "refusal": {
+    "status": "SAYS-NOTHING",
+    "code": "SAYS-NOTHING",
+    "message": "controls/narrowing.feature:57: \"for an accepted lookup, there is a result\" SAYS NOTHING: vacuous by narrowing. The clause is about accepted calls only (asked for by 'accepted' on the subject), and every accepted answer is in the class `l.found`, which is all the clause claims. Its statement `Frames.Always (L.lookup).successful (fun ans => L.found ans)` holds of EVERY possible operation with these types and this notion of acceptance, whatever the code does (theorem Frames.Narrowed.always, lean/Frames/Narrowing.lean), so no code can break the rule and it is refused"
+   },
+   "outcome": "ASK (dropped)",
+   "sentence": "For an accepted lookup, there is a result",
+   "answer": null,
+   "secs": 6.2
+  },
+  {
+   "id": "Rule.narrowing_controls.q1_never",
+   "refusal": {
+    "status": "SAYS-NOTHING",
+    "code": "SAYS-NOTHING",
+    "message": "controls/narrowing.feature:60: \"for a rejected lookup, there is no result\" SAYS NOTHING: vacuous by narrowing. The clause is about rejected calls only (asked for by 'rejected' on the subject), and no rejected answer is in the class `l.found`, which is all the clause claims. Its statement `Frames.Never (L.lookup).rejected (fun ans => L.found ans)` holds of EVERY possible operation with these types and this notion of acceptance, whatever the code does (theorem Frames.Narrowed.never, lean/Frames/Narrowing.lean), so no code can break the rule and it is refused"
+   },
+   "outcome": "ASK (dropped)",
+   "sentence": "For a rejected lookup, there is no result",
+   "answer": null,
+   "secs": 0.5
+  },
+  {
+   "id": "Rule.narrowing_controls.q1_if_then",
+   "refusal": {
+    "status": "SAYS-NOTHING",
+    "code": "SAYS-NOTHING",
+    "message": "controls/narrowing.feature:63: \"an accepted withdrawal is accepted whenever the amount is at most the wallet's balance\" SAYS NOTHING: vacuous by narrowing. The clause is about accepted calls only (asked for by 'accepted' on the subject), and every accepted answer is in the class `accepted`, whether or not the condition holds. Its statement `Frames.IfThen (W.withdraw).successful (fun st inp => inp.val ≤ (W.balance st)) (fun ans => (W.withdraw).accepted ans)` holds of EVERY possible operation with these types and this notion of acceptance, whatever the code does (theorem Frames.Narrowed.ifThen, lean/Frames/Narrowing.lean), so no code can break the rule and it is refused"
+   },
+   "outcome": "ASK (reading)",
+   "sentence": "An accepted withdrawal is accepted whenever the amount is at most the wallet's balance",
+   "answer": null,
+   "secs": 10.4
+  },
+  {
+   "id": "Rule.narrowing_controls.q1_only_if",
+   "refusal": {
+    "status": "SAYS-NOTHING",
+    "code": "SAYS-NOTHING",
+    "message": "controls/narrowing.feature:66: \"a rejected withdrawal is accepted only if the amount is at most the wallet's balance\" SAYS NOTHING: vacuous by narrowing. The clause is about rejected calls only (asked for by 'rejected' on the subject), and no rejected answer is in the class `accepted`, so the condition is never asked for. Its statement `Frames.OnlyIf (W.withdraw).rejected (fun ans => (W.withdraw).accepted ans) (fun st inp => inp.val ≤ (W.balance st))` holds of EVERY possible operation with these types and this notion of acceptance, whatever the code does (theorem Frames.Narrowed.onlyIf, lean/Frames/Narrowing.lean), so no code can break the rule and it is refused"
+   },
+   "outcome": "ASK (dropped)",
+   "sentence": "A rejected withdrawal is accepted only if the amount is at most the wallet's balance",
+   "answer": null,
+   "secs": 13.4
+  },
+  {
+   "id": "Rule.narrowing_controls.q1_same_answer_if_fails",
+   "refusal": {
+    "status": "SAYS-NOTHING",
+    "code": "SAYS-NOTHING",
+    "message": "controls/narrowing.feature:69: \"an accepted transfer gives the same answer when the amount is the same or larger, if the first call is rejected\" SAYS NOTHING: vacuous by narrowing. The clause is about accepted calls only (asked for by 'accepted' on the subject), and the first call is accepted, and no accepted answer is in the class `not l.accepted`: the condition never holds. Its statement `Frames.IndependentGiven (L.apply).successful L.largerAmount (fun ans => ¬ ((L.said ans))) (fun ans _ => ans)` holds of EVERY possible operation with these types and this notion of acceptance, whatever the code does (theorem Frames.Narrowed.independentGiven_fails, lean/Frames/Narrowing.lean), so no code can break the rule and it is refused"
+   },
+   "outcome": "ASK (system)",
+   "sentence": "An accepted transfer gives the same answer when the amount is the same or larger, if the first call is rejected",
+   "answer": null,
+   "secs": 0.0
+  },
+  {
+   "id": "Rule.narrowing_controls.q1_same_answer_if_view",
+   "refusal": {
+    "status": "SAYS-NOTHING",
+    "code": "SAYS-NOTHING",
+    "message": "controls/narrowing.feature:72: \"an accepted transfer gives the same answer when the amount is the same or larger, if the first call is accepted\" SAYS NOTHING: vacuous by narrowing. The clause is about accepted calls only (asked for by 'accepted' on the subject), and both calls are accepted, and any two accepted answers of this operation are the same answer. Its statement `Frames.IndependentGiven (L.apply).successful L.largerAmount (fun ans => L.said ans) (fun ans _ => ans)` holds of EVERY possible operation with these types and this notion of acceptance, whatever the code does (theorem Frames.Narrowed.independentGiven_view, lean/Frames/Narrowing.lean), so no code can break the rule and it is refused"
+   },
+   "outcome": "ASK (system)",
+   "sentence": "An accepted transfer gives the same answer when the amount is the same or larger, if the first call is accepted",
+   "answer": null,
+   "secs": 0.0
+  },
+  {
+   "id": "Rule.narrowing_controls.q2_twice_successful_internal",
+   "refusal": {
+    "status": "UNSUPPORTED",
+    "code": "NARROWED-TWICE",
+    "message": "controls/narrowing.feature:108: the subject \"an internal accepted transfer\" narrows or scopes one clause with more than one word ('internal' and 'accepted'): 'internal' is written after the one narrowing word, never before it and never twice. A Rule clause takes ONE of rejected / accepted on its subject, and internal only after it; a Then step takes ONE of 'if it is rejected,' / 'if it is accepted,'. Refused: a word is never dropped and never overrides another"
+   },
+   "outcome": "ASK (dropped)",
+   "sentence": "An internal accepted transfer never changes the total of the ledger's balances",
+   "answer": null,
+   "secs": 11.4
+  },
+  {
+   "id": "Rule.narrowing_controls.q2_twice_rejected_internal",
+   "refusal": {
+    "status": "UNSUPPORTED",
+    "code": "NARROWED-TWICE",
+    "message": "controls/narrowing.feature:111: the subject \"an internal rejected transfer\" narrows or scopes one clause with more than one word ('internal' and 'rejected'): 'internal' is written after the one narrowing word, never before it and never twice. A Rule clause takes ONE of rejected / accepted on its subject, and internal only after it; a Then step takes ONE of 'if it is rejected,' / 'if it is accepted,'. Refused: a word is never dropped and never overrides another"
+   },
+   "outcome": "ASK (dropped)",
+   "sentence": "An internal rejected transfer never changes the total of the ledger's balances",
+   "answer": null,
+   "secs": 1.4
+  },
+  {
+   "id": "Rule.narrowing_controls.q2_twice_successful_rejected",
+   "refusal": {
+    "status": "UNSUPPORTED",
+    "code": "NARROWED-TWICE",
+    "message": "controls/narrowing.feature:114: the subject \"an accepted rejected transfer\" narrows or scopes one clause with more than one word ('accepted' and 'rejected'): no call is both accepted and rejected, so read literally the clause covers no call at all. A Rule clause takes ONE of rejected / accepted on its subject, and internal only after it; a Then step takes ONE of 'if it is rejected,' / 'if it is accepted,'. Refused: a word is never dropped and never overrides another"
+   },
+   "outcome": "ASK (dropped)",
+   "sentence": "An accepted rejected transfer never changes the total of the ledger's balances",
+   "answer": null,
+   "secs": 20.1
+  },
+  {
+   "id": "Rule.narrowing_controls.q2_twice_subject_and_claim",
+   "refusal": {
+    "status": "UNSUPPORTED",
+    "code": "NARROWED-TWICE",
+    "message": "controls/narrowing.feature:117: \"for an accepted transfer, if it is rejected, the ledger is unchanged\" narrows or scopes one clause with more than one word ('accepted' and 'if it is rejected'): no call is both accepted and rejected, so read literally the clause covers no call at all. A Rule clause takes ONE of rejected / accepted on its subject, and internal only after it; a Then step takes ONE of 'if it is rejected,' / 'if it is accepted,'. Refused: a word is never dropped and never overrides another"
+   },
+   "outcome": "ASK (dropped)",
+   "sentence": "For an accepted transfer, if it is rejected, the ledger is unchanged",
+   "answer": null,
+   "secs": 30.1
+  },
+  {
+   "id": "Rule.narrowing_controls.q2_twice_subject_and_claim_same",
+   "refusal": {
+    "status": "UNSUPPORTED",
+    "code": "NARROWED-TWICE",
+    "message": "controls/narrowing.feature:120: \"for a rejected transfer, if it is rejected, the ledger is unchanged\" narrows or scopes one clause with more than one word ('rejected' and 'if it is rejected'): the same narrowing is asked for twice. A Rule clause takes ONE of rejected / accepted on its subject, and internal only after it; a Then step takes ONE of 'if it is rejected,' / 'if it is accepted,'. Refused: a word is never dropped and never overrides another"
+   },
+   "outcome": "ASK (dropped)",
+   "sentence": "For a rejected transfer, if it is rejected, the ledger is unchanged",
+   "answer": null,
+   "secs": 20.6
+  },
+  {
+   "id": "Rule.narrowing_controls.q2_twice_on_the_claim",
+   "refusal": {
+    "status": "UNSUPPORTED",
+    "code": "NARROWED-TWICE",
+    "message": "controls/narrowing.feature:123: the claim \"if it is rejected, if it is accepted, the ledger is unchanged\" narrows or scopes one clause with more than one word ('if it is rejected' and 'if it is accepted'): no call is both accepted and rejected, so read literally the clause covers no call at all. A Rule clause takes ONE of rejected / accepted on its subject, and internal only after it; a Then step takes ONE of 'if it is rejected,' / 'if it is accepted,'. Refused: a word is never dropped and never overrides another"
+   },
+   "outcome": "ASK (dropped)",
+   "sentence": "For a transfer, if it is rejected, if it is accepted, the ledger is unchanged",
+   "answer": null,
+   "secs": 30.7
+  }
+ ]
+}

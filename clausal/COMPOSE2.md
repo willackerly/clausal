@@ -745,3 +745,26 @@ gold reading for 4 of the 10 (d14, d17, d29, d30).
   `3147bb4`, not by the tests.
 - **The 48 have now been passed twice** by a composer of this part (A1, and the sensitivity run). Nothing was
   tuned between or after, but a third use of them as a measure is worth less again.
+
+# After the merge with the trust stream (INT3 fix round, 2026-11-13)
+
+`python3 compose_tests/v2.py` on the merged tree: **one self-check fails**, "none of the REFUSED fixture Rule lines
+is ANSWERED". It is left failing and its expectation is not changed. The numbers above ("the 20 refused fixture
+lines: answered 0") are those of this stream's own branch and are not rewritten.
+
+- **Cause.** The trust stream added a fixture this stream's branch did not have:
+  `Rule.intake.counter_set_frozen_wording` (`features/intake.feature:32`), "For a successful intake, the last
+  counter is now the counter of the message", refused on purpose with the code `RETIRED-FORM`: the book replaced
+  the word 'successful' on the subject by 'accepted' (`clausebook/core.yaml`, `successful`). It is the only refused
+  fixture line whose refusal is about the wording and not about what is said; the 20 this stream had are
+  `SAYS-NOTHING` (12), `NARROWED-TWICE` (6) and `UNBOUND` (2).
+- **What the composer gives** (`python3 compose_tests/refused_lines.py`, `compose_tests/refused_lines.json`; a
+  record, with no expectation): 21 refused lines, 1 ANSWERED. The answer is "For an accepted intake, the last
+  counter is now the counter of the message": the fixture line `Rule.intake.counter_set`, its term the one
+  `terms.lock.json` records, coverage full (no DROPPED, no ADDED, no CONDITION DROPPED). That is the replacement the
+  compiler's own refusal names, and the piece `successful` is written with its live word by design
+  (`clausal/compose.py`, `subjects`). The other 20 get what they got on this stream's branch: 12 ASK (dropped),
+  6 ASK (system), 1 ASK (reading), 1 DECLINE.
+- **Not decided here.** Whether the check should say "no refused line is answered, except that a line refused for
+  a retired form only is answered with its live form and the locked term", or whether a retired form in a rough
+  sentence should be a question and not an answer, is the owner's call. Until then `v2.py` exits 1 on main.
